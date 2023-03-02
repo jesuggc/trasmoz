@@ -114,7 +114,7 @@
         {
          "columns":29,
          "firstgid":1,
-         "image":"GitHub\/zugarramundisescape\/Recursos\/legend of faune files\/legend of faune files\/Environment\/PNG\/tiles.png",
+         "image":"./tiles.png",
          "imageheight":256,
          "imagewidth":464,
          "margin":0,

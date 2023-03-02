@@ -1,6 +1,5 @@
 import Knight from '../objetos/knight.js';
-import Floor from '../objetos/floor.js';
-import Box from '../objetos/box.js';
+
 /**
  * Escena principal de juego.
  * @extends Phaser.Scene
@@ -14,40 +13,38 @@ export default class Animation extends Phaser.Scene {
 	preload(){
 		this.load.image('castle', 'assets/castle.gif');
 		this.load.spritesheet('knight', 'assets/Knight/knight.png', {frameWidth: 72, frameHeight: 86})
-		this.load.spritesheet('box', 'assets/Box/box.png', {frameWidth: 64, frameHeight: 64})
+		this.load.tilemapTiledJSON('tilemap','levels/Mapa_inicial.json')
+		this.load.image('patronesTilemap', 'levels/tiles.png');
 	}
 	
 	/**
 	* Creación de los elementos de la escena principal de juego
 	*/
 	create() {
-		//Imagen de fondo
-		this.add.image(0, 0, 'castle').setOrigin(0, 0);
+		this.map = this.make.tilemap({ 
+			key: 'tilemap', 
+			tileWidth: 16, 
+			tileHeight: 16,
+			width: 60,
+			height: 40 
+		  });
+		  const tileset1 = this.map.addTilesetImage('Tiles_faune_files', 'patronesTilemap');
+		  this.suelo = this.map.createLayer('Suelo', tileset1);
+		  this.colisiones = this.map.createLayer('Colliders', tileset1);
+		  this.colisiones.setCollisionByExclusion(-1);
+		  
+		  //Instanciamos nuestro personaje, que es un caballero, y la plataforma invisible que hace de suelo
+		  let knight = new Knight(this, 50, 0);
+		  //fullscreen
+		  this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
+		  this.fullscreenButton.setScale(0.05);
+		  this.fullscreenButton.setScrollFactor(0,0);
+		  
+		  knight.body.onCollide = true; // Activamos onCollide para poder detectar la colisión del caballero con el suelo
+		  this.physics.add.collider(knight, this.colisiones);
+		  
+		  let scene = this; // Nos guardamos una referencia a la escena para usarla en la función anidada que viene a continuación
 
-		let boxes = this.physics.add.group();
-		
-		//Instanciamos nuestro personaje, que es un caballero, y la plataforma invisible que hace de suelo
-		let knight = new Knight(this, 50, 0);
-		let floor = new Floor(this, 50);
-		let box1 = new Box(this, 200, 0, boxes);
-		let box2 = new Box(this, 400, 0, boxes);
-		//fullscreen
-		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
-		this.fullscreenButton.setScale(0.05);
-		this.fullscreenButton.setScrollFactor(0,0);
-
-		knight.body.onCollide = true; // Activamos onCollide para poder detectar la colisión del caballero con el suelo
-
-		let scene = this; // Nos guardamos una referencia a la escena para usarla en la función anidada que viene a continuación
-		
-		this.physics.add.collider(knight, floor, function(){
-			if(scene.physics.world.overlap(knight, floor)) {
-				knight.enableJump(); // Hemos tocado el suelo, permitimos volver a saltar
-			}
-		});
-
-		this.physics.add.collider(floor, boxes);
-		this.physics.add.collider(knight, boxes);
 
 		/*
 		 * Escuchamos los eventos de colisión en el mundo para poder actuar ante ellos
@@ -72,19 +69,9 @@ export default class Animation extends Phaser.Scene {
             }
 
     	}, this);
-		scene.physics.world.on('collide', function(gameObject1, gameObject2, body1, body2) {
-			if(gameObject1 === knight && gameObject2 === floor || gameObject1 === floor && gameObject2 === knight){
-				knight.enableJump();
-			}
 
-			if(gameObject1 === knight && boxes.contains(gameObject2)){
-				if(gameObject1.isAttackInProcess()) {
-					gameObject2.destroyMe()
-				} 				
-			}
-		});	
-
-		this.scene.launch('title');
+		this.cameras.main.zoom = 1.75;
+		this.cameras.main.startFollow(knight)
 	}
 
 }

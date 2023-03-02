@@ -8,6 +8,9 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'knight');
 		this.speed = 140; // Nuestra velocidad de movimiento será 140
+		this.diagonalSpeed = 99 //calculado por pitagoras
+
+		this.setScale(0.5);
 
 		this.disableJump(); // Por defecto no podemos saltar hasta que estemos en una plataforma del juego
 		this.isAttacking = false;
@@ -33,6 +36,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 			frameRate: 5,
 			repeat: -1
 		});
+		
 
 		// Si la animación de ataque se completa pasamos a ejecutar la animación 'idle'
 		this.on('animationcomplete', end => {
@@ -55,14 +59,17 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 		scene.physics.add.existing(this);
 
 		// Decimos que el caballero colisiona con los límites del mundo
-		this.body.setCollideWorldBounds();
+		//this.body.setCollideWorldBounds();
 
 		// Ajustamos el "collider" de nuestro caballero
-		this.bodyOffset = this.body.width/4;
-		this.bodyWidth = this.body.width/2;
+		this.bodyOffsetWidth = this.body.width/4;
+		this.bodyOffsetHeight = this.body.height/6;
+		this.bodyWidth = this.body.width/1.7;
+		this.bodyHeight = this.body.height/1.055;
 		
-		this.body.setOffset(this.bodyOffset, 0);
+		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
+		this.body.height = this.bodyHeight;
 	}
 
 	/**
@@ -82,7 +89,12 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 			}
 			
 			//this.x -= this.speed*dt / 1000;
-			this.body.setVelocityX(-this.speed);
+			if (this.wKey.isDown || this.sKey.isDown){
+				this.body.setVelocityX(-this.diagonalSpeed);
+			}
+			else{
+				this.body.setVelocityX(-this.speed);
+			}
 		}
 
 		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
@@ -92,36 +104,54 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 				this.play('run');
 			}
 			//this.x += this.speed*dt / 1000;
-			this.body.setVelocityX(this.speed);
+			if (this.wKey.isDown || this.sKey.isDown){
+				this.body.setVelocityX(this.diagonalSpeed);
+			}
+			else{
+				this.body.setVelocityX(this.speed);
+			}
+		}
+
+		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
+		if(this.wKey.isDown && !this.isAttacking){
+			this.setFlip(false, false)
+			if(this.anims.currentAnim.key !== 'run'){
+				this.play('run');
+			}
+			//this.x += this.speed*dt / 1000;
+			if (this.aKey.isDown || this.dKey.isDown){
+				this.body.setVelocityY(-this.diagonalSpeed);
+			}
+			else{
+				this.body.setVelocityY(-this.speed);
+			}
+		}
+
+		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
+		if(this.sKey.isDown && !this.isAttacking){
+			this.setFlip(false, false)
+			if(this.anims.currentAnim.key !== 'run'){
+				this.play('run');
+			}
+			//this.x += this.speed*dt / 1000;
+			if (this.aKey.isDown || this.dKey.isDown){
+				this.body.setVelocityY(this.diagonalSpeed);
+			}
+			else{
+				this.body.setVelocityY(this.speed);
+			}
 		}
 
 		// Si dejamos de pulsar 'A' o 'D' volvemos al estado de animación'idle'
 		// Phaser.Input.Keyboard.JustUp y Phaser.Input.Keyboard.JustDown nos aseguran detectar la tecla una sola vez (evitamos repeticiones)
-		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey)){
+		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
 			if(this.anims.currentAnim.key !== 'attack' && this.anims.isPlaying === true){
 				this.play('idle');
 			}
 			this.body.setVelocityX(0);
+			this.body.setVelocityY(0);
 		}
 		
-		// Si pulsado 'S' detendremos o reanudaremos la animación de 'idle' según su estado actual
-		if(Phaser.Input.Keyboard.JustDown(this.sKey)){
-			if(this.anims.currentAnim.key === 'idle' && this.anims.isPlaying === true){
-				this.stop();
-			} else {
-				this.play('idle');
-			}			
-		}
-
-		// Si pulsamos 'W' haremos que el personaje salte
-		// Mientras saltamos no podremos volver a saltar ni atacar
-		if(Phaser.Input.Keyboard.JustDown(this.wKey) && !this.jumpDisabled){
-			this.disableJump();
-			this.disa
-			this.isAttacking = false;
-			this.body.setVelocityY(-this.speed);
-		}
-
 		// Si pulsamos 'CTRL' atacamos
 		if(Phaser.Input.Keyboard.JustDown(this.ctrKey)){
 			this.attack();
@@ -151,7 +181,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 		// Ajustamos el "collider" de nuestro caballero según hacia donde miremos
 		this.body.width = this.bodyWidth*2;
 		if(this.flipX){
-			this.body.setOffset(-this.bodyOffset, 0);
+			this.body.setOffset(-this.bodyOffsetWidth, 0);
 		} 
 	}
 
@@ -172,7 +202,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 
 	resetCollider(){
 		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffset, 0);
+		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 	}
 
 }
