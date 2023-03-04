@@ -13,8 +13,8 @@ export default class Animation extends Phaser.Scene {
 	preload(){
 		this.load.image('castle', 'assets/castle.gif');
 		this.load.spritesheet('knight', 'assets/Knight/knight.png', {frameWidth: 72, frameHeight: 86})
-		this.load.tilemapTiledJSON('tilemap','levels/Mapa_inicial.json')
-		this.load.image('patronesTilemap', 'levels/tiles.png');
+		this.load.tilemapTiledJSON('tilemap','Levels/Mapa_inicial.json')
+		this.load.image('patronesTilemap', 'Levels/tiles.png');
 	}
 	
 	/**
@@ -70,8 +70,8 @@ export default class Animation extends Phaser.Scene {
 
     	}, this);
 
-		this.cameras.main.zoom = 1.75;
+		//this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(knight)
 	}
-
+ 
 }
