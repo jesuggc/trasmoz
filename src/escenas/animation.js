@@ -11,7 +11,7 @@ export default class Animation extends Phaser.Scene {
 	}
 	
 	preload(){
-		this.load.spritesheet('witch', 'assets/Bruja/BrujaCorriendoDrch.png', {frameWidth: 64, frameHeight: 64})
+		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 		this.load.tilemapTiledJSON('tilemap','levels/Mapa_inicial.json')
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 	}

@@ -7,8 +7,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
-		this.speed = 140; // Nuestra velocidad de movimiento será 140
-		this.diagonalSpeed = 99 //calculado por pitagoras
+		this.speed = 70; // Nuestra velocidad de movimiento será 140
+		this.diagonalSpeed = 49 //calculado por pitagoras
 
 		this.setScale(0.5);
 
@@ -18,14 +18,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.scene.anims.create({
 			key: 'idle',
 			frames: scene.anims.generateFrameNumbers('witch', {start:7, end:7}),
-			frameRate: 5,
+			frameRate: 12,
 			repeat: -1
 		});
 		
 		this.scene.anims.create({
 			key: 'run',
 			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:7}),
-			frameRate: 5,
+			frameRate: 12,
 			repeat: -1
 		});
 		
