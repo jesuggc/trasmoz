@@ -33,18 +33,24 @@ export default class Animation extends Phaser.Scene {
 		  
 		  //Instanciamos nuestro personaje, que es un caballero, y la plataforma invisible que hace de suelo
 		  this.witch = new Witch(this, 50, 0);
-		  let wolf = new Wolf(this, 300, 100);
 		  //fullscreen
 		  this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 		  this.fullscreenButton.setScale(0.05);
 		  this.fullscreenButton.setScrollFactor(0,0);
 		  
-		  wolf.body.onCollide = true;
 		  this.witch.body.onCollide = true; // Activamos onCollide para poder detectar la colision del caballero con el suelo
 		  this.physics.add.collider(this.witch, this.colisiones);
-		  this.physics.add.collider(wolf, this.colisiones);
-		  this.physics.add.collider(this.witch, wolf);
+		  
 		  let scene = this; // Nos guardamos una referencia a la escena para usarla en la funcion anidada que viene a continuacion
+		  
+		  var muchosLobos = this.add.group();
+		  for(var i = 0; i < 100; i++){
+			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
+			let wolf = new Wolf(this, Math.random()*10, Math.random()*10);
+			wolf.body.onCollide = true;
+			this.physics.add.collider(wolf, this.colisiones);
+		  	this.physics.add.collider(this.witch, wolf);
+		}
 
 
 		this.fullscreenButton.on('pointerup', function () {

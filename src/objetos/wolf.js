@@ -57,8 +57,15 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
         this.scene.physics.moveToObject(this,this.scene.witch, 50);    
         if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
-            this.x = this.scene.witch.x;
-            this.y = this.scene.witch.y;
+            this.x = this.scene.witch.x + Math.random()*100;
+            this.y = this.scene.witch.y + Math.random()*100;
+        }
+        
+        if(this.scene.witch.x < this.x) {
+            this.setFlipX(true)
+        }
+        else{
+            this.setFlipX(false);
         }
 	}
     
