@@ -43,7 +43,7 @@ export default class Animation extends Phaser.Scene {
 		let scene = this; // Nos guardamos una referencia a la escena para usarla en la funcion anidada que viene a continuacion
 
 		var muchosLobos = this.add.group();
-		for (var i = 0; i < 1; i++) {
+		for (var i = 0; i < 0; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			wolf.body.onCollide = true;
@@ -65,15 +65,42 @@ export default class Animation extends Phaser.Scene {
 			}
 
 		}, this);
-		
+		// Creacion barra de vida
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
+
+		//DEBUG
+		this.r = 50;
+
 		
 		//Esta clase hay que organizarla esta mas feo que un coche por debajo
 		this.cameras.main.roundPixels = true;
 		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch)
 	}
+
+	drawCircle(){
+		this.leftL = this.witch.y - this.distance;
+		this.rightL = this.witch.y + this.distance;
+		this.y = Math.random()*(this.rightL - this.leftL) + this.leftL;
+		this.h = this.witch.x;
+		this.k = this.witch.y;
+		this.b = 2* this.h;
+		this.c = Math.pow(this.h,2) + Math.pow(this.y,2) + Math.pow(this.k,2) - Math.pow(this.r,2) + 2 * this.y * this.k;
+		this.x = (-this.b+ Math.sqrt(Math.pow(this.b,2)-4*this.c))/2;
+		this.x1 = (-(this.b)- (Math.sqrt(Math.pow(this.b,2)-4*this.c)))/2;
+
+		if(Math.random()>0.5) {
+
+			//this.point = this.add.circle(x,y,2, 0xff0000a);
+			console.log(this.x);
+		}
+		else{
+			//this.point = this.add.circle(x1,y,2, 0xff0000a);
+			console.log('fe');
+		}
+	}
+	
 	perderVida(){
 		this.witch.health-=0.1;
 	}

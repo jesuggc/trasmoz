@@ -44,6 +44,15 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
         this.calcularDiagonal = function(x1,y1,x2,y2){
             return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
         }
+
+		this.posicionesX = function(a, b, alpha) {
+			return (a+ alpha * Math.cos(Math.random() * 2 * Math.PI));
+		}
+
+		this.posicionesY = function(a, b, alpha) {
+			return (b + alpha * Math.sin(Math.random() * 2 * Math.PI));
+		}
+
 	}
 
 
@@ -53,15 +62,19 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
         this.scene.physics.moveToObject(this,this.scene.witch, 50);    
+		this.x = this.posicionesX(this.witch.x,this.witch.y, 30);
+		this.y = this.posicionesY(this.witch.x,this.witch.y, 30);
+		this.scene.xPrueba = this.x;
+		this.scene.yPrueba = this.y;
         if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
-            this.x = this.witch.x + Math.random()*100;
-            this.y = this.witch.y + Math.random()*100;
+            
         }
         
-        if(this.witch.x < this.x) this.setFlipX(true)
+        if (this.witch.x < this.x) this.setFlipX(true)
         else this.setFlipX(false);
 	}
     
+	
     
 	resetCollider(){
 		this.body.width = this.bodyWidth;

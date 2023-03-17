@@ -15,7 +15,7 @@ export default class Title extends Phaser.Scene {
 	 
 	preload(){
 		this.load.image('start', 'assets/GUI/start.png');
-		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
+		//this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 	}
 	
 	//Creacion de los elementos de la escena principal de juego

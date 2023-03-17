@@ -73,6 +73,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.speed = 600;
 			this.diagonalSpeed = 424;
 			this.health -= 1;
+			this.scene.drawCircle();
 		}
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
