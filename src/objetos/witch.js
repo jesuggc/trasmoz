@@ -7,6 +7,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
+
+		this.healthRegen = 0.1;
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.health = 100;
@@ -50,7 +52,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// Decimos que el caballero colisiona con los limites del mundo
 		//this.body.setCollideWorldBounds();
 
-		// Ajustamos el "collider" de nuestro caballero
+		// Ajustamos el "collider" 
 		this.bodyOffsetWidth = this.body.width/4;
 		this.bodyOffsetHeight = this.body.height/6;
 		this.bodyWidth = this.body.width/1.7;
@@ -61,14 +63,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.height = this.bodyHeight;
 	}
 
-	/* Bucle principal del personaje, actualizamos su posicion y ejecutamos acciones segun el Input
-	 * @param {number} t - Tiempo total
-	 * @param {number} dt - Tiempo entre frames
-	 */
 	preUpdate(t, dt) {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		if (this.health <= 0) this.scene.lifebar.visible = false;
 		if(this.testingKey.isDown){
 			this.speed = 600;
@@ -93,15 +92,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA DERECHA
 		if(this.dKey.isDown){
 			this.setFlipX(false);
-			if(this.anims.currentAnim.key !== 'runWitch'){
-				this.play('runWitch');
-			}
-			if (this.wKey.isDown || this.sKey.isDown){
-				this.body.setVelocityX(this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityX(this.speed);
-			}
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+
+			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
+			else this.body.setVelocityX(this.speed);
+
 		}
 
 		// MOVERSE ARRIBA

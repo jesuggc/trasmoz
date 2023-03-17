@@ -91,7 +91,7 @@ export default class Animation extends Phaser.Scene {
 		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
 
 		if (Math.random()>0.5) this.add.circle(x,y,2, 0xff0000);
-		else this.add.circle(x1,y,2, 0xff0000);
+		 else this.add.circle(x1,y,2, 0xff0000);
 
 	}
 	
