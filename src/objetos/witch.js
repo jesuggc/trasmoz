@@ -69,6 +69,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+		if (this.health <= 0) this.scene.lifebar.visible = false;
 		if(this.testingKey.isDown){
 			this.speed = 600;
 			this.diagonalSpeed = 424;

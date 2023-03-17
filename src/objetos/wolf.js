@@ -61,12 +61,12 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
-        this.scene.physics.moveToObject(this,this.scene.witch, 50);    
-		this.x = this.posicionesX(this.witch.x,this.witch.y, 30);
-		this.y = this.posicionesY(this.witch.x,this.witch.y, 30);
-		this.scene.xPrueba = this.x;
-		this.scene.yPrueba = this.y;
+		this.scene.physics.moveToObject(this,this.scene.witch, 50);    
         if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
+			this.x = this.posicionesX(this.witch.x,this.witch.y, 30);
+			this.y = this.posicionesY(this.witch.x,this.witch.y, 30);
+			//this.scene.xPrueba = this.x;
+			//this.scene.yPrueba = this.y;
             
         }
         
