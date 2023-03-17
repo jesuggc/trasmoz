@@ -9,7 +9,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		super(scene, x, y, 'witch');
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		this.diagonalSpeed = 49 //calculado por pitagoras
-		
+		this.health = 100;
+		this.maxHealth = 100;
 		this.setScale(0.5);
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
@@ -67,10 +68,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
-
+		this.scene.lifebar.width = 366* this.health/this.maxHealth;
 		if(this.testingKey.isDown){
 			this.speed = 600;
 			this.diagonalSpeed = 424;
+			this.health -= 1;
 		}
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){

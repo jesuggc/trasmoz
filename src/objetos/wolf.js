@@ -10,6 +10,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.respawnDistance = 200;
+		this.witch = this.scene.witch; //Guardamos referencia a la bruja
 		this.setScale(0.5);
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
@@ -28,7 +29,6 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		// Agregamos la bruja a las fisicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
         
-		// Decimos que el caballero colisiona con los limites del mundo
 		//this.body.setCollideWorldBounds();
 
 		// Ajustamos el "collider" de nuestro caballero
@@ -46,27 +46,20 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
         }
 	}
 
-	/* Bucle principal del personaje, actualizamos su posicion y ejecutamos acciones segun el Input
-	 * @param {number} t - Tiempo total
-	 * @param {number} dt - Tiempo entre frames
-	 */
+
 
    
 	preUpdate(t, dt) {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
         this.scene.physics.moveToObject(this,this.scene.witch, 50);    
-        if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
-            this.x = this.scene.witch.x + Math.random()*100;
-            this.y = this.scene.witch.y + Math.random()*100;
+        if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
+            this.x = this.witch.x + Math.random()*100;
+            this.y = this.witch.y + Math.random()*100;
         }
         
-        if(this.scene.witch.x < this.x) {
-            this.setFlipX(true)
-        }
-        else{
-            this.setFlipX(false);
-        }
+        if(this.witch.x < this.x) this.setFlipX(true)
+        else this.setFlipX(false);
 	}
     
     
