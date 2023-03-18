@@ -11,17 +11,15 @@ export default class Title extends Phaser.Scene {
 		super({ key: 'title' });
 	}
 
-	/**
-	 * Cargamos todos los assets que vamos a necesitar
-	 */
+	//Cargamos todos los assets que vamos a necesitar
+	 
 	preload(){
 		this.load.image('start', 'assets/GUI/start.png');
-		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
+		//this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 	}
 	
-	/**
-	* Creacion de los elementos de la escena principal de juego
-	*/
+	//Creacion de los elementos de la escena principal de juego
+
 	create() {
 		
 		
@@ -56,7 +54,6 @@ export default class Title extends Phaser.Scene {
 
 	    sprite.on('pointerup', pointer => {
 			this.scene.start('animation'); //Cambiamos a la escena de juego
-
 	    });
 
 		sprite.on('pointerover', () => {

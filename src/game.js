@@ -1,7 +1,7 @@
 import Animation from './escenas/animation.js';
 import Title from './escenas/title.js'
 /**
- * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
+ * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
  * Doc: https://photonstorm.github.io/phaser3-docs/Phaser.Types.Core.html#.GameConfig
  */
@@ -15,8 +15,8 @@ let config = {
     pixelArt: true,
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
-		// Configuramos phaser para que se adapte al tamaño de pantalla donde ejecutadmos
-		// con un mínimo y un máximo de tamaño
+		// Configuramos phaser para que se adapte al tamano de pantalla donde ejecutadmos
+		// con un minimo y un maximo de tamano
 		mode: Phaser.Scale.FIT,
 		min: {
             width: 328,
@@ -28,7 +28,7 @@ let config = {
         },
 		zoom: 1
     },
-    scene: [Title, Animation],
+    scene: [/*Title,*/ Animation],
     physics: { 
         default: 'arcade', 
         arcade: { 
