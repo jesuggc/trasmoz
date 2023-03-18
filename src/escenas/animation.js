@@ -14,6 +14,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json')
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.spritesheet('wolf', 'assets/enemies/wolf.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 	}
 	
 	/* Creacion de los elementos de la escena principal de juego */
@@ -72,6 +73,8 @@ export default class Animation extends Phaser.Scene {
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
 		
+		let button = this.add.image(625,30,'pause_image', 0);
+		button.setScrollFactor(0,0);
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
 		//this.cameras.main.zoom = 1.75;
