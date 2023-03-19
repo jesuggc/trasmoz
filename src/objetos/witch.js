@@ -1,3 +1,4 @@
+import WitchAttack from "./witchAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * Constructor de Bruja, nuestro caballero medieval con espada y escudo
@@ -18,6 +19,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.level = 0;
 		this.setScale(0.5);
 		this.maxLevel = 15;
+		this.basicAttackCooldown = 2000;
+		this.lastBasicAttack = 0;
 		
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
@@ -66,7 +69,15 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	preUpdate(t, dt) {
-		console.log("Hola soy bruja")
+		if (t > this.lastBasicAttack + this.basicAttackCooldown) {
+			// crear un disparo aquí
+			
+			if (this.scene.wolf.isAlive) new WitchAttack(this.scene, this.x, this.y, this.scene.wolf);
+
+			this.lastBasicAttack = t;
+		  }
+
+
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];

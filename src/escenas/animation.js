@@ -15,6 +15,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.spritesheet('wolf', 'assets/enemies/wolf.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
+		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
 	}
 	
 	/* Creacion de los elementos de la escena principal de juego */
@@ -35,13 +36,21 @@ export default class Animation extends Phaser.Scene {
 		
 		//Instanciamos nuestro personaje
 		this.witch = new Witch(this, 300, 300);
-		
+
+		// LOBO SOLITARIO PARALITICO PARA DEBUG
+		this.wolf = new Wolf(this,495,310);
+		this.wolf.body.onCollide = true;
+		//this.wolf.body.disableBody(true,true);
+		this.physics.add.collider(this.wolf, this.colisiones);
+		this.physics.add.collider(this.witch, this.wolf, this.perderVida, null, this);
+
+
 		this.witch.body.onCollide = true; // Activamos onCollide para poder detectar la colision 
 		this.physics.add.collider(this.witch, this.colisiones, this.witch.winExperience(), null, this);
 
 		
 		var muchosLobos = this.add.group();
-		for (var i = 0; i < 50; i++) {
+		for (var i = 0; i < 0; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			wolf.body.onCollide = true;
@@ -78,7 +87,10 @@ export default class Animation extends Phaser.Scene {
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
-		
+		this.lifebar.setDepth(1);
+		this.lifebarS = this.add.rectangle(320,100,350,20,0x000000);
+		this.lifebarS.setScrollFactor(0);
+		this.lifebarS.width = 366;
 
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
@@ -93,7 +105,7 @@ export default class Animation extends Phaser.Scene {
 		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
-		this.cameras.main.zoom = 1.75;
+		//this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 		
 	}

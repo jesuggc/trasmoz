@@ -29,7 +29,7 @@ let config = {
         },
 		zoom: 1
     },
-    scene: [Title, Animation, Pause],
+    scene: [/*Title,*/ Animation, Pause],
     physics: { 
         default: 'arcade', 
         arcade: { 

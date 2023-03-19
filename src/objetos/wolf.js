@@ -8,10 +8,12 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
+		this.health = 40;
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch; //Guardamos referencia a la bruja
 		this.setScale(0.5);
+		this.isAlive = true;
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
 
@@ -57,18 +59,26 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
-
+			
         }
-        
         if (this.witch.x < this.x) this.setFlipX(true)
         else this.setFlipX(false);
+		console.log(this.health);
+		if (this.health <= 0) this.die();
 	}
     
-	
+	die(){
+		this.isAlive = false;
+		this.scene.wolf.destroy();
+	}
     
 	resetCollider(){
 		this.body.width = this.bodyWidth;
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
+	}
+
+	receiveDamage(damage){
+		this.health -= damage;
 	}
 
 }
