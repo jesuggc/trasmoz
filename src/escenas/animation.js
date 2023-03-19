@@ -31,29 +31,24 @@ export default class Animation extends Phaser.Scene {
 		this.colisiones = this.map.createLayer('Colliders', tileset1);
 		this.colisiones.setCollisionByExclusion(-1);
 		
-		this.r = 170; // Distancia de generacion de enemigos
+		this.r = 280; // Distancia de generacion de enemigos
 		
 		//Instanciamos nuestro personaje
 		this.witch = new Witch(this, 300, 300);
 		
 		this.witch.body.onCollide = true; // Activamos onCollide para poder detectar la colision 
 		this.physics.add.collider(this.witch, this.colisiones, this.witch.winExperience(), null, this);
-		
-		
+
 		
 		var muchosLobos = this.add.group();
-		for (var i = 0; i < 1; i++) {
+		for (var i = 0; i < 10; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			wolf.body.onCollide = true;
 			this.physics.add.collider(wolf, this.colisiones);
 			this.physics.add.collider(this.witch, wolf, this.perderVida, null, this);
 		}
-		let array = [10,15,25,40,65,105,170];
-		for (var i = 0; i < 6; i++) {
-			console.log(array[this.witch.level])
-		}
-
+		
 		// FULLSCREEN
 		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 		this.fullscreenButton.setScale(0.05);
@@ -72,12 +67,12 @@ export default class Animation extends Phaser.Scene {
 
 		}, this);
 
-		// NIVL
+		// NIVEL
 		this.levelText = this.add.text(160, 115, 'Level: ', { font: '"Press Start 2P"' });
 		this.levelText.setScrollFactor(0);
 
 		// BARRA DE EXP
-		this.expbar = this.add.rectangle(320,80,350,20,0x0000ff);
+		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff);
 		this.expbar.setScrollFactor(0);
 
 		// BARRA DE VIDA
@@ -106,9 +101,25 @@ export default class Animation extends Phaser.Scene {
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
 		//this.cameras.main.zoom = 1.75;
-		this.cameras.main.startFollow(this.witch)
+		this.cameras.main.startFollow(this.witch);
+		
 	}
-
+	generateRandomY(){
+		let k = this.witch.y;
+		let leftL = k - this.r;
+		let rightL = k + this.r;
+		return Math.random()*(rightL - leftL) + leftL;
+	}
+	generateRandomX(y){
+		let h = this.witch.x;
+		let k = this.witch.y;
+		let b = -2 * this.witch.x;
+		let c = Math.pow(h,2) + Math.pow(y,2) + Math.pow(k,2) - Math.pow(this.r,2) - 2 * y * k;
+		let x = (-b+ Math.sqrt(Math.pow(b,2)-4*c))/2;	
+		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
+		if (Math.random()>0.5) return x;
+		else return x1;
+	}
 	drawCircle(){
 		let h = this.witch.x;
 		let k = this.witch.y;
@@ -122,13 +133,13 @@ export default class Animation extends Phaser.Scene {
 		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
 
 		if (Math.random()>0.5) this.add.circle(x,y,2, 0xff0000);
-		 else this.add.circle(x1,y,2, 0xff0000);
+		else this.add.circle(x1,y,2, 0xff0000);
 
 	}
 	
 	perderVida(){
 		this.witch.health-=0.1;
-		this.witch.experience+=1;
+		this.witch.winExperience();
 	}
 
 }

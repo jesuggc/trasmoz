@@ -15,9 +15,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.maxHealth = 100;
 		this.experience = 0;
 		this.maxExperience = 10;
-		this.levelExp = [10,15,25,40,65,105,170];
+		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165, 1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,231840,375125,606965,982090,1589055,2571145,4160200,6731345,10891545,17622890,28514435,46137325,74651760,120789085,195440845,316229930,511670775,827900705,1339571480,2167472185,3507043665,5674515850,9181559515,14856075365,24037634880,38893710245,62931345125,101825055370,164756400495,266581455865,43133785636010];
 		this.level = 0;
 		this.setScale(0.5);
+		this.maxLevel = 15;
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
 
@@ -36,9 +37,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			repeat: -1
 		});
 		
-
-	
-
 		// La animacion a ejecutar segun se genere el personaje sera 'idle'
 		this.play('idleWitch');
 
@@ -74,10 +72,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;
 
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
-
+		// EXPERIENCIA
 		if(this.experience >= this.maxExperience) {
-			this.experience = 0;
-			this.maxExperience = this.levelExp[1];
+			if(this.level!=this.maxLevel)this.experience = 0;
+			this.maxExperience = this.levelExp[this.level];
 			this.level++;
 		}
 
@@ -91,15 +89,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
 			this.setFlipX(true)
-			if(this.anims.currentAnim.key !== 'runWitch'){
-				this.play('runWitch');
-			}
-			if (this.wKey.isDown || this.sKey.isDown){
-				this.body.setVelocityX(-this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityX(-this.speed);
-			}
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(-this.diagonalSpeed);
+			else this.body.setVelocityX(-this.speed);
 		}
 
 		// MOVERSE A LA DERECHA
@@ -109,45 +102,31 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
 			else this.body.setVelocityX(this.speed);
-
 		}
 
 		// MOVERSE ARRIBA
 		if(this.wKey.isDown){
 			this.setFlipX(this.flipX)
-			if(this.anims.currentAnim.key !== 'runWitch'){
-				this.play('runWitch');
-			}
-			if (this.aKey.isDown || this.dKey.isDown){
-				this.body.setVelocityY(-this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityY(-this.speed);
-			}
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(-this.diagonalSpeed);
+			else this.body.setVelocityY(-this.speed);
 		}
 
 		// MOVERSE ABAJO
 		if(this.sKey.isDown){
 			this.setFlipX(this.flipX)
-			if(this.anims.currentAnim.key !== 'runWitch'){
-				this.play('runWitch');
-			}
-			if (this.aKey.isDown || this.dKey.isDown){
-				this.body.setVelocityY(this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityY(this.speed);
-			}
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
+			else this.body.setVelocityY(this.speed);
 		}
-
+		
 		// Si dejamos de pulsar 'A' o 'D' volvemos al estado de animacion'idle'
 		// Phaser.Input.Keyboard.JustUp y Phaser.Input.Keyboard.JustDown nos aseguran detectar la tecla una sola vez (evitamos repeticiones)
 		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
-			if(this.anims.isPlaying === true){
-				this.play('idleWitch');
-			}
-			this.body.setVelocityX(0);
-			this.body.setVelocityY(0);
+			if(this.anims.isPlaying === true) this.play('idleWitch');
+			this.body.setVelocity(0);
 		}
 
 		this.scene.levelText.setText([
@@ -155,7 +134,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		]);
 	}
 	winExperience(){
-		this.experience += 1;
+		if(this.level!=this.maxLevel || this.experience < this.maxExperience) this.experience += 1;
 	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;
