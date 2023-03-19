@@ -79,28 +79,21 @@ export default class Animation extends Phaser.Scene {
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
 		
-		// BOTON DE PRUEBA
-		var button1 = this.add.image(505,30,'pause_button').setInteractive();
-		button1.setScrollFactor(0,0);
-		button1.setScale(0.1);
 
 		// BOTON DE PAUSA
-		var button = this.add.image(625,30,'pause_button').setInteractive();
+		var button = this.add.image(500,280,'pause_button').setInteractive();
 		button.setScrollFactor(0,0);
-		button.setScale(0.1);
+		button.setScale(0.05);
 		button.setDepth(1);
-		button.on('pointerdown', pointer => {
+		button.on('pointerup', pointer => {
 			this.scene.pause();
-			this.scene.launch('title')
-		})
-		button1.on('pointerdown', pointer => {
-				console.log('fsv')
-				this.scene.resume('animation');
+			this.scene.launch('pause')
+			console.log("Pulso pausa")
 		})
 		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
-		//this.cameras.main.zoom = 1.75;
+		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 		
 	}

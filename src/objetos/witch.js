@@ -14,7 +14,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.health = 100;
 		this.maxHealth = 100;
 		this.experience = 0;
-		this.maxExperience = 10;
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165, 1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,231840,375125,606965,982090,1589055,2571145,4160200,6731345,10891545,17622890,28514435,46137325,74651760,120789085,195440845,316229930,511670775,827900705,1339571480,2167472185,3507043665,5674515850,9181559515,14856075365,24037634880,38893710245,62931345125,101825055370,164756400495,266581455865,43133785636010];
 		this.level = 0;
 		this.setScale(0.5);
@@ -66,16 +65,16 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	preUpdate(t, dt) {
+		console.log("Hola soy bruja")
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
-		this.scene.expbar.width = 366* this.experience/this.maxExperience;
+		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;
 
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
-		if(this.experience >= this.maxExperience) {
-			if(this.level!=this.maxLevel)this.experience = 0;
-			this.maxExperience = this.levelExp[this.level];
+		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
+			this.experience = 0;
 			this.level++;
 		}
 
@@ -134,7 +133,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		]);
 	}
 	winExperience(){
-		if(this.level!=this.maxLevel || this.experience < this.maxExperience) this.experience += 1;
+		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += 1;
 	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;
