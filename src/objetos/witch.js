@@ -11,6 +11,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.health = 100;
 		this.maxHealth = 100;
+		this.experience = 0;
+		this.maxExperience = 10;
+		this.levelExp = [10,15,25,40,65,105,170];
+		this.level = 0;
 		this.setScale(0.5);
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
@@ -61,14 +65,16 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.height = this.bodyHeight;
 	}
 
-	/* Bucle principal del personaje, actualizamos su posicion y ejecutamos acciones segun el Input
-	 * @param {number} t - Tiempo total
-	 * @param {number} dt - Tiempo entre frames
-	 */
 	preUpdate(t, dt) {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
+		this.scene.expbar.width = 366* this.experience/this.maxExperience;
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+		if(this.experience >= this.maxExperience) {
+			this.experience = 0;
+			this.maxExperience = this.levelExp[1];
+			this.level++;
+		}
 		if (this.health <= 0) this.scene.lifebar.visible = false;
 		if(this.testingKey.isDown){
 			this.speed = 600;
@@ -141,8 +147,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.body.setVelocityX(0);
 			this.body.setVelocityY(0);
 		}
-	}
 
+		this.scene.levelText.setText([
+			'Level: ' + this.level 
+		]);
+	}
+	winExperience(){
+		this.experience += 1;
+	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);

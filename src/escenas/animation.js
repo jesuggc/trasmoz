@@ -37,20 +37,23 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 300, 300);
 		
 		this.witch.body.onCollide = true; // Activamos onCollide para poder detectar la colision 
-		this.physics.add.collider(this.witch, this.colisiones);
+		this.physics.add.collider(this.witch, this.colisiones, this.witch.winExperience(), null, this);
 		
 		
 		
 		var muchosLobos = this.add.group();
-		for (var i = 0; i < 0; i++) {
+		for (var i = 0; i < 1; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			wolf.body.onCollide = true;
 			this.physics.add.collider(wolf, this.colisiones);
 			this.physics.add.collider(this.witch, wolf, this.perderVida, null, this);
 		}
-		
-		
+		let array = [10,15,25,40,65,105,170];
+		for (var i = 0; i < 6; i++) {
+			console.log(array[this.witch.level])
+		}
+
 		// FULLSCREEN
 		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 		this.fullscreenButton.setScale(0.05);
@@ -69,12 +72,37 @@ export default class Animation extends Phaser.Scene {
 
 		}, this);
 
+		// NIVL
+		this.levelText = this.add.text(160, 115, 'Level: ', { font: '"Press Start 2P"' });
+		this.levelText.setScrollFactor(0);
+
+		// BARRA DE EXP
+		this.expbar = this.add.rectangle(320,80,350,20,0x0000ff);
+		this.expbar.setScrollFactor(0);
+
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
 		
-		let button = this.add.image(625,30,'pause_image', 0);
+		// BOTON DE PRUEBA
+		var button1 = this.add.image(505,30,'pause_button').setInteractive();
+		button1.setScrollFactor(0,0);
+		button1.setScale(0.1);
+
+		// BOTON DE PAUSA
+		var button = this.add.image(625,30,'pause_button').setInteractive();
 		button.setScrollFactor(0,0);
+		button.setScale(0.1);
+		button.setDepth(1);
+		button.on('pointerdown', pointer => {
+			this.scene.pause();
+			this.scene.launch('title')
+		})
+		button1.on('pointerdown', pointer => {
+				console.log('fsv')
+				this.scene.resume('animation');
+		})
+		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
 		//this.cameras.main.zoom = 1.75;
@@ -100,6 +128,7 @@ export default class Animation extends Phaser.Scene {
 	
 	perderVida(){
 		this.witch.health-=0.1;
+		this.witch.experience+=1;
 	}
 
 }
