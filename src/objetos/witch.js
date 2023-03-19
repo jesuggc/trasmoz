@@ -8,7 +8,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
-		this.healthRegen = 0.1;
+		this.healthRegen = 0.05;
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.health = 100;
@@ -19,6 +19,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.level = 0;
 		this.setScale(0.5);
 		this.maxLevel = 15;
+		
 
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
 
@@ -69,7 +70,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.scene.expbar.width = 366* this.experience/this.maxExperience;
-		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+		this.scene.lifebar.width = 90* this.health/this.maxHealth;
 
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
@@ -138,7 +139,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
+		this.body.setOffset (this.bodyOffsetWidth, this.bodyOffsetHeight);
 	}
 
 }

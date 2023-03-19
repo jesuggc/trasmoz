@@ -41,7 +41,7 @@ export default class Animation extends Phaser.Scene {
 
 		
 		var muchosLobos = this.add.group();
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < 50; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			wolf.body.onCollide = true;
@@ -100,7 +100,7 @@ export default class Animation extends Phaser.Scene {
 		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
-		//this.cameras.main.zoom = 1.75;
+		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 		
 	}
