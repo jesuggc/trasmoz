@@ -104,7 +104,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
 			else this.body.setVelocityX(this.speed);
 		}
-
+//probando
 		// MOVERSE ARRIBA
 		if(this.wKey.isDown){
 			this.setFlipX(this.flipX)
