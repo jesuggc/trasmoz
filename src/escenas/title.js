@@ -21,7 +21,7 @@ export default class Title extends Phaser.Scene {
 	//Creacion de los elementos de la escena principal de juego
 
 	create() {
-		
+
 		
 		//Pintamos un boton de Empezar
 		var sprite = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'start')
@@ -48,20 +48,9 @@ export default class Title extends Phaser.Scene {
 			}
 
 		}, this);
-	    sprite.on('pointerdown', pointer => {
-	    	console.log("pulsando");
-	    });
 
-	    sprite.on('pointerup', pointer => {
+	    sprite.on('pointerup', () => {
 			this.scene.start('animation'); //Cambiamos a la escena de juego
-	    });
-
-		sprite.on('pointerover', () => {
-			console.log("hola")
-	    });
-
-	    sprite.on('pointerout', () => {
-			console.log("adios")
 	    });
 
 	}
