@@ -58,7 +58,6 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
-			
         }
         if (this.witch.x < this.x) this.setFlipX(true)
         else this.setFlipX(false);
