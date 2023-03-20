@@ -17,7 +17,7 @@ export default class Title extends Phaser.Scene {
 		this.load.image('resume', 'assets/GUI/play_button.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
 	}
-	
+	//TODO #3
 	//Creacion de los elementos de la escena principal de juego
 
 	create() {

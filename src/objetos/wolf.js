@@ -1,3 +1,5 @@
+import ExpBall from "../objetos/expBall.js";
+
 export default class Wolf extends Phaser.GameObjects.Sprite {
 	/**
 	 * Constructor de Bruja, nuestro caballero medieval con espada y escudo
@@ -8,7 +10,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
-		this.health = 40;
+		this.health = 200;
 		this.diagonalSpeed = 49 //calculado por pitagoras
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch; //Guardamos referencia a la bruja
@@ -28,7 +30,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.play('idleWolf');
 
 
-		// Agregamos la bruja a las fisicas para que Phaser lo tenga en cuenta
+		// Agregamos la bruja a las ºsicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
         
 		//this.body.setCollideWorldBounds();
@@ -67,6 +69,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
     
 	die(){
 		this.isAlive = false;
+		new ExpBall(this.scene,this.x,this.y);
 		this.scene.wolf.destroy();
 	}
     
@@ -77,6 +80,14 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 
 	receiveDamage(damage){
 		this.health -= damage;
+		this.setTintFill(0xffffff);
+		this.scene.time.addEvent({delay: 150, callback: function(){
+			this.clearTint();
+        }, callbackScope: this});
+		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { font: '"Press Start 2P"' });
+		this.scene.time.addEvent({delay: 450, callback: function(){
+			this.damageText.destroy();
+        }, callbackScope: this});
 	}
 
 }

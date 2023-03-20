@@ -1,5 +1,6 @@
 import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
+import ExpBall from '../objetos/expBall.js'
 /**
  * Escena principal de juego.
  * @extends Phaser.Scene
@@ -16,6 +17,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('wolf', 'assets/enemies/wolf.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 	}
 	
 	/* Creacion de los elementos de la escena principal de juego */
@@ -83,14 +85,16 @@ export default class Animation extends Phaser.Scene {
 		// BARRA DE EXP
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff);
 		this.expbar.setScrollFactor(0);
+		this.expbar.setDepth(1);
 
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
-		this.lifebar.setDepth(1);
+		this.lifebar.setDepth(2);
 		this.lifebarS = this.add.rectangle(320,100,350,20,0x000000);
 		this.lifebarS.setScrollFactor(0);
 		this.lifebarS.width = 366;
+		this.lifebarS.setDepth(1);
 
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
@@ -102,7 +106,7 @@ export default class Animation extends Phaser.Scene {
 			this.scene.launch('pause')
 			console.log("Pulso pausa")
 		})
-		
+		new ExpBall(this, this.wolf.x, this.wolf.y)
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
 		//this.cameras.main.zoom = 1.75;
@@ -144,6 +148,10 @@ export default class Animation extends Phaser.Scene {
 	
 	perderVida(){
 		this.witch.health-=0.1;
+		this.witch.setTintFill(0xff0000);
+		this.time.addEvent({delay: 150, callback: function(){
+			this.witch.clearTint();
+        }, callbackScope: this});
 		this.witch.winExperience();
 	}
 
