@@ -132,7 +132,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
 			else this.body.setVelocityY(this.speed);
 		}
-		
+		//fran crack
 		// Si dejamos de pulsar 'A' o 'D' volvemos al estado de animacion'idle'
 		// Phaser.Input.Keyboard.JustUp y Phaser.Input.Keyboard.JustDown nos aseguran detectar la tecla una sola vez (evitamos repeticiones)
 		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
