@@ -80,9 +80,11 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 
 	receiveDamage(damage){
 		this.health -= damage;
-		this.setTintFill(0xffffff);
-		this.scene.time.addEvent({delay: 150, callback: function(){
-			this.clearTint();
+		this.setVisible(false)
+		//this.setTintFill(0xffffff);
+		this.scene.time.addEvent({delay: 90, callback: function(){
+			this.setVisible(true);
+			//this.clearTint();
         }, callbackScope: this});
 		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { font: '"Press Start 2P"' });
 		this.scene.time.addEvent({delay: 450, callback: function(){

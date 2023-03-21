@@ -50,6 +50,7 @@ export default class Animation extends Phaser.Scene {
 		this.witch.body.onCollide = true; // Activamos onCollide para poder detectar la colision 
 		this.physics.add.collider(this.witch, this.colisiones, this.witch.winExperience(), null, this);
 
+		//this.camera.roundPixels = true;
 		
 		var muchosLobos = this.add.group();
 		for (var i = 0; i < 0; i++) {
@@ -109,7 +110,7 @@ export default class Animation extends Phaser.Scene {
 		new ExpBall(this, this.wolf.x, this.wolf.y)
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
-		//this.cameras.main.zoom = 1.75;
+		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 		
 	}
