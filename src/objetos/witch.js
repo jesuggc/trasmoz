@@ -1,3 +1,4 @@
+import WitchAttack from "./witchAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * Constructor de Bruja, nuestro caballero medieval con espada y escudo
@@ -7,48 +8,56 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
-		this.speed = 70; // Nuestra velocidad de movimiento será 140
+
+		this.healthRegen = 0.05;
+		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		this.diagonalSpeed = 49 //calculado por pitagoras
-
+		this.health = 100;
+		this.maxHealth = 100;
+		this.experience = 0;
+		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165, 1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,231840,375125,606965,982090,1589055,2571145,4160200,6731345,10891545,17622890,28514435,46137325,74651760,120789085,195440845,316229930,511670775,827900705,1339571480,2167472185,3507043665,5674515850,9181559515,14856075365,24037634880,38893710245,62931345125,101825055370,164756400495,266581455865,43133785636010];
+		this.level = 0;
 		this.setScale(0.5);
+		this.maxLevel = 15;
+		this.basicAttackCooldown = 2000;
+		this.lastBasicAttack = 0;
+		
 
-		this.scene.add.existing(this); //Añadimos el caballero a la escena
+		this.scene.add.existing(this); //Anadimos el caballero a la escena
 
 		// Creamos las animaciones de nuestro caballero
 		this.scene.anims.create({
-			key: 'idle',
+			key: 'idleWitch',
 			frames: scene.anims.generateFrameNumbers('witch', {start:7, end:7}),
 			frameRate: 12,
 			repeat: -1
 		});
 		
 		this.scene.anims.create({
-			key: 'run',
+			key: 'runWitch',
 			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:7}),
 			frameRate: 12,
 			repeat: -1
 		});
 		
-
-	
-
-		// La animación a ejecutar según se genere el personaje será 'idle'
-		this.play('idle');
+		// La animacion a ejecutar segun se genere el personaje sera 'idle'
+		this.play('idleWitch');
 
 		// Seteamos las teclas para mover al personaje
 		this.wKey = this.scene.input.keyboard.addKey('W'); 
 		this.aKey = this.scene.input.keyboard.addKey('A'); 
 		this.sKey = this.scene.input.keyboard.addKey('S'); 
-		this.dKey = this.scene.input.keyboard.addKey('D'); 
+		this.dKey = this.scene.input.keyboard.addKey('D');
 
-
-		// Agregamos la bruja a las físicas para que Phaser lo tenga en cuenta
+		this.testingKey = this.scene.input.keyboard.addKey('P');
+		
+		// Agregamos la bruja a las fisicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
 
-		// Decimos que el caballero colisiona con los límites del mundo
+		// Decimos que el caballero colisiona con los limites del mundo
 		//this.body.setCollideWorldBounds();
 
-		// Ajustamos el "collider" de nuestro caballero
+		// Ajustamos el "collider" 
 		this.bodyOffsetWidth = this.body.width/4;
 		this.bodyOffsetHeight = this.body.height/6;
 		this.bodyWidth = this.body.width/1.7;
@@ -59,90 +68,88 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.height = this.bodyHeight;
 	}
 
-	/**
-	 * Bucle principal del personaje, actualizamos su posición y ejecutamos acciones según el Input
-	 * @param {number} t - Tiempo total
-	 * @param {number} dt - Tiempo entre frames
-	 */
 	preUpdate(t, dt) {
-		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutará la animación
-		super.preUpdate(t, dt);
-
-		// Mientras pulsemos la tecla 'A' movelos el personaje en la X
-		if(this.aKey.isDown){
-			this.setFlip(true, false)
-			if(this.anims.currentAnim.key !== 'run'){
-				this.play('run');
-			}
+		if (t > this.lastBasicAttack + this.basicAttackCooldown) {
+			// crear un disparo aquí
 			
-			//this.x -= this.speed*dt / 1000;
-			if (this.wKey.isDown || this.sKey.isDown){
-				this.body.setVelocityX(-this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityX(-this.speed);
-			}
+			if (this.scene.wolf.isAlive) new WitchAttack(this.scene, this.x, this.y, this.scene.wolf);
+
+			this.lastBasicAttack = t;
+		  }
+
+
+		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
+		super.preUpdate(t, dt);
+		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
+		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+
+		if(this.health < this.maxHealth) this.health += this.healthRegen;
+		// EXPERIENCIA
+		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
+			this.experience = 0;
+			this.level++;
 		}
 
-		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
+		if (this.health <= 0) this.scene.lifebar.visible = false;
+		if(this.testingKey.isDown){
+			this.speed = 600;
+			this.diagonalSpeed = 424;
+			this.health -= 1;
+			this.scene.drawCircle();
+		}
+		// MOVERSE A LA IZQUIERDA
+		if(this.aKey.isDown){
+			this.setFlipX(true)
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(-this.diagonalSpeed);
+			else this.body.setVelocityX(-this.speed);
+		}
+
+		// MOVERSE A LA DERECHA
 		if(this.dKey.isDown){
-			this.setFlip(false, false)
-			if(this.anims.currentAnim.key !== 'run'){
-				this.play('run');
-			}
-			//this.x += this.speed*dt / 1000;
-			if (this.wKey.isDown || this.sKey.isDown){
-				this.body.setVelocityX(this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityX(this.speed);
-			}
+			this.setFlipX(false);
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+
+			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
+			else this.body.setVelocityX(this.speed);
 		}
 
-		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
+		// MOVERSE ARRIBA
 		if(this.wKey.isDown){
-			this.setFlip(false, false)
-			if(this.anims.currentAnim.key !== 'run'){
-				this.play('run');
-			}
-			//this.x += this.speed*dt / 1000;
-			if (this.aKey.isDown || this.dKey.isDown){
-				this.body.setVelocityY(-this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityY(-this.speed);
-			}
+			this.setFlipX(this.flipX)
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(-this.diagonalSpeed);
+			else this.body.setVelocityY(-this.speed);
 		}
 
-		// Mientras pulsemos la tecla 'D' movelos el personaje en la X
+		// MOVERSE ABAJO
 		if(this.sKey.isDown){
-			this.setFlip(false, false)
-			if(this.anims.currentAnim.key !== 'run'){
-				this.play('run');
-			}
-			//this.x += this.speed*dt / 1000;
-			if (this.aKey.isDown || this.dKey.isDown){
-				this.body.setVelocityY(this.diagonalSpeed);
-			}
-			else{
-				this.body.setVelocityY(this.speed);
-			}
+			this.setFlipX(this.flipX)
+			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			
+			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
+			else this.body.setVelocityY(this.speed);
 		}
-
-		// Si dejamos de pulsar 'A' o 'D' volvemos al estado de animación'idle'
+		
+		// Si dejamos de pulsar 'A' o 'D' volvemos al estado de animacion'idle'
 		// Phaser.Input.Keyboard.JustUp y Phaser.Input.Keyboard.JustDown nos aseguran detectar la tecla una sola vez (evitamos repeticiones)
 		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
-			if(this.anims.isPlaying === true){
-				this.play('idle');
-			}
-			this.body.setVelocityX(0);
-			this.body.setVelocityY(0);
+			if(this.anims.isPlaying === true) this.play('idleWitch');
+			this.body.setVelocity(0);
 		}
-	}
 
+		this.scene.levelText.setText([
+			'Level: ' + this.level 
+		]);
+	}
+	winExperience(){
+		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += 1;
+	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
+		this.body.setOffset (this.bodyOffsetWidth, this.bodyOffsetHeight);
 	}
 
 }
