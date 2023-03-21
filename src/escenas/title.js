@@ -28,27 +28,32 @@ export default class Title extends Phaser.Scene {
 		var sprite = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'start')
 		sprite.setInteractive(); // Hacemos el sprite interactivo para que lance eventos
 		//fullscreen
-		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(0, 0).setInteractive();
-		this.fullscreenButton.setScale(0.05);
+		this.fullscreenButton = this.add.image(0, 0, 'start', 0).setOrigin(0, 0).setInteractive();
 		this.fullscreenButton.setScrollFactor(0,0);
+		this.fullscreenButton.setScale(0.3)
 		
 		// Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
 		this.fullscreenButton.on('pointerup', function () {
-
 			if (this.scale.isFullscreen)
 			{
-			  this.fullscreenButton.setFrame(0);
-
 				this.scale.stopFullscreen();
 			}
 			else
 			{
-			  this.fullscreenButton.setFrame(1);
-
+				this.game.scale['autoCenter'] = Phaser.Scale.CENTER_BOTH;
+				this.game.scale.displaySize['maxWidth'] = 8000;
+				this.game.scale.displaySize['maxHeight'] = 8000;
 				this.scale.startFullscreen();
 			}
 
 		}, this);
+		
+		this.scale.on('leavefullscreen', function () {
+			this.game.scale['autoCenter'] = Phaser.Scale.CENTER_HORIZONTALLY;
+				this.game.scale.displaySize['maxWidth'] = 900;
+				this.game.scale.displaySize['maxHeight'] = 750;
+		}, this);
+
 
 	    sprite.on('pointerup', () => {
 			this.scene.start('animation'); //Cambiamos a la escena de juego

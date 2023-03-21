@@ -7,7 +7,7 @@ import Pause from './escenas/pause.js'
  * Doc: https://photonstorm.github.io/phaser3-docs/Phaser.Types.Core.html#.GameConfig
  */
 let config = {
-    /*type: Phaser.AUTO,
+    type: Phaser.AUTO,
     parent: 'juego',
     // type: Phaser.CANVAS,
     // canvas: document.getElementById("juego"),
@@ -26,20 +26,6 @@ let config = {
         max: {
             width: 900,
             height: 750
-        },
-        zoom: 1
-    },
-    */
-    type: Phaser.AUTO,
-    parent: 'parent',
-    width:  1920,
-    height: 1080,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        min: {
-            width: 328,
-            height: 188
         },
         zoom: 1
     },
