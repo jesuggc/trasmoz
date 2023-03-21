@@ -139,7 +139,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			if(this.anims.isPlaying === true) this.play('idleWitch');
 			this.body.setVelocity(0);
 		}
-		//Prueba una vez mas
 		this.scene.levelText.setText([
 			'Level: ' + this.level 
 		]);
