@@ -18,5 +18,3 @@ git status
 git add -A
 git commit -m "$final_message"
 git push origin main
-
-read -p "Press Enter to exit."
