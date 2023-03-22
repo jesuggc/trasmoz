@@ -1,19 +1,22 @@
+import ExpBall from "../objetos/expBall.js";
+
 export default class Wolf extends Phaser.GameObjects.Sprite {
 	/**
-	 * Constructor de Bruja, nuestro caballero medieval con espada y escudo
-	 * @param {Scene} scene - escena en la que aparece
-	 * @param {number} x - coordenada x
-	 * @param {number} y - coordenada y
+	 * @param {Scene} scene
+	 * @param {number} x
+	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
-		this.speed = 70; // Nuestra velocidad de movimiento sera 140
-		this.diagonalSpeed = 49 //calculado por pitagoras
-		this.respawnDistance = 200;
-		this.witch = this.scene.witch; //Guardamos referencia a la bruja
+		this.speed = 70; 
+		this.health = 40;
+		this.diagonalSpeed = 49;
+		this.respawnDistance = 360;
+		this.witch = this.scene.witch;
 		this.setScale(0.5);
+		this.isAlive = true;
 
-		this.scene.add.existing(this); //Anadimos el caballero a la escena
+		this.scene.add.existing(this);
 
         this.scene.anims.create({
 			key: 'idleWolf',
@@ -22,16 +25,15 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			repeat: -1
 		});
 
-		// La animacion a ejecutar segun se genere el personaje sera 'idle'
 		this.play('idleWolf');
+		this.onCollide = true;
 
-
-		// Agregamos la bruja a las fisicas para que Phaser lo tenga en cuenta
+		
 		scene.physics.add.existing(this);
         
 		//this.body.setCollideWorldBounds();
 
-		// Ajustamos el "collider" de nuestro caballero
+		// COLLIDER
 		this.bodyOffsetWidth = this.body.width/4;
 		this.bodyOffsetHeight = this.body.height/6+20;
 		this.bodyWidth = this.body.width/1.7;
@@ -41,44 +43,51 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
     
-        this.calcularDiagonal = function(x1,y1,x2,y2){
-            return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
-        }
-
-		this.posicionesX = function(a, b, alpha) {
-			return (a+ alpha * Math.cos(Math.random() * 2 * Math.PI));
-		}
-
-		this.posicionesY = function(a, b, alpha) {
-			return (b + alpha * Math.sin(Math.random() * 2 * Math.PI));
-		}
-
 	}
 
-
+	calcularDiagonal(x1,y1,x2,y2){
+		return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
+	}
 
    
 	preUpdate(t, dt) {
-		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, 50);    
         if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
-			this.x = this.posicionesX(this.witch.x,this.witch.y, 30);
-			this.y = this.posicionesY(this.witch.x,this.witch.y, 30);
-			//this.scene.xPrueba = this.x;
-			//this.scene.yPrueba = this.y;
-            
+			let y1 = this.scene.generateRandomY();
+			this.y = y1;
+			this.x = this.scene.generateRandomX(y1);
         }
-        
-        if (this.witch.x < this.x) this.setFlipX(true)
+        if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
+		if (this.health <= 0) this.die();
 	}
     
-	
+	die(){
+		this.isAlive = false;
+		new ExpBall(this.scene,this.x,this.y);
+		this.destroy();
+	}
     
 	resetCollider(){
 		this.body.width = this.bodyWidth;
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
+	}
+
+	receiveDamage(damage){
+		this.health -= damage;
+		this.setVisible(false);
+		//this.setTintFill(0xffffff);
+		this.scene.time.addEvent({delay: 90, callback: function(){
+			this.setVisible(true);
+			//this.clearTint();
+        }, callbackScope: this});
+		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
+		this.damageText.setResolution(100);
+		this.damageText.setStroke(0x000000,2);
+		this.scene.time.addEvent({delay: 450, callback: function(){
+			this.damageText.destroy();
+        }, callbackScope: this});
 	}
 
 }
