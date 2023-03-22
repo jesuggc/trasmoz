@@ -18,6 +18,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json')
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
+		this.load.css('css', 'css/mainsheet.css')
 	}
 	
 	create() {
@@ -74,7 +75,7 @@ export default class Animation extends Phaser.Scene {
 		}, this);
 
 		// NIVEL
-		this.levelText = this.add.text(160, 115, 'Level: ');
+		this.levelText = this.add.text(160, 115, 'Levelahsdfibafbadg: ', {fontFamily: 'titulo'});
 		this.levelText.setResolution(100)
 		this.levelText.setScrollFactor(0);
 
