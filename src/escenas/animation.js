@@ -2,7 +2,6 @@ import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
 import ExpBall from '../objetos/expBall.js'
 /**
- * Escena principal de juego.
  * @extends Phaser.Scene
  */
 export default class Animation extends Phaser.Scene {
@@ -15,9 +14,10 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolf.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json')
+		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
-		this.load.image('pause_button', 'assets/GUI/pause_button.png')
+		this.load.image('pause_button', 'assets/GUI/pause_button.png');
+		this.load.css('css', 'css/mainsheet.css');
 	}
 	
 	create() {
@@ -42,9 +42,7 @@ export default class Animation extends Phaser.Scene {
 		
 		this.physics.add.collider(this.wolf, this.colisiones);
 		this.physics.add.collider(this.witch, this.wolf, this.witch.perderVida, null, this.witch);
-		this.physics.add.collider(this.witch, this.colisiones, this.witch.winExperience, null, this.witch);
-
-		//this.camera.roundPixels = true;
+		this.physics.add.collider(this.witch, this.colisiones);
 		
 		var muchosLobos = this.add.group();
 		for (var i = 0; i < 0; i++) {
@@ -73,9 +71,10 @@ export default class Animation extends Phaser.Scene {
 
 		}, this);
 
-		// NIVEL
-		this.levelText = this.add.text(160, 115, 'Level: ');
-		this.levelText.setResolution(100)
+		// TEXTO DE NIVEL
+		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'});
+		this.levelText.setResolution(100);
+		this.levelText.setStroke(0x000000,2);
 		this.levelText.setScrollFactor(0);
 
 		// BARRA DE EXP
@@ -94,7 +93,7 @@ export default class Animation extends Phaser.Scene {
 
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
-		button.setScrollFactor(0,0);
+		button.setScrollFactor(0);
 		button.setScale(0.05);
 		button.setDepth(1);
 		button.on('pointerup', pointer => {

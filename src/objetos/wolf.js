@@ -2,22 +2,21 @@ import ExpBall from "../objetos/expBall.js";
 
 export default class Wolf extends Phaser.GameObjects.Sprite {
 	/**
-	 * Constructor de Bruja, nuestro caballero medieval con espada y escudo
-	 * @param {Scene} scene - escena en la que aparece
-	 * @param {number} x - coordenada x
-	 * @param {number} y - coordenada y
+	 * @param {Scene} scene
+	 * @param {number} x
+	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
-		this.speed = 70; // Nuestra velocidad de movimiento sera 140
-		this.health = 200;
-		this.diagonalSpeed = 49 //calculado por pitagoras
+		this.speed = 70; 
+		this.health = 40;
+		this.diagonalSpeed = 49;
 		this.respawnDistance = 360;
-		this.witch = this.scene.witch; //Guardamos referencia a la bruja
+		this.witch = this.scene.witch;
 		this.setScale(0.5);
 		this.isAlive = true;
 
-		this.scene.add.existing(this); //Anadimos el caballero a la escena
+		this.scene.add.existing(this);
 
         this.scene.anims.create({
 			key: 'idleWolf',
@@ -26,16 +25,15 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			repeat: -1
 		});
 
-		// La animacion a ejecutar segun se genere el personaje sera 'idle'
 		this.play('idleWolf');
 		this.onCollide = true;
 
-		// Agregamos la bruja a las ºsicas para que Phaser lo tenga en cuenta
+		
 		scene.physics.add.existing(this);
         
 		//this.body.setCollideWorldBounds();
 
-		// Ajustamos el "collider" de nuestro caballero
+		// COLLIDER
 		this.bodyOffsetWidth = this.body.width/4;
 		this.bodyOffsetHeight = this.body.height/6+20;
 		this.bodyWidth = this.body.width/1.7;
@@ -45,12 +43,11 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
     
-        this.calcularDiagonal = function(x1,y1,x2,y2){
-            return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
-        }
 	}
 
-
+	calcularDiagonal(x1,y1,x2,y2){
+		return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
+	}
 
    
 	preUpdate(t, dt) {
@@ -61,7 +58,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
         }
-        if (this.witch.x < this.x) this.setFlipX(true)
+        if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
 		if (this.health <= 0) this.die();
 	}
@@ -69,7 +66,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	die(){
 		this.isAlive = false;
 		new ExpBall(this.scene,this.x,this.y);
-		this.scene.wolf.destroy();
+		this.destroy();
 	}
     
 	resetCollider(){
@@ -79,13 +76,15 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 
 	receiveDamage(damage){
 		this.health -= damage;
-		this.setVisible(false)
+		this.setVisible(false);
 		//this.setTintFill(0xffffff);
 		this.scene.time.addEvent({delay: 90, callback: function(){
 			this.setVisible(true);
 			//this.clearTint();
         }, callbackScope: this});
-		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { font: '"Press Start 2P"' });
+		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
+		this.damageText.setResolution(100);
+		this.damageText.setStroke(0x000000,2);
 		this.scene.time.addEvent({delay: 450, callback: function(){
 			this.damageText.destroy();
         }, callbackScope: this});

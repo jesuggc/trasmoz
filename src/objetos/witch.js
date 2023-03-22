@@ -133,7 +133,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.body.setVelocity(0);
 		}
 		this.scene.levelText.setText([
-			'Level: ' + this.level 
+			'L e v e l: ' + this.level 
 		]);
 	}
 	winExperience(){
