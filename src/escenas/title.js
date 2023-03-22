@@ -11,7 +11,7 @@ export default class Title extends Phaser.Scene {
 		super({ key: 'title' });
 	}
 
-	//Cargamos todos los assets que vamos a necesitar
+	//Cargamos todos los assets que vamos a necesitar.
 	 
 	preload(){
 		this.load.image('start', 'assets/GUI/start.png');
