@@ -14,7 +14,14 @@ export default class Title extends Phaser.Scene {
 	//Cargamos todos los assets que vamos a necesitar
 	 
 	preload(){
-		this.load.image('start', 'assets/GUI/start.png');
+		this.load.image('play', 'assets/GUI/playButton1.png');
+		this.load.image('play2', 'assets/GUI/playButton2.png');
+		this.load.image('exit', 'assets/GUI/exitButton1.png');
+		this.load.image('exit2', 'assets/GUI/exitButton2.png');
+		this.load.image('sound', 'assets/GUI/soundButton1.png');
+		this.load.image('sound2', 'assets/GUI/soundButton2.png');
+		this.load.image('fullscreen', 'assets/GUI/fullscreenButton1.png');
+		this.load.image('fullscreen2', 'assets/GUI/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg')
 		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 	}
@@ -25,12 +32,10 @@ export default class Title extends Phaser.Scene {
 		
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
 		//Pintamos un boton de Empezar
-		var sprite = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'start')
-		sprite.setInteractive(); // Hacemos el sprite interactivo para que lance eventos
-		//fullscreen
-		this.fullscreenButton = this.add.image(0, 0, 'start', 0).setOrigin(0, 0).setInteractive();
+		this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
+		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.25, 'fullscreen').setInteractive();
 		this.fullscreenButton.setScrollFactor(0,0);
-		this.fullscreenButton.setScale(0.3)
+		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.25, 'sound').setInteractive();
 		
 		// Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
 		this.fullscreenButton.on('pointerup', function () {
