@@ -22,7 +22,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
 		
-
+		//Prueba
 		this.scene.add.existing(this); //Anadimos el caballero a la escena
 
 		// Creamos las animaciones de nuestro caballero
