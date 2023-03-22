@@ -29,7 +29,7 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 		this.body.onCollide = true;
 		this.scene.physics.add.collider(this, this.scene.witch, this.getExp, null, this);
 
-		// Ajustamos el "collider" de nuestro ataque
+		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
         this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
         
