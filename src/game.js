@@ -18,7 +18,8 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
         // Configuramos phaser para que se adapte al tamano de pantalla donde ejecutadmos
         // con un minimo y un maximo de tamano
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.ScaleModes.FIT, 
+        // mode: Phaser.Scale.FIT,
         min: {
             width: 328,
             height: 188
@@ -29,7 +30,7 @@ let config = {
         },
         zoom: 1
     },
-    scene: [Title, Animation, Pause],
+    scene: [/*Title,*/ Animation, Pause],
     physics: { 
         default: 'arcade', 
         arcade: { 

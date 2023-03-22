@@ -28,7 +28,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 
 		// La animacion a ejecutar segun se genere el personaje sera 'idle'
 		this.play('idleWolf');
-
+		this.onCollide = true;
 
 		// Agregamos la bruja a las ºsicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
@@ -63,7 +63,6 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
         }
         if (this.witch.x < this.x) this.setFlipX(true)
         else this.setFlipX(false);
-		console.log(this.health);
 		if (this.health <= 0) this.die();
 	}
     
