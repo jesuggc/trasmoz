@@ -10,8 +10,8 @@ export default class Title extends Phaser.Scene {
 	}
 	 
 	preload(){
-        this.load.image('play', 'assets/GUI/playButton1.png');
-		this.load.image('play2', 'assets/GUI/playButton2.png');
+        this.load.image('continue', 'assets/GUI/resetButton1.png');
+		this.load.image('continue2', 'assets/GUI/resetButton2.png');
 		this.load.image('credits', 'assets/GUI/creditsButton1.png');
 		this.load.image('credits2', 'assets/GUI/creditsButton2.png');
 		this.load.image('options', 'assets/GUI/optionsButton1.png');
@@ -34,31 +34,33 @@ export default class Title extends Phaser.Scene {
             yoyo: false,
             repeat: 0
           });
-          tween.on('complete', () => {
-            this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
+        tween.on('complete', () => {
+            this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'continue').setInteractive();
             this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen').setInteractive();
             this.optionsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options').setInteractive();
-            this.optionsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options2').setInteractive();
             this.creditsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits').setInteractive();
             this.soundButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound').setInteractive();
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
-                if (this.scale.isFullscreen)
-                {
-                    this.scale.stopFullscreen();
-                }
-                else
-                {
-                    this.game.scale['autoCenter'] = Phaser.Scale.CENTER_BOTH;
-                    this.game.scale.displaySize['maxWidth'] = 8000;
-                    this.game.scale.displaySize['maxHeight'] = 8000;
-                    this.scale.startFullscreen();
-                }
-    
+                this.fullscreenButton.setVisible(false)
+                this.fullscreenButton2 = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen2')
+                this.time.addEvent({delay: 100, callback: function(){
+                    this.fullscreenButton2.setVisible(false);
+                    this.fullscreenButton.setVisible(true);
+                    this.time.addEvent({delay: 400, callback: function(){
+                        if (this.scale.isFullscreen){
+                            this.scale.stopFullscreen();
+                        }
+                        else{
+                            this.game.scale['autoCenter'] = Phaser.Scale.CENTER_BOTH;
+                            this.game.scale.displaySize['maxWidth'] = 8000;
+                            this.game.scale.displaySize['maxHeight'] = 8000;
+                            this.scale.startFullscreen();
+                        }
+                    }, callbackScope: this});
+                }, callbackScope: this});
             }, this);
-            
-    
-    
+
             this.scale.on('leavefullscreen', function () {
                 this.game.scale['autoCenter'] = Phaser.Scale.CENTER_HORIZONTALLY;
                     this.game.scale.displaySize['maxWidth'] = 900;
@@ -67,20 +69,56 @@ export default class Title extends Phaser.Scene {
     
     
             this.playButton.on('pointerup', () => {
-                this.playButton.destroy()
-                this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play2')
+                this.playButton.setVisible(false);
+                this.playButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'continue2')
                 this.time.addEvent({delay: 100, callback: function(){
-                this.playButton.destroy();
-                    this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
+                this.playButton2.setVisible(false);
+                    this.playButton.setVisible(true);
                     this.time.addEvent({delay: 400, callback: function(){
-                    this.scene.resume('animation');
-                    this.scene.stop()
+                        this.scene.resume('animation');
+                        this.scene.stop()
                     }, callbackScope: this});
                 }, callbackScope: this});
             });
-          })
-		
+    
+            this.creditsButton.on('pointerup', () => {
+                this.creditsButton.setVisible(false);
+                this.creditsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits2')
+                this.time.addEvent({delay: 100, callback: function(){
+                    this.creditsButton2.setVisible(false);
+                    this.creditsButton.setVisible(true);
+                    this.time.addEvent({delay: 400, callback: function(){
+                    /*AQUI IRA LA FUNCIONALIDAD DE LOS CREDITOS*/
+                    }, callbackScope: this});
+                }, callbackScope: this});
+            });
+    
+            this.soundButton.on('pointerup', () => {
+                this.soundButton.setVisible(false);
+                this.soundButton2= this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound2')
+                this.time.addEvent({delay: 100, callback: function(){
+                    this.soundButton2.setVisible(false);
+                    this.soundButton.setVisible(true);
+                    this.time.addEvent({delay: 400, callback: function(){
+                    /*AQUI IRA LA FUNCIONALIDAD DE SONIDO*/
+                    }, callbackScope: this});
+                }, callbackScope: this});
+            });
+    
+            this.optionsButton.on('pointerup', () => {
+                this.optionsButton.setVisible(false);
+                this.optionsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options2')
+                this.time.addEvent({delay: 100, callback: function(){
+                    this.optionsButton2.setVisible(false);
+                    this.optionsButton.setVisible(true);
+                    this.time.addEvent({delay: 400, callback: function(){
+                    /*AQUI IRA LA FUNCIONALIDAD DE optioon*/
+                    }, callbackScope: this});
+                }, callbackScope: this});
+            });
+		}, this);
 
+		
 
 	}
 }
