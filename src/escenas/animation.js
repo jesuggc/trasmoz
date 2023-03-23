@@ -40,9 +40,6 @@ export default class Animation extends Phaser.Scene {
 		this.spawnDistance = 280;
 	
 		this.witch = new Witch(this, 300, 300);
-
-		// LOBO SOLITARIO PARALITICO PARA DEBUG
-		//this.wolf = new Wolf(this,495,310);
 		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();

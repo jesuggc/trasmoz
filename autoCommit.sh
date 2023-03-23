@@ -26,6 +26,4 @@ else
     echo -e "\e[42;37mALL ($nchanges) CHANGES COMMITED\e[0m" #fondo verde 
 fi
 
-echo "The value of nchanges is: $nchanges"
-#What does -z do
-#nchanges=$(echo "$status" | sed -n 's/^\([0-9]\+\) file changed.*/\1/p')
+
