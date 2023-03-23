@@ -13,7 +13,7 @@ fi
 
 if echo "$status" | grep -q "nothing to commit"
 then
-    echo -e "\e[41mNO CHANGES TO COMMIT\e[0m" #fondo rojo
+    echo -e "\n\e[41mNO CHANGES TO COMMIT\e[0m" #fondo rojo
 else
     git status
     git add -A
