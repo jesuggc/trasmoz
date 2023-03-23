@@ -26,11 +26,12 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			5674515850,9181559515,14856075365,24037634880,38893710245,
 			62931345125,101825055370,164756400495,266581455865,43133785636010];
 		this.level = 0;
-		//this.setScale(0.5);
 		this.maxLevel = 15;
 		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
-		
+		this.shield =20;
+		this.rate = 10;
+
 		this.onCollide = true;
 		this.scene.add.existing(this);
 
@@ -178,7 +179,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addDamage(){
-		this.speed += this.damageJump;
+		this.damage += this.damageJump;
 	}
 
 	addShield(){
@@ -186,10 +187,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addHealthRegen(){
-		this.shield += this.healthRegenJump;
+		this.healthRegen += this.healthRegenJump;
 	}
-
+	
 	addRate(){
-		this.shield += this.rateJump;
+		this.rate += this.rateJump;
 	}
 }
