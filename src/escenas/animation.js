@@ -101,7 +101,6 @@ export default class Animation extends Phaser.Scene {
 		this.lifebarS.width = 366;
 		this.lifebarS.setDepth(1);*/
 		this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
-
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
 		button.setScrollFactor(0);
