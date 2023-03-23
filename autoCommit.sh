@@ -20,7 +20,7 @@ then
 else
     git status
     git add -A
-    commit_output = $(git commit -m "$final_message" -v)
+    commit_output=$(git commit -m "$final_message" -v)
     nchanges=$(echo "$commit_output" | grep -o "[0-9]\+ file" | awk '{print $1}')
     git push origin main
     echo -e "\e[42;37mALL ($nchanges) CHANGES COMMITED\e[0m" #fondo verde 
