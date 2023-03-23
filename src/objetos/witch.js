@@ -15,6 +15,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.health = 100;
 		this.maxHealth = 100;
 		this.experience = 0;
+		this.speedAumento = 30;
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165,
 			1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,
 			231840,375125,606965,982090,1589055,2571145,4160200,6731345,
@@ -73,7 +74,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
 			// console.log(this.scene.muchosLobos.children.entries);
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-			console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
+			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy);
 			this.lastBasicAttack = t;
 		}
@@ -162,6 +163,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.scene.time.addEvent({delay: 150, callback: function(){
 			this.clearTint();
         }, callbackScope: this});
+	}
+
+	addSpeed(){
+		this.speed += this.speedAumento;
 	}
 
 }

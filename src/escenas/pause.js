@@ -24,7 +24,6 @@ export default class Title extends Phaser.Scene {
 	}
 
 	create() {
-		console.log("Entrando en pausa")
 		var back = this.add.image(this.sys.game.canvas.width/2, -400, 'pause_background');
         back.setScale(0.7);
         var tween = this.tweens.add({
@@ -44,7 +43,6 @@ export default class Title extends Phaser.Scene {
             this.soundButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound').setInteractive();
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
-                console.log("Entro fullscreen")
                 if (this.scale.isFullscreen)
                 {
                     this.scale.stopFullscreen();

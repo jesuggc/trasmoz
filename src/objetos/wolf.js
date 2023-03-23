@@ -97,7 +97,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
 		this.damageText.setResolution(10);
 		this.damageText.setStroke(0x000000,2);
-		this.damageText.set
+		
 		this.scene.time.addEvent({delay: 450, callback: function(){
 			this.damageText.destroy();
         }, callbackScope: this});

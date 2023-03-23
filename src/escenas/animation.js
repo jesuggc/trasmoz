@@ -23,7 +23,6 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
 		this.load.css('css', 'css/mainsheet.css')
 	}
-	
 	create() {
 		this.map = this.make.tilemap({
 			key: 'tilemap',
@@ -101,6 +100,7 @@ export default class Animation extends Phaser.Scene {
 		this.lifebarS.width = 366;
 		this.lifebarS.setDepth(1);*/
 		this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
+		this.lifebarFill = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebarFill').setScrollFactor(0)
 
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
@@ -116,6 +116,10 @@ export default class Animation extends Phaser.Scene {
 		this.cameras.main.roundPixels = true;
 		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
+
+		this.events.on('resume', (skill) =>{
+			if (skill) console.log(skill)//this.witch[skill.skillSelected]()
+		})
 		
 	}
 	generateRandomY(){
@@ -136,7 +140,7 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	levelUp(){
-		this.scene.witch.setVelocity(0);
+		this.witch.body.setVelocity(0);
 		this.scene.pause();
 		this.scene.launch('levelUp');
 	}
