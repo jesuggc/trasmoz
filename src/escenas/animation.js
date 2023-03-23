@@ -131,5 +131,11 @@ export default class Animation extends Phaser.Scene {
 		if (Math.random()>0.5) return x;
 		else return x1;
 	}
+
+	levelUp(){
+		console.log('esto se carga por algun motivo')
+		this.scene.pause();
+		this.scene.launch('levelUp');
+	}
 	
 }

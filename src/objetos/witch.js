@@ -95,6 +95,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
 			this.experience = 0;
 			this.level++;
+			this.scene.levelUp();
 		}
 
 		if (this.health <= 0) this.scene.lifebar.visible = false;
@@ -147,8 +148,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			'L e v e l: ' + this.level 
 		]);
 	}
-	winExperience(){
-		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += 1;
+	winExperience(exp){
+		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += exp;
 	}
 	resetCollider(){
 		this.body.width = this.bodyWidth;

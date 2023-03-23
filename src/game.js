@@ -1,6 +1,7 @@
 import Animation from './escenas/animation.js';
 import Title from './escenas/title.js'
 import Pause from './escenas/pause.js'
+import LevelUp from './escenas/levelUp.js';
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
@@ -11,8 +12,8 @@ let config = {
     parent: 'juego',
     // type: Phaser.CANVAS,
     // canvas: document.getElementById("juego"),
-    width:  900,
-    height: 600,
+    width:  656,
+    height: 376,
     pixelArt: true,
     scale: {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
@@ -23,12 +24,12 @@ let config = {
             height: 188
         },
         max: {
-            width: 1250,
-            height: 720
+            width:  900,
+            height: 600,
         },
         zoom: 1
     },
-    scene: [/*Title,*/ Animation, Pause],
+    scene: [/*Title,*/ Animation,LevelUp, Pause],
     physics: { 
         default: 'arcade', 
         arcade: { 
