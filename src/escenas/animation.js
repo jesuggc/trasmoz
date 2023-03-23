@@ -52,7 +52,7 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		
-		if(Math.random() < 0.05) {
+		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');
 			this.noname1.setScale(0.5);
