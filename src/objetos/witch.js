@@ -2,9 +2,9 @@ import WitchAttack from "./witchAttack.js";
 import Wolf from "./wolf.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
-	 * @param {Scene} scene - escena en la que aparece
-	 * @param {number} x - coordenada x
-	 * @param {number} y - coordenada y
+	 * @param {Scene} scene
+	 * @param {number} x 
+	 * @param {number} y 
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
@@ -95,7 +95,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// console.log(this.scene.physics.closest(this));
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebarFill.setScale(this.health/this.maxHealth, 1);
-		console.log(this.scene.lifebarFill.width)
+		// console.log(this.scene.lifebarFill.width)
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		
 		// EXPERIENCIA

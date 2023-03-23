@@ -144,5 +144,12 @@ export default class Animation extends Phaser.Scene {
 		this.scene.pause();
 		this.scene.launch('levelUp');
 	}
+
+	update(time,delta){
+		if(this.witch.health <= 0){
+			this.scene.pause();
+			this.scene.launch('gameover');
+		}
+	}
 	
 }

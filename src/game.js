@@ -3,6 +3,7 @@ import Title from './escenas/title.js'
 import Pause from './escenas/pause.js'
 import LevelUp from './escenas/levelUp.js';
 import Credits from './escenas/credits.js';
+import Gameover from './escenas/gameover.js';
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
@@ -31,10 +32,11 @@ let config = {
         zoom: 1
     },
     scene: [
+        Animation,
+        Gameover,
         Pause,
         Credits,
         Title,
-        Animation,
         LevelUp,
     ],
     physics: { 
