@@ -17,6 +17,8 @@ export default class Animation extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
+		this.load.image('noname', 'assets/noname/noName1-removebg-preview.png');
+		this.load.image('noname2', 'assets/noname/noName2-removebg-preview.png');
 		this.load.css('css', 'css/mainsheet.css')
 	}
 	
@@ -51,7 +53,10 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		
+		this.noname1 = this.add.image(20, 20, 'noname');
+		this.noname2= this.add.image(120, 20, 'noname2');
+		this.noname1.setScale(0.5)
+		this.noname2.setScale(0.5)
 		// console.log(muchosLobos)
 		// FULLSCREEN
 		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();

@@ -77,6 +77,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy);
 			this.lastBasicAttack = t;
 		}
+		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y);
+		this.radianAngle2 = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname2.x, this.scene.noname2.y);
+		this.scene.noname1.setRotation(this.radianAngle);
+		this.scene.noname2.setRotation(this.radianAngle2);
+		
 		// console.log(this.scene.physics.closest(this));
 		super.preUpdate(t, dt);
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
