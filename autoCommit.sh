@@ -1,6 +1,5 @@
 #!/bin/bash
 
-clear
 commit_message="$1"
 author_name=$(git config user.name)
 status=$(git status)
@@ -14,6 +13,7 @@ fi
 
 if echo "$status" | grep -q "nothing to commit"
 then
+    clear
     echo -e "\n\e[41mNO CHANGES TO COMMIT\e[0m" #fondo rojo
 else
     git status
@@ -21,6 +21,7 @@ else
     commit_output=$(git commit -m "$final_message" -v)
     nchanges=$(echo "$commit_output" | grep -o "[0-9]\+ file" | awk '{print $1}')
     git push origin main
+    clear
     echo -e "\n\e[42;37mALL ($nchanges) CHANGES COMMITED\e[0m" #fondo verde 
 fi
 
