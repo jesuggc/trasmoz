@@ -13,8 +13,8 @@ else
     final_message="Autocommit by $author_name: $commit_message"
 fi
 
-
-if [ -z "$status" ]
+#check if status has the sentence "nothing to commit"
+if echo "$status" | grep -q "nothing to commit"
 then
     echo -e "\e[41mNO CHANGES TO COMMIT\e[0m" #fondo rojo
 else
