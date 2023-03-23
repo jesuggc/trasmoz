@@ -21,6 +21,7 @@ export default class Title extends Phaser.Scene {
 		this.load.image('fullscreen', 'assets/GUI/fullscreenButton1.png');
 		this.load.image('fullscreen2', 'assets/GUI/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg')
+		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav')
 		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 	}
 	
@@ -28,6 +29,19 @@ export default class Title extends Phaser.Scene {
 
 	create() {
 		
+		const config = {
+            mute: false,
+            volume: 0.15,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+          }; 
+          
+        this.soundTitle = this.sound.add("titleSoundtrack", config);
+		this.soundTitle.play()
+
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
 		//Pintamos un boton de Empezar
 		this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
