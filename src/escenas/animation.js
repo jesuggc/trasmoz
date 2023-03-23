@@ -133,7 +133,7 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	levelUp(){
-		console.log('esto se carga por algun motivo')
+		this.scene.witch.setVelocity(0);
 		this.scene.pause();
 		this.scene.launch('levelUp');
 	}
