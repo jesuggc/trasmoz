@@ -7,8 +7,6 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y);
 		
-		
-		this.wolf = this.scene.wolf //Guardamos referencia a la bruja
 		this.setScale(0.25);
 		this.scene.add.existing(this); //Anadimos el disparo a la escena
         this.setScale(0.5);
@@ -53,7 +51,5 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
         this.scene.witch.winExperience();
         this.destroy();
 	}
-
-	
 
 }

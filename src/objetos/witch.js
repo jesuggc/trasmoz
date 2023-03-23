@@ -1,4 +1,5 @@
 import WitchAttack from "./witchAttack.js";
+import Wolf from "./wolf.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene - escena en la que aparece
@@ -58,10 +59,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		//this.body.setCollideWorldBounds();
 
 		// COLLIDER
-		this.bodyOffsetWidth = this.body.width/4;
-		this.bodyOffsetHeight = this.body.height/6;
-		this.bodyWidth = this.body.width/1.7;
-		this.bodyHeight = this.body.height/1.055;
+		this.bodyOffsetWidth = this.body.width/3;
+		this.bodyOffsetHeight = this.body.height/4.5;
+		this.bodyWidth = this.body.width/3;
+		this.bodyHeight = this.body.height/1.3;
 		
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
@@ -70,10 +71,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 	preUpdate(t, dt) {
 		if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
-			if (this.scene.wolf.isAlive) new WitchAttack(this.scene, this.x, this.y, this.scene.wolf);
+			// console.log(this.scene.muchosLobos.children.entries);
+			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+			console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
+			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy);
 			this.lastBasicAttack = t;
 		}
-
+		// console.log(this.scene.physics.closest(this));
 		super.preUpdate(t, dt);
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;

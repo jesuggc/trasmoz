@@ -38,21 +38,21 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 300, 300);
 
 		// LOBO SOLITARIO PARALITICO PARA DEBUG
-		this.wolf = new Wolf(this,495,310);
+		//this.wolf = new Wolf(this,495,310);
 		
-		this.physics.add.collider(this.wolf, this.colisiones);
-		this.physics.add.collider(this.witch, this.wolf, this.witch.perderVida, null, this.witch);
 		this.physics.add.collider(this.witch, this.colisiones);
-		
-		var muchosLobos = this.add.group();
-		for (var i = 0; i < 0; i++) {
+		this.muchosLobos = this.add.group();
+		for (var i = 0; i < 10; i++) {
 			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-			wolf.body.onCollide = true;
-			this.physics.add.collider(wolf, this.colisiones);
-			this.physics.add.collider(this.witch, wolf, this.perderVida, null, this);
+			this.muchosLobos.add(wolf);
 		}
+		this.physics.add.collider(this.witch, this.muchosLobos, this.witch.perderVida, null, this.witch)
+		this.physics.add.collider(this.muchosLobos, this.colisiones);
+		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
+		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		
+		// console.log(muchosLobos)
 		// FULLSCREEN
 		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 		this.fullscreenButton.setScale(0.05);

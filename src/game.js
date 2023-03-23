@@ -11,8 +11,8 @@ let config = {
     parent: 'juego',
     // type: Phaser.CANVAS,
     // canvas: document.getElementById("juego"),
-    width:  656,
-    height: 376,
+    width:  900,
+    height: 600,
     pixelArt: true,
     scale: {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
@@ -23,12 +23,12 @@ let config = {
             height: 188
         },
         max: {
-            width: 900,
-            height: 750
+            width: 1250,
+            height: 720
         },
         zoom: 1
     },
-    scene: [Title, Animation, Pause],
+    scene: [/*Title,*/ Animation, Pause],
     physics: { 
         default: 'arcade', 
         arcade: { 

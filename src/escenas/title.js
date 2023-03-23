@@ -16,8 +16,10 @@ export default class Title extends Phaser.Scene {
 	preload(){
 		this.load.image('play', 'assets/GUI/playButton1.png');
 		this.load.image('play2', 'assets/GUI/playButton2.png');
-		this.load.image('exit', 'assets/GUI/exitButton1.png');
-		this.load.image('exit2', 'assets/GUI/exitButton2.png');
+		this.load.image('credits', 'assets/GUI/creditsButton1.png');
+		this.load.image('credits2', 'assets/GUI/creditsButton2.png');
+		this.load.image('options', 'assets/GUI/optionsButton1.png');
+		this.load.image('options2', 'assets/GUI/optionsButton2.png');
 		this.load.image('sound', 'assets/GUI/soundButton1.png');
 		this.load.image('sound2', 'assets/GUI/soundButton2.png');
 		this.load.image('fullscreen', 'assets/GUI/fullscreenButton1.png');
@@ -33,12 +35,14 @@ export default class Title extends Phaser.Scene {
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
 		//Pintamos un boton de Empezar
 		this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
-		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.25, 'fullscreen').setInteractive();
-		this.fullscreenButton.setScrollFactor(0,0);
-		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.25, 'sound').setInteractive();
-		
+		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen').setInteractive();
+		this.optionsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options').setInteractive();
+		this.optionsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options2').setInteractive();
+		this.creditsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits').setInteractive();
+		this.soundButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound').setInteractive();
 		// Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
 		this.fullscreenButton.on('pointerup', function () {
+			console.log("Entro fullscreen")
 			if (this.scale.isFullscreen)
 			{
 				this.scale.stopFullscreen();
@@ -53,6 +57,8 @@ export default class Title extends Phaser.Scene {
 
 		}, this);
 		
+
+
 		this.scale.on('leavefullscreen', function () {
 			this.game.scale['autoCenter'] = Phaser.Scale.CENTER_HORIZONTALLY;
 				this.game.scale.displaySize['maxWidth'] = 900;
@@ -60,8 +66,34 @@ export default class Title extends Phaser.Scene {
 		}, this);
 
 
-	    sprite.on('pointerup', () => {
-			this.scene.start('animation'); //Cambiamos a la escena de juego
+	    this.playButton.on('pointerup', () => {
+			this.playButton.destroy()
+			this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play2')
+			this.time.addEvent({delay: 100, callback: function(){
+			this.playButton.destroy();
+				this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
+				this.time.addEvent({delay: 400, callback: function(){
+				this.scene.start('animation'); 
+				}, callbackScope: this});
+			}, callbackScope: this});
+	    });
+
+		// this.exitButton.on('pointerup', () => {
+		// 	this.exitButton.destroy()
+		// 	this.exitButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'exit2')
+		// 	this.time.addEvent({delay: 100, callback: function(){
+		// 	this.exitButton.destroy();
+		// 		this.exitButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'exit')
+		// 		this.time.addEvent({delay: 300, callback: function(){
+		// 			console.log('SALIENDO') 
+		// 		}, callbackScope: this});
+		// 	}, callbackScope: this});
+	    // });
+
+
+
+		this.optionsButton.on('pointerdown', () => {
+			
 	    });
 
 	}
