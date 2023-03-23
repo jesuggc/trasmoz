@@ -34,7 +34,8 @@ export default class Animation extends Phaser.Scene {
 		this.suelo = this.map.createLayer('Suelo', tileset1);
 		this.colisiones = this.map.createLayer('Colliders', tileset1);
 		this.colisiones.setCollisionByExclusion(-1);
-		
+		this.noname1;
+		this.noname2;
 		this.spawnDistance = 280;
 	
 		this.witch = new Witch(this, 300, 300);
@@ -45,7 +46,6 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
 		for (var i = 0; i < 10; i++) {
-			//muchosLobos.create(this.witch.x + Math.random()*200, this.witch.y + Math.random()*200, 'wolf');
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
 		}
@@ -53,11 +53,14 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		this.noname1 = this.add.image(20, 20, 'noname');
-		this.noname2= this.add.image(120, 20, 'noname2');
-		this.noname1.setScale(0.5)
-		this.noname2.setScale(0.5)
-		// console.log(muchosLobos)
+		
+		if(Math.random() < 0.5) {
+			this.noname1 = this.add.image(20, 20, 'noname');
+			this.noname2= this.add.image(120, 20, 'noname2');
+			this.noname1.setScale(0.5)
+			this.noname2.setScale(0.5)
+		}
+
 		// FULLSCREEN
 		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
 		this.fullscreenButton.setScale(0.05);

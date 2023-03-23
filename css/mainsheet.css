@@ -1,7 +1,7 @@
-@font-face {
-  font-family: 'levelFont';
-  src: url(../fonts/ENDOR___.ttf);
-}
+  @font-face {
+    font-family: 'levelFont';
+    src: url(../fonts/ENDOR___.ttf);
+  }
   @font-face {
     font-family: 'titulo';
     src: url(../fonts/ARCADECLASSIC.TTF);

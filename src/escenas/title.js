@@ -1,17 +1,13 @@
 /**
- * Escena de Titulo.
  * @extends Phaser.Scene
  */
 export default class Title extends Phaser.Scene {
 	/**
-	 * Escena principal.
-	 * @extends Phaser.Scene
+	 * 	 * @extends Phaser.Scene
 	 */
 	constructor() {
 		super({ key: 'title' });
 	}
-
-	//Cargamos todos los assets que vamos a necesitar
 	 
 	preload(){
 		this.load.image('play', 'assets/GUI/playButton1.png');
