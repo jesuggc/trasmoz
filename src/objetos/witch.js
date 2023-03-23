@@ -15,7 +15,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.health = 100;
 		this.maxHealth = 100;
 		this.experience = 0;
-		this.speedAumento = 30;
+		this.speedJump = 30;
+		this.healthJump = 50;
+		this.damageJump = 10;
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165,
 			1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,
 			231840,375125,606965,982090,1589055,2571145,4160200,6731345,
@@ -71,6 +73,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	preUpdate(t, dt) {
+		super.preUpdate(t, dt);
+		this.body.setVelocity(0);
+		if(this.anims.isPlaying === true) this.play('idleWitch');
 		if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
 			// console.log(this.scene.muchosLobos.children.entries);
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
@@ -86,7 +91,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		
 		// console.log(this.scene.physics.closest(this));
-		super.preUpdate(t, dt);
 		/*this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366* this.health/this.maxHealth;*/
 
@@ -166,7 +170,26 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addSpeed(){
-		this.speed += this.speedAumento;
+		this.speed += this.speedJump;
 	}
 
+	addHealth(){
+		this.health += this.healthJump;
+	}
+
+	addDamage(){
+		this.speed += this.damageJump;
+	}
+
+	addShield(){
+		this.shield += this.shieldJump;
+	}
+
+	addHealthRegen(){
+		this.shield += this.healthRegenJump;
+	}
+
+	addRate(){
+		this.shield += this.rateJump;
+	}
 }

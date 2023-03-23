@@ -55,11 +55,11 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		
-		if(Math.random() < 0.5) {
+		if(Math.random() < 0.05) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');
-			this.noname1.setScale(0.5)
-			this.noname2.setScale(0.5)
+			this.noname1.setScale(0.5);
+			this.noname2.setScale(0.5);
 		}
 
 		// FULLSCREEN
@@ -117,8 +117,8 @@ export default class Animation extends Phaser.Scene {
 		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 
-		this.events.on('resume', (skill) =>{
-			if (skill) console.log(skill.data)//this.witch[skill.skillSelected]()
+		this.events.on('resume', ( sys, skill) =>{
+			if (skill)this.witch[skill.skillSelected]()
 		})
 		
 	}
