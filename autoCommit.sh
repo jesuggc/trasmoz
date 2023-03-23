@@ -25,4 +25,3 @@ else
     echo -e "\e[42;37mALL CHANGES COMMITED\e[0m" #fondo verde
 fi
 #What does -z do
-#I want to add a check to see if there are any changes to commit before running the git commands. I tried to use the status variable but it doesn't work. I tried to use the following code but it doesn't work either:
