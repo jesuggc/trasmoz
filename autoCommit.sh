@@ -23,7 +23,9 @@ else
     commit_output = $(git commit -m "$final_message")
     nchanges=$(echo "$commit_output" | grep -o "[0-9]\+ file" | awk '{print $1}')
     git push origin main
-    echo -e "\e[42;37mALL ($nchanges) CHANGES COMMITED\e[0m" #fondo verde
+    echo -e "\e[42;37mALL ($nchanges) CHANGES COMMITED\e[0m" #fondo verde 
 fi
+
+echo "The value of nchanges is: $nchanges"
 #What does -z do
 #nchanges=$(echo "$status" | sed -n 's/^\([0-9]\+\) file changed.*/\1/p')
