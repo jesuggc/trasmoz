@@ -86,8 +86,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 		// console.log(this.scene.physics.closest(this));
 		super.preUpdate(t, dt);
-		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
-		this.scene.lifebar.width = 366* this.health/this.maxHealth;
+		/*this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
+		this.scene.lifebar.width = 366* this.health/this.maxHealth;*/
 
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		

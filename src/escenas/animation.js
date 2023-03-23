@@ -19,6 +19,8 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1-removebg-preview.png');
 		this.load.image('noname2', 'assets/noname/noName2-removebg-preview.png');
+		this.load.image('lifebar', 'assets/GUI/lifebar.png');
+		this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
 		this.load.css('css', 'css/mainsheet.css')
 	}
 	
@@ -91,13 +93,14 @@ export default class Animation extends Phaser.Scene {
 		this.expbar.setDepth(1);
 
 		// BARRA DE VIDA
-		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
+		/*this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
 		this.lifebar.setDepth(2);
 		this.lifebarS = this.add.rectangle(320,100,350,20,0x000000);
 		this.lifebarS.setScrollFactor(0);
 		this.lifebarS.width = 366;
-		this.lifebarS.setDepth(1);
+		this.lifebarS.setDepth(1);*/
+		this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
 
 		// BOTON DE PAUSA
 		var button = this.add.image(500,280,'pause_button').setInteractive();
