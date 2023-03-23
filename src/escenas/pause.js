@@ -24,26 +24,29 @@ export default class Title extends Phaser.Scene {
 	}
 
 	create() {
-		var back = this.add.image(this.sys.game.canvas.width/2, -400, 'pause_background');
+        this.windowW = this.sys.game.canvas.width;
+        this.windowH = this.sys.game.canvas.height;
+		var back = this.add.image(this.windowW/2, -400, 'pause_background');
+        var r = 1.3; // Buttons alignment
         back.setScale(0.7);
         var tween = this.tweens.add({
             targets: back,
             y: 80,
-            duration: 1500,
+            duration: /*15*/100,
             ease: 'Power2',
             yoyo: false,
             repeat: 0
           });
         tween.on('complete', () => {
-            this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'continue').setInteractive();
-            this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen').setInteractive();
-            this.optionsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options').setInteractive();
-            this.creditsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits').setInteractive();
-            this.soundButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound').setInteractive();
+            this.playButton = this.add.image(this.windowW/r, this.windowH/4, 'continue').setInteractive();
+            this.optionsButton = this.add.image(this.windowW/r, this.windowH/2, 'options').setInteractive();
+            this.creditsButton = this.add.image(this.windowW/r, this.windowH/(4/3), 'credits').setInteractive();
+            this.fullscreenButton = this.add.image(this.windowW/9.9, this.windowH/1.2, 'fullscreen').setInteractive();
+            this.soundButton = this.add.image(this.windowW/1.1, this.windowH/1.2, 'sound').setInteractive();
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
                 this.fullscreenButton.setVisible(false)
-                this.fullscreenButton2 = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen2')
+                this.fullscreenButton2 = this.add.image(this.windowW/9.9, this.windowH/1.2, 'fullscreen2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.fullscreenButton2.setVisible(false);
                     this.fullscreenButton.setVisible(true);
@@ -70,7 +73,7 @@ export default class Title extends Phaser.Scene {
     
             this.playButton.on('pointerup', () => {
                 this.playButton.setVisible(false);
-                this.playButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'continue2')
+                this.playButton2 = this.add.image(this.windowW/r, this.windowH/4, 'continue2')
                 this.time.addEvent({delay: 100, callback: function(){
                 this.playButton2.setVisible(false);
                     this.playButton.setVisible(true);
@@ -83,19 +86,20 @@ export default class Title extends Phaser.Scene {
     
             this.creditsButton.on('pointerup', () => {
                 this.creditsButton.setVisible(false);
-                this.creditsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits2')
+                this.creditsButton2 = this.add.image(this.windowW/r, this.windowH/(4/3), 'credits2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.creditsButton2.setVisible(false);
                     this.creditsButton.setVisible(true);
                     this.time.addEvent({delay: 400, callback: function(){
                     /*AQUI IRA LA FUNCIONALIDAD DE LOS CREDITOS*/
+                        this.scene.launch('credits')
                     }, callbackScope: this});
                 }, callbackScope: this});
             });
     
             this.soundButton.on('pointerup', () => {
                 this.soundButton.setVisible(false);
-                this.soundButton2= this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound2')
+                this.soundButton2= this.add.image(this.windowW/1.1, this.windowH/1.2, 'sound2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.soundButton2.setVisible(false);
                     this.soundButton.setVisible(true);
@@ -107,7 +111,7 @@ export default class Title extends Phaser.Scene {
     
             this.optionsButton.on('pointerup', () => {
                 this.optionsButton.setVisible(false);
-                this.optionsButton2 = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options2')
+                this.optionsButton2 = this.add.image(this.windowW/r, this.windowH/2, 'options2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.optionsButton2.setVisible(false);
                     this.optionsButton.setVisible(true);

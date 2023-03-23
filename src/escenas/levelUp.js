@@ -14,6 +14,18 @@ export default class LevelUp extends Phaser.Scene {
 	}
 
 	create() {
+		/*
+			POOL DE HABILIDADES
+			- VELOCIDAD DE ATAQUE
+			- VELOCIDAD DE MOVIMIENTO
+			- ESCUDO
+			- VIDA
+			- DAÑO
+			- REGENERACIÓN DE VIDA
+		*/
+
+
+
         var width = this.sys.game.canvas.width;
 		this.r1 = this.add.rectangle(125,180,160,320,0xffffff).setInteractive().setScrollFactor(0);
 		this.r2 = this.add.rectangle(325,180,160,320,0xffffff).setInteractive().setScrollFactor(0);

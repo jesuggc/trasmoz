@@ -40,7 +40,7 @@ export default class Title extends Phaser.Scene {
           }; 
           
         this.soundTitle = this.sound.add("titleSoundtrack", config);
-		this.soundTitle.play()
+		//this.soundTitle.play()
 
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
 		//Pintamos un boton de Empezar
