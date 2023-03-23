@@ -118,7 +118,7 @@ export default class Animation extends Phaser.Scene {
 		this.cameras.main.startFollow(this.witch);
 
 		this.events.on('resume', (skill) =>{
-			if (skill) console.log(skill)//this.witch[skill.skillSelected]()
+			if (skill) console.log(skill.data)//this.witch[skill.skillSelected]()
 		})
 		
 	}
