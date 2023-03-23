@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 commit_message="$1"
 author_name=$(git config user.name)
 status=$(git status)
