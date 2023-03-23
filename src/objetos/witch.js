@@ -13,6 +13,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.speed = 70;
 		this.diagonalSpeed = 49;
 		this.health = 100;
+		this.damage = 20;
 		this.maxHealth = 100;
 		this.experience = 0;
 		this.speedJump = 30;
@@ -80,7 +81,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			// console.log(this.scene.muchosLobos.children.entries);
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
 			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
-			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy);
+			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 			this.lastBasicAttack = t;
 		}
 		if(this.scene.noname1){
@@ -91,9 +92,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		
 		// console.log(this.scene.physics.closest(this));
-		/*this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
-		this.scene.lifebar.width = 366* this.health/this.maxHealth;*/
-
+		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
+		this.scene.lifebarFill.setScale(this.health/this.maxHealth, 1);
+		console.log(this.scene.lifebarFill.width)
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		
 		// EXPERIENCIA
@@ -103,7 +104,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.scene.levelUp();
 		}
 
-		if (this.health <= 0) this.scene.lifebar.visible = false;
+		if (this.health <= 0) this.scene.lifebarFill.visible = false;
 		// TESTING BUTTON
 		if(this.testingKey.isDown){
 			this.speed = 600;
@@ -161,7 +162,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.setOffset (this.bodyOffsetWidth, this.bodyOffsetHeight);
 	}
 	perderVida(){
-		this.health -= 0.1;
+		this.health -= 1;
 		this.setTintFill(0xff0000);
 		
 		this.scene.time.addEvent({delay: 150, callback: function(){
@@ -178,7 +179,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addDamage(){
-		this.speed += this.damageJump;
+		this.damage += this.damageJump;
 	}
 
 	addShield(){
@@ -186,7 +187,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addHealthRegen(){
-		this.shield += this.healthRegenJump;
+		this.healthRegen += this.healthRegenJump;
 	}
 
 	addRate(){
