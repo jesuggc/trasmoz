@@ -97,7 +97,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.scene.lifebarFill.setScale(this.health/this.maxHealth, 1);
 		// console.log(this.scene.lifebarFill.width)
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
-		
+		console.log(this.health)
 		// EXPERIENCIA
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
 			this.experience = 0;

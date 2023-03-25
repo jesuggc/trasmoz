@@ -32,11 +32,11 @@ let config = {
         zoom: 1
     },
     scene: [
+        Title,
         Animation,
         Gameover,
         Pause,
         Credits,
-        Title,
         LevelUp,
     ],
     physics: { 
