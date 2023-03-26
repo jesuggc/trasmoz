@@ -36,11 +36,12 @@ export default class Title extends Phaser.Scene {
             detune: 0,
             seek: 0,
             loop: true,
+			//pauseOnBlur : false,
             delay: 0,
           }; 
           
         this.soundTitle = this.sound.add("titleSoundtrack", config);
-		//this.soundTitle.play()
+		this.soundTitle.play()
 
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
 		//Pintamos un boton de Empezar
@@ -84,6 +85,7 @@ export default class Title extends Phaser.Scene {
 			this.playButton2.setVisible(false);
 				this.playButton.setVisible(true);
 				this.time.addEvent({delay: 400, callback: function(){
+				this.soundTitle.stop();
 				this.scene.start('animation'); 
 				}, callbackScope: this});
 			}, callbackScope: this});
@@ -96,8 +98,8 @@ export default class Title extends Phaser.Scene {
 				this.creditsButton2.setVisible(false);
 				this.creditsButton.setVisible(true);
 				this.time.addEvent({delay: 400, callback: function(){
-				/*AQUI IRA LA FUNCIONALIDAD DE LOS CREDITOS*/
-				}, callbackScope: this});
+				this.scene.launch('credits')				
+			}, callbackScope: this});
 			}, callbackScope: this});
 	    });
 
