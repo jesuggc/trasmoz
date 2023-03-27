@@ -50,6 +50,9 @@ export default class Title extends Phaser.Scene {
 		this.optionsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options').setInteractive();
 		this.creditsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/(4/3), 'credits').setInteractive();
 		this.soundButton = this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound').setInteractive();
+		this.soundButton2= this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound2').setInteractive();
+		this.soundButton2.setActive(false);
+		this.soundButton2.setVisible(false);
 		// Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
 		this.fullscreenButton.on('pointerup', function () {
 			this.fullscreenButton.setVisible(false)
@@ -104,15 +107,16 @@ export default class Title extends Phaser.Scene {
 	    });
 
 		this.soundButton.on('pointerup', () => {
+			this.soundButton2.setVisible(true);
 			this.soundButton.setVisible(false);
-			this.soundButton2= this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound2')
-			this.time.addEvent({delay: 100, callback: function(){
-				this.soundButton2.setVisible(false);
-				this.soundButton.setVisible(true);
-				this.time.addEvent({delay: 400, callback: function(){
-				/*AQUI IRA LA FUNCIONALIDAD DE SONIDO*/
-				}, callbackScope: this});
-			}, callbackScope: this});
+			this.soundButton.setActive(false);
+			this.soundTitle.mute = true;
+	    });
+		this.soundButton2.on('pointerup', () => {
+			this.soundButton2.setVisible(false);
+			this.soundButton2.setActive(false);
+			this.soundButton.setVisible(true);
+			this.soundTitle.mute = false;
 	    });
 
 		this.optionsButton.on('pointerup', () => {

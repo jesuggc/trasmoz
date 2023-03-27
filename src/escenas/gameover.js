@@ -20,8 +20,11 @@ export default class Gameover extends Phaser.Scene {
 	create() {
 		var windowWidth = this.sys.game.config.width;
 		var windowHeight = this.sys.game.config.height;
-		this.add.image(windowWidth/2, windowHeight/2, 'gameoverImage').setScrollFactor(0);
-
+		this.defeat = this.add.image(windowWidth/2, windowHeight/2, 'gameoverImage').setScrollFactor(0).setInteractive();
+		this.defeat.on('pointerup', () => {
+			this.scene.launch('animation');
+			this.scene.stop()
+		})
         
 	}
 }
