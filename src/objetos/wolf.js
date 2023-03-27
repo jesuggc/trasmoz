@@ -20,13 +20,13 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.scene.add.existing(this);
 
         this.scene.anims.create({
-			key: 'idleWolf',
-			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:0}),
-			frameRate: 1,
+			key: 'walkWolf',
+			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:4}),
+			frameRate: 7,
 			repeat: -1
 		});
 
-		this.play('idleWolf');
+		this.play('walkWolf');
 		this.onCollide = true;
 
 		

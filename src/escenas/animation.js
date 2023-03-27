@@ -13,7 +13,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
-		this.load.spritesheet('wolf', 'assets/enemies/wolf.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
