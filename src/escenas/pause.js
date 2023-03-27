@@ -40,7 +40,7 @@ export default class Title extends Phaser.Scene {
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
                 this.fullscreenButton.setVisible(false)
-                this.fullscreenButton2 = this.add.image(this.windowW/9.9, this.windowH/1.2, 'fullscreen2')
+                this.fullscreenButton2 = this.add.image(this.windowW/1.45, this.windowH/1.2, 'fullscreen2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.fullscreenButton2.setVisible(false);
                     this.fullscreenButton.setVisible(true);
@@ -80,7 +80,7 @@ export default class Title extends Phaser.Scene {
     
             this.soundButton.on('pointerup', () => {
                 this.soundButton.setVisible(false);
-                this.soundButton2= this.add.image(this.windowW/1.1, this.windowH/1.2, 'sound2')
+                this.soundButton2= this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.soundButton2.setVisible(false);
                     this.soundButton.setVisible(true);
