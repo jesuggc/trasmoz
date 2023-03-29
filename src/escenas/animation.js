@@ -91,8 +91,8 @@ export default class Animation extends Phaser.Scene {
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
 		this.lifebar.setScrollFactor(0);
 		this.lifebar.setDepth(2);
-		this.healthText = this.add.text(300, 90, this.witch.health + '/' + this.witch.maxHealth,{fontFamily: 'titulo'});
-		this.healthText.setResolution(100);
+		this.healthText = this.add.text(300, 90, this.witch.health + '/' + this.witch.maxHealth ,{fontFamily: 'titulo'});
+		this.healthText.setResolution(100); 
 		this.healthText.setStroke(0x000000,2);
 		this.healthText.setScrollFactor(0);
 		this.healthText.setDepth(3);
