@@ -21,7 +21,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('noname2', 'assets/noname/noName2-removebg-preview.png');
 		//this.load.image('lifebar', 'assets/GUI/lifebar.png');
 		//this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
-		this.load.css('css', 'css/mainsheet.css')
+		//this.load.css('css', 'css/mainsheet.css')
 	}
 	create() {
 		this.map = this.make.tilemap({
