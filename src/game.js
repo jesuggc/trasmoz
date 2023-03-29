@@ -1,6 +1,9 @@
 import Animation from './escenas/animation.js';
 import Title from './escenas/title.js'
 import Pause from './escenas/pause.js'
+import LevelUp from './escenas/levelUp.js';
+import Credits from './escenas/credits.js';
+import Gameover from './escenas/gameover.js';
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
@@ -16,24 +19,30 @@ let config = {
     pixelArt: true,
     scale: {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
-        // Configuramos phaser para que se adapte al tamano de pantalla donde ejecutadmos
-        // con un minimo y un maximo de tamano
+        // mode: Phaser.Scale.ScaleModes.FIT 
         mode: Phaser.Scale.FIT,
         min: {
             width: 328,
             height: 188
         },
         max: {
-            width: 900,
-            height: 750
+            width:  900,
+            height: 600,
         },
         zoom: 1
     },
-    scene: [Title, Animation, Pause],
+    scene: [
+        Title,
+        Animation,
+        Gameover,
+        Pause,
+        Credits,
+        LevelUp,
+    ],
     physics: { 
         default: 'arcade', 
         arcade: { 
-            debug: true 
+            debug: false 
         },
         checkCollision: {
             up: true,

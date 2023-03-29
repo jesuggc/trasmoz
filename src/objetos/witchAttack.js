@@ -4,7 +4,7 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	 * @param {number} x - coordenada x
 	 * @param {number} y - coordenada y
 	 */
-	constructor(scene, x, y, objetive) {
+	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'witchAttack');
 		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		
@@ -14,7 +14,7 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
 		this.setRotation(this.radianAngle);
 		this.scene.add.existing(this); //Anadimos el disparo a la escena
-		this.damage = 20;
+		this.damage = damage;
         
 		this.scene.anims.create({
 			key: 'idleAttack',
@@ -41,6 +41,10 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
+		this.scene.time.addEvent({delay: 2000, callback: function(){
+			this.destroy();
+        }, callbackScope: this});
 		
 	}
    
