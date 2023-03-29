@@ -100,6 +100,7 @@ export default class Animation extends Phaser.Scene {
 		this.lifebarS.setScrollFactor(0);
 		this.lifebarS.width = 366;
 		this.lifebarS.setDepth(1);
+		
 		//this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
 		//this.lifebarFill = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebarFill').setScrollFactor(0)
 
