@@ -62,4 +62,5 @@ En Vampire Survivors podemos ganar cada nivel sobreviviendo a las oleadas durant
 
 <h3>Diagramas UML</h3>
 ![image](https://user-images.githubusercontent.com/105007813/228625165-6999b298-92fe-4c9e-a4c8-086290197390.png)
+
 ![image](https://user-images.githubusercontent.com/105007813/228625273-3e89896b-4a84-4dc7-a229-9c8bde8619db.png)
