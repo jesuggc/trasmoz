@@ -41,6 +41,10 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
+		this.scene.time.addEvent({delay: 2000, callback: function(){
+			this.destroy();
+        }, callbackScope: this});
 		
 	}
    
