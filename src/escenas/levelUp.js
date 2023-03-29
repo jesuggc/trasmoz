@@ -35,19 +35,19 @@ export default class LevelUp extends Phaser.Scene {
 		this.r2 = this.add.image(325,180,'letter').setInteractive();
 		this.r3 = this.add.image(525,180,'letter').setInteractive();
         
-        this.text1 = this.add.text(80, 20, this.ability1 ,{fontFamily: 'titulo'});
+        this.text1 = this.add.text(70, 305, this.ability1 ,{fontFamily: 'titulo'});
         this.text1.setStroke(0x000000,2);
 		this.text1.setScrollFactor(0);
         this.text1.setScale(2);
         this.text1.setResolution(10);
 
-        this.text2 = this.add.text(280, 20, this.ability2 ,{fontFamily: 'titulo'});
+        this.text2 = this.add.text(270, 305, this.ability2 ,{fontFamily: 'titulo'});
         this.text2.setStroke(0x000000,2);
 		this.text2.setScrollFactor(0);
         this.text2.setScale(2);
         this.text2.setResolution(10);
          
-        this.text3 = this.add.text(480, 20, this.ability3 ,{fontFamily: 'titulo'});
+        this.text3 = this.add.text(470, 305, this.ability3 ,{fontFamily: 'titulo'});
         this.text3.setStroke(0x000000,2);
 		this.text3.setScrollFactor(0);
         this.text3.setScale(2);
