@@ -9,7 +9,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
-		this.setScale(0.5);
 		this.healthRegen = 0.05;
 		this.speed = 70;
 		this.diagonalSpeed = 49;
@@ -40,14 +39,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.scene.anims.create({
 			key: 'idleWitch',
-			frames: scene.anims.generateFrameNumbers('witch', {start:7, end:7}),
+			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
 			frameRate: 12,
 			repeat: -1
 		});
 		
 		this.scene.anims.create({
 			key: 'runWitch',
-			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:7}),
+			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
 			frameRate: 12,
 			repeat: -1
 		});
@@ -66,10 +65,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		//this.body.setCollideWorldBounds();
 
 		// COLLIDER
-		this.bodyOffsetWidth = this.body.width/1.45;
-		this.bodyOffsetHeight = this.body.height/2.4;
-		this.bodyWidth = this.body.width/3;
-		this.bodyHeight = this.body.height/1.3;
+		//this.bodyOffsetWidth = this.body.width/3;
+		this.bodyOffsetWidth = this.body.width/2.5;
+		this.bodyOffsetHeight = this.body.height/3;
+		this.bodyWidth = this.body.width/5;
+		this.bodyHeight = this.body.height/2;
 		
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
@@ -118,7 +118,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
 			this.setFlipX(true)
-			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 			
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(-this.diagonalSpeed);
 			else this.body.setVelocityX(-this.speed);
@@ -127,7 +127,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA DERECHA
 		if(this.dKey.isDown){
 			this.setFlipX(false);
-			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
 			else this.body.setVelocityX(this.speed);
@@ -136,7 +136,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE ARRIBA
 		if(this.wKey.isDown){
 			this.setFlipX(this.flipX)
-			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 			
 			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(-this.diagonalSpeed);
 			else this.body.setVelocityY(-this.speed);
@@ -145,14 +145,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE ABAJO
 		if(this.sKey.isDown){
 			this.setFlipX(this.flipX)
-			if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
+			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 			
 			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
 			else this.body.setVelocityY(this.speed);
 		}
 		
 		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
-			if(this.anims.isPlaying === true) this.play('idleWitch');
+			//if(this.anims.isPlaying === true) this.play('idleWitch');
 			this.body.setVelocity(0);
 		}
 		this.scene.levelText.setText([
@@ -161,10 +161,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 	winExperience(exp){
 		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += exp;
-	}
-	resetCollider(){
-		this.body.width = this.bodyWidth;
-		this.body.setOffset (this.bodyOffsetWidth, this.bodyOffsetHeight);
 	}
 	perderVida(){
 		this.health -= 1;
