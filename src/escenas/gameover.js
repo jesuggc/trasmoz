@@ -16,7 +16,7 @@ export default class Gameover extends Phaser.Scene {
 	preload(){
 		this.load.image('gameoverImage', 'assets/GUI/defeat.png');
 	}
-	
+	//Comentario de prueba
 	create() {
 		var windowWidth = this.sys.game.config.width;
 		var windowHeight = this.sys.game.config.height;
