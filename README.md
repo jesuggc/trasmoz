@@ -7,11 +7,11 @@ Integrantes:
 <ul>
 <li> Clara Sotillo Sotillo </li>
 <li> Elena Caridad Zingoni </li>
-<li> Francisco Jose Fernandez Ferreir </li>
+<li> Francisco Jose Fernandez Ferreiro </li>
 <li> Jesus Gonzalez Carrillo </li>
 </ul>
 
-Juego: https://jesuggc.github.io/zugarramundisescape/
+Juego: https://jesuggc.github.io/trasmoz/
 
 <h2> GDD </h2>
 <h3>Informacion basica</h3>
