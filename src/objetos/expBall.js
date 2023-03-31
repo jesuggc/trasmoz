@@ -28,14 +28,7 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
         this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
         
-        // this.bodyOffsetWidth = this.body.width/4;
-		// this.bodyOffsetHeight = this.body.height/6+20;
-		// this.bodyWidth = this.body.width/1.7;
-		// this.bodyHeight = this.body.height/2;
-		
-		// this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		// this.body.width = this.bodyWidth;
-		// this.body.height = this.bodyHeight;
+        
 		
 	}
    
