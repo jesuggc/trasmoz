@@ -14,6 +14,7 @@ export default class Title extends Phaser.Scene {
 		this.load.image('continue2', 'assets/GUI/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
         this.load.image('witchPause', 'assets/Bruja/image.png')
+        this.load.image('speed', 'assets/GUI/speed.png')
 	}
 
 	create() {
@@ -37,6 +38,9 @@ export default class Title extends Phaser.Scene {
             this.soundButton = this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound').setInteractive();
             this.witch = this.add.image(this.windowW/7, this.windowH/2, 'witchPause');
             this.witch.setScale(0.4)
+
+            this.add.rectangle(280,180,180,40,"0xff0000").setScrollFactor(0).setDepth(2)
+
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
                 this.fullscreenButton.setVisible(false)

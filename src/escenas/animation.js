@@ -17,8 +17,8 @@ export default class Animation extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
-		this.load.image('noname', 'assets/noname/noName1-removebg-preview.png');
-		this.load.image('noname2', 'assets/noname/noName2-removebg-preview.png');
+		this.load.image('noname', 'assets/noname/noName1.png');
+		this.load.image('noname2', 'assets/noname/noName2.png');
 		//this.load.image('lifebar', 'assets/GUI/lifebar.png');
 		//this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
 		this.load.css('css', 'css/mainsheet.css')
@@ -143,7 +143,7 @@ export default class Animation extends Phaser.Scene {
 	levelUp(){
 		this.witch.body.setVelocity(0);
 		this.scene.pause();
-		this.scene.launch('levelUp');
+		this.scene.launch('levelUp', {witch: this.witch});
 	}
 
 	update(time,delta){

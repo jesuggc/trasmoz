@@ -34,6 +34,17 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastBasicAttack = 0;
 		this.shield =20;
 		this.rate = 10;
+		this.maxAbilitiesLevels = 5;
+		this.abilityLevels = new Map([
+			["Speed", 0],
+			["Health", 0],
+			["Damage", 0],
+			["Shield", 0],
+			["Life  Reg.", 0],
+			["Fire  Rate", 0] 
+		]);
+		
+		
 
 		this.onCollide = true;
 		this.scene.add.existing(this);
@@ -175,29 +186,36 @@ export default class Witch extends Phaser.GameObjects.Sprite {
         }, callbackScope: this});
 	}
 
-	addSpeed(){
-		this.speed += this.speedJump;
-		this.diagonalSpeed += this.diagonalSpeedJump;
+	addRate(){
+		this.rate += this.rateJump;
+		if(this.abilityLevels.get("Fire  Rate") < this.maxAbilitiesLevels) this.abilityLevels.set("Fire  Rate", this.abilityLevels.get("Fire  Rate") + 1); 
 	}
-
+	
 	addHealth(){
 		this.health += this.healthJump;
 		this.maxHealth += this.healthJump;
-	}
+		if(this.abilityLevels.get("Health") < this.maxAbilitiesLevels) this.abilityLevels.set("Health", this.abilityLevels.get("Health") + 1); 
 
+	}
+	
 	addDamage(){
 		this.damage += this.damageJump;
+		if(this.abilityLevels.get("Damage") < this.maxAbilitiesLevels) this.abilityLevels.set("Damage", this.abilityLevels.get("Damage") + 1); 
 	}
 
 	addShield(){
 		this.shield += this.shieldJump;
-	}
-
-	addHealthRegen(){
-		this.healthRegen += this.healthRegenJump;
+		if(this.abilityLevels.get("Shield") < this.maxAbilitiesLevels) this.abilityLevels.set("Shield", this.abilityLevels.get("Shield") + 1); 
 	}
 	
-	addRate(){
-		this.rate += this.rateJump;
+	addHealthRegen(){
+		this.healthRegen += this.healthRegenJump;
+		if(this.abilityLevels.get("Life  Reg.") < this.maxAbilitiesLevels) this.abilityLevels.set("Life  Reg.", this.abilityLevels.get("Life  Reg.") + 1);
+	}
+	
+	addSpeed(){
+		this.speed += this.speedJump;
+		this.diagonalSpeed += this.diagonalSpeedJump;
+		if(this.abilityLevels.get("Speed") < this.maxAbilitiesLevels) this.abilityLevels.set("Speed", this.abilityLevels.get("Speed") + 1);
 	}
 }

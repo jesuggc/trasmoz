@@ -6,7 +6,7 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y);
-		this.experience = 10;
+		this.experience = 10000;
 		this.setScale(0.25);
 		this.scene.add.existing(this);
         this.setScale(0.5);
