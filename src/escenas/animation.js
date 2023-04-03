@@ -110,7 +110,7 @@ export default class Animation extends Phaser.Scene {
 		button.setDepth(1);
 		button.on('pointerup', pointer => {
 			this.scene.pause();
-			this.scene.launch('pause')
+			this.scene.launch('pause', {witch: this.witch})
 		})
 		
 		// CAMARA 
