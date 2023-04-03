@@ -55,17 +55,17 @@ export default class Title extends Phaser.Scene {
             this.add.image(10,56,'witchBg').setOrigin(0,0)
 
             this.add.image(200,100,'Shield').setScale(0.5)
-            this.add.text(240,100,this.abilityLevels.get("Shield"),{fontFamily: 'titulo'})
+            this.add.text(240,85,this.abilityLevels.get("Shield"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
             this.add.image(200,140,'Life  Reg.').setScale(0.5)
-            this.add.text(240,140,this.abilityLevels.get("Life  Reg."),{fontFamily: 'titulo'})
+            this.add.text(240,125,this.abilityLevels.get("Life  Reg."),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
             this.add.image(200,180,'Speed').setScale(0.5)
-            this.add.text(240,180,this.abilityLevels.get("Speed"),{fontFamily: 'titulo'})
+            this.add.text(240,165,this.abilityLevels.get("Speed"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
             this.add.image(200,220,'Health').setScale(0.5)
-            this.add.text(240,220,this.abilityLevels.get("Health"),{fontFamily: 'titulo'})
+            this.add.text(240,205,this.abilityLevels.get("Health"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
             this.add.image(200,260,'Damage').setScale(0.5)
-            this.add.text(240,260,this.abilityLevels.get("Damage"),{fontFamily: 'titulo'})
+            this.add.text(240,245,this.abilityLevels.get("Damage"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
             this.add.image(200,300,'Fire  Rate').setScale(0.5)
-            this.add.text(240,300,this.abilityLevels.get("Fire  Rate"),{fontFamily: 'titulo'})
+            this.add.text(240,285,this.abilityLevels.get("Fire  Rate"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
 
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
@@ -93,7 +93,6 @@ export default class Title extends Phaser.Scene {
                     this.game.scale.displaySize['maxWidth'] = 900;
                     this.game.scale.displaySize['maxHeight'] = 750;
             }, this);
-    
     
             this.playButton.on('pointerup', () => {
                 this.playButton.setVisible(false);
@@ -132,8 +131,6 @@ export default class Title extends Phaser.Scene {
                 }, callbackScope: this});
             });
 		}, this);
-
-		
 
 	}
 }

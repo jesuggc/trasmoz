@@ -21,7 +21,6 @@ export default class LevelUp extends Phaser.Scene {
 
 	init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
-		console.log(this.abilityLevels)
 	}
 
 	create() {
