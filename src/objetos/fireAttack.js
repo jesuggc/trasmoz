@@ -11,14 +11,14 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
 
         this.setScale(1);
 
-        let.circle = this.add.graphics();
-        circle.fillStyle(0xff0000, 0,5);
-        circle.fillCircle(this.scene.witch.x, this.scene.witch.y, 100);
+        // let.circle = this.add.graphics();
+        // circle.fillStyle(0xff0000, 0,5);
+        // circle.fillCircle(this.scene.witch.x, this.scene.witch.y, 100);
 
         this.scene.anims.create({
 			key: 'idleFireAttack',
-			frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end:8}),
-			frameRate: 15,
+			frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end:29}),
+			frameRate: 80,
 			repeat: -1
 		});
 		
@@ -26,11 +26,16 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
 
         this.scene.physics.add.existing(this);
         this.body.onCollide= true;
-        this.scene.physics.add.collider(this, this.objetive,  , null, this);
+        this.scene.physics.add.collider(this, this.objetive, this.burned , null, this);
 
-        // this.scene.time.addEvent({delay: 200, callback: function(){
-        //     this.destroy();
-        // }, callbackScope: this});
+        this.scene.time.addEvent({delay: 200, callback: function(){
+            this.destroy();
+        }, callbackScope: this});
+    }
+    preUpdate(t, dt){
+
+        super.preUpdate(t, dt);
+        
     }
 
     burned(){

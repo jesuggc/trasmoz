@@ -1,4 +1,5 @@
 import WitchAttack from "./witchAttack.js";
+import FireAttack from "./fireAttack.js";
 import Wolf from "./wolf.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
@@ -33,6 +34,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.maxLevel = 15;
 		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
+		this.lastFireAttack = 0;
+		this.fireAttackCooldown = 2000;
 		this.shield =20;
 		this.rate = 10;
 		this.maxAbilitiesLevels = 5;
@@ -102,6 +105,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 			this.lastBasicAttack = t;
+		}
+		if (t > this.lastFireAttack + this.fireAttackCooldown){
+			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+			new FireAttack(this.scene, this.x,this.y,enemy );
+			this.lastFireAttack = t;
 		}
 		if(this.scene.noname1){
 			this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y);
@@ -219,7 +227,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 	guardarFlor(){
 		this.flowerArray[0]=true;
-
+F
 		// for (let i = 0; i < 4; i++){
 		// 	console.log(this.flowerArray[i]);
 		// }
