@@ -35,8 +35,9 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 	}
-    
+	
 	getExp(){
+		
         this.scene.witch.winExperience(this.experience);
         this.destroy();
 	}

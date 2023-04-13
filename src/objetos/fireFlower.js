@@ -19,6 +19,7 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
+		 this.scene.physics.add.collider(this, this.scene.witch, this.recogerFlor, null, this);
 
 
 		// COLLIDER
@@ -33,5 +34,10 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
 	}
 
+	recogerFlor(){
+		console.log("hola");
+		this.body.destroy();
+		this.destroy();
+	}
 
 }

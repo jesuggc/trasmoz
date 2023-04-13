@@ -41,7 +41,8 @@ export default class Animation extends Phaser.Scene {
 		this.noname1;
 		this.noname2;
 		this.spawnDistance = 280;
-		new FireFlower(this,0,0);
+
+		this.flower = new FireFlower(this,0,0);
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
@@ -53,7 +54,9 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		
+		// this.physics.add.collider(this.witch, this.flower, this.flower.recogerFlor, null, this);
+		// this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this);
+
 		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');
