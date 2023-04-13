@@ -36,8 +36,11 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 
 	recogerFlor(){
 		console.log("hola");
+		this.scene.witch.guardarFlor();
 		this.body.destroy();
 		this.destroy();
+		
+
 	}
 
 }
