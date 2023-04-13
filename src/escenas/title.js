@@ -22,7 +22,6 @@ export default class Title extends Phaser.Scene {
 		this.load.image('fullscreen2', 'assets/GUI/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg')
 		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav')
-		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', {frameWidth: 64, frameHeight: 64})
 	}
 	
 	//Creacion de los elementos de la escena principal de juego

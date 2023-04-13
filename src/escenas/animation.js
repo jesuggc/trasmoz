@@ -1,6 +1,8 @@
 import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
-import ExpBall from '../objetos/expBall.js'
+import ExpBall from '../objetos/expBall.js';
+import FireFlower from '../objetos/fireFlower.js';
+
 /**
  * @extends Phaser.Scene
  */
@@ -10,15 +12,16 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.spritesheet('witch', 'assets/Bruja/bruja_run.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('witch', 'assets/Bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
 		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
+		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
-		this.load.image('noname', 'assets/noname/noName1-removebg-preview.png');
-		this.load.image('noname2', 'assets/noname/noName2-removebg-preview.png');
+		this.load.image('noname', 'assets/noname/noName1.png');
+		this.load.image('noname2', 'assets/noname/noName2.png');
 		//this.load.image('lifebar', 'assets/GUI/lifebar.png');
 		//this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
 		this.load.css('css', 'css/mainsheet.css')
@@ -38,7 +41,7 @@ export default class Animation extends Phaser.Scene {
 		this.noname1;
 		this.noname2;
 		this.spawnDistance = 280;
-	
+		new FireFlower(this,0,0);
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
@@ -100,6 +103,7 @@ export default class Animation extends Phaser.Scene {
 		this.lifebarS.setScrollFactor(0);
 		this.lifebarS.width = 366;
 		this.lifebarS.setDepth(1);
+		
 		//this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
 		//this.lifebarFill = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebarFill').setScrollFactor(0)
 
@@ -110,7 +114,7 @@ export default class Animation extends Phaser.Scene {
 		button.setDepth(1);
 		button.on('pointerup', pointer => {
 			this.scene.pause();
-			this.scene.launch('pause')
+			this.scene.launch('pause', {witch: this.witch})
 		})
 		
 		// CAMARA 
@@ -143,7 +147,7 @@ export default class Animation extends Phaser.Scene {
 	levelUp(){
 		this.witch.body.setVelocity(0);
 		this.scene.pause();
-		this.scene.launch('levelUp');
+		this.scene.launch('levelUp', {witch: this.witch});
 	}
 
 	update(time,delta){

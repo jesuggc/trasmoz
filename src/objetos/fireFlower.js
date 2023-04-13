@@ -1,4 +1,4 @@
-export default class ExpBall extends Phaser.GameObjects.Sprite {
+export default class FireFlower extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene 
 	 * @param {number} x 
@@ -6,23 +6,20 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y);
-		this.experience = 10;
-		this.setScale(0.25);
 		this.scene.add.existing(this);
-        this.setScale(0.5);
-        
+		this.setScale(0.1)
+
 		this.scene.anims.create({
-			key: 'idleexpBall',
-			frames: scene.anims.generateFrameNumbers('expBall', {start:0, end:0}),
+			key: 'idleFireFlower',
+			frames: scene.anims.generateFrameNumbers('fireFlower', {start:0, end:0}),
 			frameRate: 1,
 			repeat: -1
 		});
-		
-		this.play('idleexpBall');
+		this.play('idleFireFlower');
 		
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		this.scene.physics.add.collider(this, this.scene.witch, this.getExp, null, this);
+
 
 		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
@@ -35,10 +32,6 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 	}
-    
-	getExp(){
-        this.scene.witch.winExperience(this.experience);
-        this.destroy();
-	}
+
 
 }
