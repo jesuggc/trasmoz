@@ -9,6 +9,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
+		this.flowerArray = [false, false, false, false];
+
 		this.healthRegen = 0.05;
 		this.speed = 70;
 		this.diagonalSpeed = 49;
@@ -213,5 +215,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.speed += this.speedJump;
 		this.diagonalSpeed += this.diagonalSpeedJump;
 		if(this.abilityLevels.get("Speed") < this.maxAbilitiesLevels) this.abilityLevels.set("Speed", this.abilityLevels.get("Speed") + 1);
+	}
+
+	guardarFlor(){
+		this.flowerArray[0]=true;
+
+		// for (let i = 0; i < 4; i++){
+		// 	console.log(this.flowerArray[i]);
+		// }
 	}
 }
