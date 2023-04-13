@@ -1,4 +1,4 @@
-export default class WitchAttack extends Phaser.GameObjects.Sprite {
+ºexport default class WitchAttack extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene - escena en la que aparece
 	 * @param {number} x - coordenada x
