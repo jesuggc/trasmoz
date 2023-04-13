@@ -54,7 +54,7 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		// this.physics.add.collider(this.witch, this.flower, this.flower.recogerFlor, null, this);
+		this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this.flower);
 		// this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this);
 
 		if(Math.random() < 0.95) {
