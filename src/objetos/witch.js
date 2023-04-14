@@ -9,17 +9,23 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
-		this.healthRegen = 0.05;
-		this.speed = 70;
 		this.diagonalSpeed = 49;
 		this.health = 500;
-		this.damage = 20;
-		this.maxHealth = 500;
 		this.experience = 0;
+		this.speed = 70; //SPEED
+		this.maxHealth = 500; //HEALTH
+		this.damage = 20; //DAMAGE
+		this.shield = 0; //SHIELD
+		this.healthRegen = 0.05; //LIFE REG
+		this.basicAttackCooldown = 2000; //FIRE RATE
 		this.speedJump = 30;
 		this.diagonalSpeedJump = 21;
 		this.healthJump = 50;
 		this.damageJump = 10;
+		this.shieldJump = 2;
+		this.healthRegenJump = 0.5;
+		this.rateJump = 100;
+		this.rate = 10; //Esto no hace nada, el vlaor es el de debajo
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165,
 			1885,3050,4935,7985,12920,20905,33825,54730,88555,143285,
 			231840,375125,606965,982090,1589055,2571145,4160200,6731345,
@@ -29,10 +35,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			62931345125,101825055370,164756400495,266581455865,43133785636010];
 		this.level = 0;
 		this.maxLevel = 15;
-		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
-		this.shield =20;
-		this.rate = 10;
+		
+		
 		this.maxAbilitiesLevels = 5;
 		this.abilityLevels = new Map([
 			["Speed", 0],
@@ -76,7 +81,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		//this.body.setCollideWorldBounds();
 
 		// COLLIDER
-		//this.bodyOffsetWidth = this.body.width/3;
 		this.bodyOffsetWidth = this.body.width/2.5;
 		this.bodyOffsetHeight = this.body.height/3;
 		this.bodyWidth = this.body.width/5;
@@ -95,9 +99,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.scene.healthText.setText([Math.round(this.health) + '/' + this.maxHealth]);
 		
 		if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
-			// console.log(this.scene.muchosLobos.children.entries);
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 			this.lastBasicAttack = t;
 		}
@@ -108,10 +110,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.scene.noname2.setRotation(this.radianAngle2);
 		}
 		
-		// console.log(this.scene.physics.closest(this));
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366 * this.health/this.maxHealth;
-		// console.log(this.scene.lifebarFill.width)
+		
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
@@ -129,7 +130,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
 			this.setFlipX(true)
-			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 			
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(-this.diagonalSpeed);
 			else this.body.setVelocityX(-this.speed);
@@ -138,7 +138,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE A LA DERECHA
 		if(this.dKey.isDown){
 			this.setFlipX(false);
-			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 
 			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
 			else this.body.setVelocityX(this.speed);
@@ -147,7 +146,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE ARRIBA
 		if(this.wKey.isDown){
 			this.setFlipX(this.flipX)
-			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
 			
 			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(-this.diagonalSpeed);
 			else this.body.setVelocityY(-this.speed);
@@ -156,19 +154,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// MOVERSE ABAJO
 		if(this.sKey.isDown){
 			this.setFlipX(this.flipX)
-			//if(this.anims.currentAnim.key !== 'runWitch') this.play('runWitch');
-			
+						
 			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
 			else this.body.setVelocityY(this.speed);
 		}
 		
-		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)){
-			//if(this.anims.isPlaying === true) this.play('idleWitch');
-			this.body.setVelocity(0);
-		}
-		this.scene.levelText.setText([
-			'L e v e l: ' + this.level 
-		]);
+		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)) this.body.setVelocity(0);
+	
+		this.scene.levelText.setText(['L e v e l: ' + this.level ]);
 	}
 	winExperience(exp){
 		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += exp;
@@ -183,7 +176,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	addRate(){
-		this.rate += this.rateJump;
+		this.rate -= this.rateJump;
 		if(this.abilityLevels.get("Fire  Rate") < this.maxAbilitiesLevels) this.abilityLevels.set("Fire  Rate", this.abilityLevels.get("Fire  Rate") + 1); 
 	}
 	
