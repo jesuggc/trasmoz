@@ -2,6 +2,7 @@ import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
 import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
+import Knight from '../objetos/knight.js';
 
 /**
  * @extends Phaser.Scene
@@ -17,6 +18,10 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
+		
+		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64.8, frameHeight: 64 })
+		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 64.8, frameHeight: 64 })
+		
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
@@ -53,6 +58,16 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
+
+		this.muchosKnights = this.add.group();
+		for (var i = 0; i < 10; i++) {
+			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+			this.muchosKnights.add(knight);
+		}
+		this.physics.add.collider(this.witch, this.muchosKnights, this.witch.perderVida, null, this.witch)
+		this.physics.add.collider(this.muchosKnights, this.colisiones);
+		this.physics.add.collider(this.witch, this.muchosKnights, this.perderVida, null, this);
+		this.physics.add.collider(this.muchosKnights,this.muchosKnights);
 		
 		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');
