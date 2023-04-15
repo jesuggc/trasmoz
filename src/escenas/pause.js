@@ -14,6 +14,20 @@ export default class Title extends Phaser.Scene {
 		this.load.image('continue2', 'assets/GUI/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
         this.load.image('witchPause', 'assets/Bruja/image.png')
+        this.load.image('speed', 'assets/GUI/speed.png')
+		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
+
+        // Repetidas
+        this.load.image('Shield', 'assets/GUI/shield.png');
+		this.load.image('Life  Reg.', 'assets/GUI/healthRegen.png');
+		this.load.image('Speed', 'assets/GUI/movementSpeed.png');
+		this.load.image('Health', 'assets/GUI/health.png');
+		this.load.image('Damage', 'assets/GUI/damage.png');
+		this.load.image('Fire  Rate', 'assets/GUI/attackSpeed.png');
+	}
+
+    init (data) {
+		this.abilityLevels = data.witch.abilityLevels;
 	}
 
 	create() {
@@ -35,8 +49,24 @@ export default class Title extends Phaser.Scene {
             this.optionsButton = this.add.image(this.windowW/r, this.windowH/2, 'options').setInteractive();
             this.fullscreenButton = this.add.image(this.windowW/1.45, this.windowH/1.2, 'fullscreen').setInteractive();
             this.soundButton = this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound').setInteractive();
-            this.witch = this.add.image(this.windowW/7, this.windowH/2, 'witchPause');
+            this.witch = this.add.image(this.windowW/7, this.windowH/2, 'witchPause').setDepth(2);
             this.witch.setScale(0.4)
+
+            this.add.image(10,56,'witchBg').setOrigin(0,0)
+
+            this.add.image(200,100,'Shield').setScale(0.5)
+            this.add.text(240,85,this.abilityLevels.get("Shield"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+            this.add.image(200,140,'Life  Reg.').setScale(0.5)
+            this.add.text(240,125,this.abilityLevels.get("Life  Reg."),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+            this.add.image(200,180,'Speed').setScale(0.5)
+            this.add.text(240,165,this.abilityLevels.get("Speed"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+            this.add.image(200,220,'Health').setScale(0.5)
+            this.add.text(240,205,this.abilityLevels.get("Health"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+            this.add.image(200,260,'Damage').setScale(0.5)
+            this.add.text(240,245,this.abilityLevels.get("Damage"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+            this.add.image(200,300,'Fire  Rate').setScale(0.5)
+            this.add.text(240,285,this.abilityLevels.get("Fire  Rate"),{fontFamily: 'titulo'}).setOrigin(0,0).setScale(2).setResolution(10)
+
             // Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
             this.fullscreenButton.on('pointerup', function () {
                 this.fullscreenButton.setVisible(false)
@@ -63,7 +93,6 @@ export default class Title extends Phaser.Scene {
                     this.game.scale.displaySize['maxWidth'] = 900;
                     this.game.scale.displaySize['maxHeight'] = 750;
             }, this);
-    
     
             this.playButton.on('pointerup', () => {
                 this.playButton.setVisible(false);
@@ -102,8 +131,6 @@ export default class Title extends Phaser.Scene {
                 }, callbackScope: this});
             });
 		}, this);
-
-		
 
 	}
 }
