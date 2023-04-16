@@ -18,13 +18,15 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
 		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); //AQUI
-		this.load.image('patronesTilemap', 'levels/tilesPrueba.png'); //AQUI
-		this.load.image('patronArboles', 'levels/Trees.png'); //AQUI
-		this.load.image('patronCasa', 'levels/witchHouse (6).png'); //AQUI
-		this.load.image('patronesAcantilado', 'levels/CLiff.png'); //AQUI
-		this.load.image('patronesPiedras', 'levels/Rocks.png'); //AQUI
-		this.load.image('patronesTumbas', 'levels/TileserGraveyard.png'); //AQUI
-		this.load.image('patronesTroncos', 'levels/undefined_-_Imgur.png'); //AQUI
+		this.load.image('patronGround', 'levels/ground.png'); //AQUI
+		this.load.image('patronTrees', 'levels/trees.png'); //AQUI
+		this.load.image('patronHouse', 'levels/witchHouse.png'); //AQUI
+		this.load.image('patronCliff', 'levels/cliff.png'); //AQUI
+		this.load.image('patronRocks', 'levels/rocks.png'); //AQUI
+		this.load.image('patronGraves', 'levels/graves.png'); //AQUI
+		this.load.image('patronDecoration', 'levels/decoration.png'); //AQUI
+		this.load.image('patronWater', 'levels/water.png'); //AQUI
+		this.load.image('patronStair', 'levels/stair.png'); //AQUI
 
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
@@ -40,26 +42,29 @@ export default class Animation extends Phaser.Scene {
 			width: 60,
 			height: 40
 		});
-		const tileset1 = this.map.addTilesetImage('Ground Tileset', 'patronesTilemap'); //AQUI
-		const tileset2 = this.map.addTilesetImage('Trees', 'patronArboles'); //AQUI
-		const tileset3 = this.map.addTilesetImage('witchHouse (6)', 'patronCasa'); //AQUI
-		const tileset4 = this.map.addTilesetImage('Cliff', 'patronesAcantilado'); //AQUI
-		const tileset5 = this.map.addTilesetImage('Rocks', 'patronesPiedras'); //AQUI
-		const tileset6 = this.map.addTilesetImage('TilesetGraveyard', 'patronesTumbas'); //AQUI
-		const tileset7 = this.map.addTilesetImage('undefined_-_Imgur', 'patronesTroncos'); //AQUI
+		const tileset1 = this.map.addTilesetImage('ground', 'patronGround'); //AQUI
+		const tileset2 = this.map.addTilesetImage('trees', 'patronTrees'); //AQUI
+		const tileset3 = this.map.addTilesetImage('witchHouse', 'patronHouse'); //AQUI
+		const tileset4 = this.map.addTilesetImage('cliff', 'patronCliff'); //AQUI
+		const tileset5 = this.map.addTilesetImage('rocks', 'patronRocks'); //AQUI
+		const tileset6 = this.map.addTilesetImage('graves', 'patronGraves'); //AQUI
+		const tileset7 = this.map.addTilesetImage('decoration', 'patronDecoration'); //AQUI
+		const tileset8 = this.map.addTilesetImage('water', 'patronWater'); //AQUI
+		const tileset9 = this.map.addTilesetImage('stair', 'patronStair'); //AQUI
 
-		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
-		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]).setCollisionByExclusion(-1);
-		this.arboles = this.map.createLayer('Arboles', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
+		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]);
+		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]);
+		this.arboles = this.map.createLayer('Arboles', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]);
+		this.arboles2 = this.map.createLayer('Arboles 2', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9]);
+		this.arboles3 = this.map.createLayer('Arboles 3', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9]);
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
 		this.wolfSize = 10;
 
 		new FireFlower(this,0,0);
-		
-		this.witch = new Witch(this, 1000, 7450);		
-		
+		this.witch = new Witch(this, 532, 3195);		
+		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
 		for (var i = 0; i < this.wolfSize; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
