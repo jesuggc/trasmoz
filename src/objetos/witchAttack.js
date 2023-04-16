@@ -6,16 +6,13 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'witchAttack');
-		this.speed = 70; // Nuestra velocidad de movimiento sera 140
 		
-		this.witch = this.scene.witch; //Guardamos referencia a la bruja
+		this.speed = 70;
+		this.witch = this.scene.witch;
+		this.damage = damage;
 		this.setScale(0.25);
 		this.objetive = objetive;
-		this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
-		this.setRotation(this.radianAngle);
-		this.scene.add.existing(this); //Anadimos el disparo a la escena
-		this.damage = damage;
-        
+		        
 		this.scene.anims.create({
 			key: 'idleAttack',
 			frames: scene.anims.generateFrameNumbers('witchAttack', {start:0, end:8}),
@@ -23,11 +20,12 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 			repeat: -1
 		});
 		
-		// La animacion a ejecutar segun se genere el personaje sera 'idle'
 		this.play('idleAttack');
 		
-		
-		// Agregamos la bruja a las fisicas para que Phaser lo tenga en cuenta
+		this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
+		this.setRotation(this.radianAngle);
+		this.scene.add.existing(this);
+
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
 		this.scene.physics.add.collider(this, this.objetive, this.isShooted, null, this);
@@ -49,7 +47,6 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	}
    
 	preUpdate(t, dt) {
-		// Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutara la animacion
 		super.preUpdate(t, dt);
 		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.objetive.x, this.objetive.y);
 		this.setRotation(this.radianAngle);

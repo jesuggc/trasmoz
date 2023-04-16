@@ -49,15 +49,13 @@ export default class Animation extends Phaser.Scene {
 		const tileset7 = this.map.addTilesetImage('undefined_-_Imgur', 'patronesTroncos'); //AQUI
 
 		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
-		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
+		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]).setCollisionByExclusion(-1);
 		this.arboles = this.map.createLayer('Arboles', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
-		this.colisiones.setCollisionByExclusion(-1);
 
-		this.noname1;
-		this.noname2;
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
 		this.wolfSize = 10;
+
 		new FireFlower(this,0,0);
 		
 		this.witch = new Witch(this, 1000, 7450);		
@@ -74,38 +72,16 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		
 		if(Math.random() < this.nnprob) {
-			this.noname1 = this.add.image(20, 20, 'noname');
-			this.noname2= this.add.image(120, 20, 'noname2');
-			this.noname1.setScale(0.5);
-			this.noname2.setScale(0.5);
+			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
+			this.noname2= this.add.image(120, 20, 'noname2').setScale(0.5);
 		}
 
-		// FULLSCREEN
-		this.fullscreenButton = this.add.image(20, 20, 'fullscreen', 0).setOrigin(1, 0).setInteractive().setScale(0.05);
-		this.fullscreenButton.setScrollFactor(0);
-		
-		this.fullscreenButton.on('pointerup', function () {
-			if (this.scale.isFullscreen) {
-				this.fullscreenButton.setFrame(0);
-				this.scale.stopFullscreen();
-			}
-			else {
-				this.fullscreenButton.setFrame(1);
-				this.scale.startFullscreen();
-			}
-
-		}, this);
-
 		// TEXTO DE NIVEL
-		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'});
-		this.levelText.setResolution(100);
-		this.levelText.setStroke(0x000000,2);
-		this.levelText.setScrollFactor(0);
+		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'})
+		this.levelText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0);
 
 		// BARRA DE EXP
-		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff);
-		this.expbar.setScrollFactor(0);
-		this.expbar.setDepth(1);
+		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
 
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000).setScrollFactor(0).setDepth(2);

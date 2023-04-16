@@ -7,7 +7,6 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y);
 		this.experience = 10;
-		this.setScale(0.25);
 		this.scene.add.existing(this);
         this.setScale(0.5);
         
@@ -26,10 +25,7 @@ export default class ExpBall extends Phaser.GameObjects.Sprite {
 
 		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
-        
-        
-		
+        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);	
 	}
    
 	preUpdate(t, dt) {
