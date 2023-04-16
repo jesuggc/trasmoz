@@ -92,6 +92,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 
+		this.body.setVelocity(0)
 		this.scene.healthText.setText([Math.round(this.health) + '/' + this.maxHealth]);
 		
 		if (t > this.lastBasicAttack + this.rate) {	
