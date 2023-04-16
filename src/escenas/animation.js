@@ -29,8 +29,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
 		this.load.image('noname2', 'assets/noname/noName2.png');
-		//this.load.image('lifebar', 'assets/GUI/lifebar.png');
-		//this.load.image('lifebarFill', 'assets/GUI/lifebarFill.png');
+
 		this.load.css('css', 'css/mainsheet.css')
 	}
 	create() {
@@ -52,24 +51,29 @@ export default class Animation extends Phaser.Scene {
 		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
 		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
 		this.arboles = this.map.createLayer('Arboles', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7 ]);
-
 		this.colisiones.setCollisionByExclusion(-1);
+
 		this.noname1;
 		this.noname2;
 		this.spawnDistance = 280;
+		this.nnprob = 0.05;
+		this.wolfSize = 10;
 		new FireFlower(this,0,0);
+		
 		this.witch = new Witch(this, 1000, 7450);		
-		this.physics.add.collider(this.witch, this.colisiones);
+		
 		this.muchosLobos = this.add.group();
-		for (var i = 0; i < 0; i++) {
+		for (var i = 0; i < this.wolfSize; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
 		}
+		
+		this.physics.add.collider(this.witch, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.witch.perderVida, null, this.witch)
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		
-		if(Math.random() < 0.95) {
+		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');
 			this.noname1.setScale(0.5);
@@ -77,12 +81,10 @@ export default class Animation extends Phaser.Scene {
 		}
 
 		// FULLSCREEN
-		this.fullscreenButton = this.add.image(0, 0, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
-		this.fullscreenButton.setScale(0.05);
+		this.fullscreenButton = this.add.image(20, 20, 'fullscreen', 0).setOrigin(1, 0).setInteractive().setScale(0.05);
 		this.fullscreenButton.setScrollFactor(0);
 		
 		this.fullscreenButton.on('pointerup', function () {
-
 			if (this.scale.isFullscreen) {
 				this.fullscreenButton.setFrame(0);
 				this.scale.stopFullscreen();
@@ -106,28 +108,16 @@ export default class Animation extends Phaser.Scene {
 		this.expbar.setDepth(1);
 
 		// BARRA DE VIDA
-		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
-		this.lifebar.setScrollFactor(0);
-		this.lifebar.setDepth(2);
+		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000).setScrollFactor(0).setDepth(2);
+		this.lifebarS = this.add.rectangle(328,100,366,20,0x000000).setScrollFactor(0).setDepth(1);
+			
 		this.healthText = this.add.text(300, 90, this.witch.health + '/' + this.witch.maxHealth,{fontFamily: 'titulo'});
-		this.healthText.setResolution(100);
-		this.healthText.setStroke(0x000000,2);
-		this.healthText.setScrollFactor(0);
-		this.healthText.setDepth(3);
-		this.lifebarS = this.add.rectangle(320,100,350,20,0x000000);
-		this.lifebarS.setScrollFactor(0);
-		this.lifebarS.width = 366;
-		this.lifebarS.setDepth(1);
+		this.healthText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
 		
-		//this.lifebar = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebar').setScrollFactor(0)
-		//this.lifebarFill = this.add.image(this.sys.game.canvas.width/3.5, this.sys.game.canvas.height/1.35, 'lifebarFill').setScrollFactor(0)
 
 		// BOTON DE PAUSA
-		var button = this.add.image(500,280,'pause_button').setInteractive();
-		button.setScrollFactor(0);
-		button.setScale(0.05);
-		button.setDepth(1);
-		button.on('pointerup', pointer => {
+		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(1);
+		button.on('pointerup', poainter => {
 			this.scene.pause();
 			this.scene.launch('pause', {witch: this.witch})
 		})
