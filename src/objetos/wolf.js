@@ -9,7 +9,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
 		this.speed = 70; 
-		this.initialLife = 100;
+		this.initialLife = 20;
 		this.health = this.initialLife;
 		this.diagonalSpeed = 49;
 		this.respawnDistance = 360;
