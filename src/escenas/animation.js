@@ -52,11 +52,11 @@ export default class Animation extends Phaser.Scene {
 		const tileset8 = this.map.addTilesetImage('water', 'patronWater'); //AQUI
 		const tileset9 = this.map.addTilesetImage('stair', 'patronStair'); //AQUI
 
-		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset2,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]);
-		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset2,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]).setCollisionByExclusion(-1);
-		this.arboles = this.map.createLayer('Arboles', [ tileset2,tileset5,tileset7]);
-		this.arboles2 = this.map.createLayer('Arboles 2', [ tileset2,tileset5,tileset7]);
-		this.arboles3 = this.map.createLayer('Arboles 3', [ tileset2,tileset5,tileset7]);
+		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset4, tileset8, tileset9 ]);
+		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]).setCollisionByExclusion(-1);
+		this.arboles = this.map.createLayer('Arboles', [ tileset2,tileset7]);
+		this.arboles2 = this.map.createLayer('Arboles 2', [ tileset2,tileset7]);
+		this.arboles3 = this.map.createLayer('Arboles 3', [ tileset2,tileset7]);
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
