@@ -14,6 +14,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.diagonalSpeed = 49;
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
+		
 		this.setScale(0.5);
 		this.isAlive = true;
 

@@ -1,5 +1,6 @@
 import WitchAttack from "./witchAttack.js";
 import Wolf from "./wolf.js";
+import Knight from "./knight.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -99,6 +100,19 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
 			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			else if (enemy instanceof Knight && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			/*var enemy;
+			if (Math.random() < 0.5) {
+				enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries, function(a, b) {
+					return a.distance < b.distance;
+				});
+				if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			} else {
+				enemy = this.scene.physics.closest(this, this.scene.muchosKnights.children.entries, function(a, b) {
+					return a.distance < b.distance;
+				});
+				if (enemy instanceof Knight && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			}*/
 			this.lastBasicAttack = t;
 		}
 		if(this.scene.noname1){

@@ -92,6 +92,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 		this.health = this.initialLife;
 	}
     attack(){
+		this.play('attackKnight');
         this.witch.perderVida();
     }
 	receiveDamage(damage){
