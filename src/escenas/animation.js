@@ -2,7 +2,7 @@ import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
 import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
-
+import LightningFlower from '../objetos/lightningFlower.js';
 /**
  * @extends Phaser.Scene
  */
@@ -16,7 +16,8 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('witchAttack', 'assets/Bruja/witchAttack.png', { frameWidth: 128, frameHeight: 128 })
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
+		this.load.spritesheet('fireFlower', 'assets/GUI/Hibiscus.png', { frameWidth: 24, frameHeight: 24 })
+		this.load.spritesheet('lightningFlower', 'assets/GUI/Daffodil.png', { frameWidth: 24, frameHeight: 24 })
 		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png', {frameWidth: 96, frameHeight: 96})
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
@@ -43,7 +44,8 @@ export default class Animation extends Phaser.Scene {
 		this.noname2;
 		this.spawnDistance = 280;
 
-		this.flower = new FireFlower(this,350,350);
+		this.fireflower = new FireFlower(this,350,350);
+		this.lightningflower = new LightningFlower(this, 350, 310);
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
@@ -55,7 +57,9 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this.flower);
+		this.physics.add.collider(this.fireflower, this.witch, this.fireflower.recogerFlor, null, this.fireflower);
+		this.physics.add.collider(this.lightningflower, this.witch, this.lightningflower.recogerFlor, null, this.lightningflower);
+
 		// this.physics.add.collider(this.witch.fireAttack,this.muchosLobos,(obj,obj2) => {
 		// 	console.log("quemo");
         // 	obj2.receiveDamage(this.damage);

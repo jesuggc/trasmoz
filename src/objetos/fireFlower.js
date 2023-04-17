@@ -7,7 +7,7 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y);
 		this.scene.add.existing(this);
-		this.setScale(0.1)
+		this.setScale(1)
 
 		this.scene.anims.create({
 			key: 'idleFireFlower',

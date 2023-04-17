@@ -129,7 +129,16 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			}
 		}
 		if (this.flowerArray[1]){
-
+			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
+				this.lightningAttack = new  this.lightningAttack(this.scene, this.x, this.y, this.damage);
+				this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
+					console.log("rayo");
+					obj2.receiveDamage(this.damage);
+					obj.destroy();
+		
+				});
+				this.lastFireAttack = t;
+			}
 		}
 		if(this.scene.noname1){
 			this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y);
@@ -254,6 +263,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.flowerArray[1]=true; 
 		}
 
+		for (let i = 0; i< 3; i++){
+			console.log(this.flowerArray[i]);
+		}
 
 	}
 }
