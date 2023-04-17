@@ -17,7 +17,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
-		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png', {frameWidth: 20, frameHeight: 20})
+		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png', {frameWidth: 96, frameHeight: 96})
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
@@ -43,7 +43,7 @@ export default class Animation extends Phaser.Scene {
 		this.noname2;
 		this.spawnDistance = 280;
 
-		this.flower = new FireFlower(this,0,0);
+		this.flower = new FireFlower(this,350,350);
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
@@ -56,7 +56,16 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this.flower);
+		// this.physics.add.collider(this.witch.fireAttack,this.muchosLobos,(obj,obj2) => {
+		// 	console.log("quemo");
+        // 	obj2.receiveDamage(this.damage);
+        // 	obj.destroy();
+
+		// });
 		// this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this);
+
+		
+		// this.physics.add.collider(this.muchosLobos, this.fireAttacks, this.burn, null, this);
 
 		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');

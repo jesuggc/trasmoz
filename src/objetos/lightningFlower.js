@@ -1,4 +1,4 @@
-export default class FireFlower extends Phaser.GameObjects.Sprite {
+export default class LightningFlower extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene 
 	 * @param {number} x 
@@ -10,12 +10,12 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		this.setScale(0.1)
 
 		this.scene.anims.create({
-			key: 'idleFireFlower',
-			frames: scene.anims.generateFrameNumbers('fireFlower', {start:0, end:0}),
+			key: 'idleLightningFlower',
+			frames: scene.anims.generateFrameNumbers('lightningFlower', {start:0, end:0}),
 			frameRate: 1,
 			repeat: -1
 		});
-		this.play('idleFireFlower');
+		this.play('idleLightningFlower');
 		
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;

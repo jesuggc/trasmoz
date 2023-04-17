@@ -1,4 +1,5 @@
 import ExpBall from "../objetos/expBall.js";
+import FireAttack from "./fireAttack.js";
 
 export default class Wolf extends Phaser.GameObjects.Sprite {
 	/**
@@ -43,6 +44,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
     
 	}
 
