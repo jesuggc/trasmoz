@@ -3,7 +3,7 @@ import Wolf from '../objetos/wolf.js';
 import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
 import Knight from '../objetos/knight.js';
-
+import Enemy from '../objetos/enemy.js';
 /**
  * @extends Phaser.Scene
  */
@@ -50,30 +50,22 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
+		
 		for (var i = 0; i < 2; i++) {
-			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
+			let wolf = new Enemy(this, Math.random() * 10, Math.random() * 10, 'wolf');
 			this.muchosLobos.add(wolf);
-			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+			let knight = new Enemy(this, Math.random() * 10, Math.random() * 10, 'knight');
 			this.muchosLobos.add(knight);
+			
+			
 		}
-		this.physics.add.collider(this.witch, this.muchosLobos, this.witch.perderVida, null, this.witch)
+		let closestEnemy = this.muchosLobos.getClosest(this.witch);
+		this.physics.add.collider(this.witch, this.muchosLobos, closestEnemy.attack, null, this.witch);
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
-		this.physics.add.collider(this.witch, this.muchosLobos, this.perderVida, null, this);
+		this.physics.add.collider(this.witch, this.muchosLobos,  enemy.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 
-		/*this.muchosKnights = this.add.group();
-		for (var i = 0; i < 10; i++) {
-			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-			this.muchosKnights.add(knight);
-		}
-
-		this.muchosKnights.children.iterate(function (knight) {
-			this.physics.add.collider(this.witch, knight, knight.attack, null, knight);
-		}, this);
-		this.physics.add.collider(this.muchosKnights, this.colisiones);
-		this.physics.add.collider(this.witch, this.muchosKnights, this.perderVida, null, this);
-		this.physics.add.collider(this.muchosKnights,this.muchosKnights);
-		*/
+		
 		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');
