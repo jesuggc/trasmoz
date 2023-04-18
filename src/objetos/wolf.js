@@ -18,6 +18,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.isAlive = true;
 
 		this.scene.add.existing(this);
+		scene.physics.add.existing(this);
 
         this.scene.anims.create({
 			key: 'walkWolf',
@@ -28,11 +29,6 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 
 		this.play('walkWolf');
 		this.onCollide = true;
-
-		
-		scene.physics.add.existing(this);
-        
-		//this.body.setCollideWorldBounds();
 
 		// COLLIDER
 		this.bodyOffsetWidth = this.body.width/2;
@@ -78,9 +74,8 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	}
 
 	respawn(){
-		var y = this.scene.generateRandomY();
-		this.y = y;
-		this.x = this.scene.generateRandomX(y);
+		this.y = this.scene.generateRandomY();
+		this.x = this.scene.generateRandomX(this.y);
 		this.setVisible(true);
 		this.setActive(true);
 		this.isAlive = true;
@@ -89,14 +84,11 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	receiveDamage(damage){
 		this.health -= damage;
 		this.setVisible(false);
-		this.setTintFill(0xffffff);
 		this.scene.time.addEvent({delay: 90, callback: function(){
 			this.setVisible(true);
-			this.clearTint();
         }, callbackScope: this});
 		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
-		this.damageText.setResolution(10);
-		this.damageText.setStroke(0x000000,2);
+		this.damageText.setResolution(10).setStroke(0x000000,2);
 		
 		this.scene.time.addEvent({delay: 450, callback: function(){
 			this.damageText.destroy();
