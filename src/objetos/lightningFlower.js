@@ -40,7 +40,6 @@ export default class LightningFlower extends Phaser.GameObjects.Sprite {
 		this.body.destroy();
 		this.destroy();
 		
-
 	}
 
 }
