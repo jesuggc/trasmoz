@@ -1,5 +1,6 @@
 import WitchAttack from "./witchAttack.js";
 import FireAttack from "./fireAttack.js";
+import LightningAttack from "./lightningAttack.js";
 import Wolf from "./wolf.js";
 import FireFlower from "./fireFlower.js";
 import LightningFlower from "./lightningFlower.js";
@@ -40,7 +41,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastFireAttack = 0;
 		this.fireAttackCooldown = 2000;
 		this.lastLightningAttack = 0;
-		this.lightningAttackCooldown = 200;
+		this.lightningAttackCooldown = 2000;
+		this.lastFreezeAttack = 0;
+		this.freezeAttackCooldown = 2000;
 		
 		this.shield =20;
 		this.rate = 10;
@@ -112,32 +115,41 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 	if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		// 	this.lastBasicAttack = t;
 		// }
-		if (this.flowerArray[0]){
-			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-				 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
-				// this.scene.add.existing(fireAttack);
-				// this.scene.fireAttacks.add(fireAttack);
-				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
-				this.scene.physics.add.collider(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
-					console.log("quemo");
-					obj2.receiveDamage(this.damage);
-					obj.destroy();
+		// if (this.flowerArray[0]){
+		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
+		// 		// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+		// 		 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
+		// 		// this.scene.add.existing(fireAttack);
+		// 		// this.scene.fireAttacks.add(fireAttack);
+		// 		// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
+		// 		this.scene.physics.add.collider(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
+		// 			console.log("quemo");
+		// 			obj2.receiveDamage(this.damage);
+		// 			obj.destroy();
 		
-				});
-				this.lastFireAttack = t;
-			}
-		}
+		// 		});
+		// 		this.lastFireAttack = t;
+		// 	}
+		// }
 		if (this.flowerArray[1]){
 			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
-				this.lightningAttack = new  this.lightningAttack(this.scene, this.x, this.y, this.damage);
+
+				var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+
+				this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y, this.damage);
 				this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
 					console.log("rayo");
 					obj2.receiveDamage(this.damage);
 					obj.destroy();
 		
 				});
-				this.lastFireAttack = t;
+				this.lastLightningAttack = t;
+			}
+		}
+		if (this.flowerArray[2]){
+			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
+				var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+
 			}
 		}
 		if(this.scene.noname1){
