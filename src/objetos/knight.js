@@ -6,41 +6,34 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y, 'knight');
-		this.speed = 50; 
+		super(scene, x, y);
 		this.initialLife = 40;
 		this.health = this.initialLife;
-		this.diagonalSpeed = 49;
-		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
-		this.setScale(0.8); 
+		this.setScale(1); 
 		this.isAlive = true;
-
+		
 		this.scene.add.existing(this);
 
         this.scene.anims.create({
 			key: 'walkKnight',
-			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:10}),
+			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:8}),
 			frameRate: 7,
 			repeat: -1
 		});
 
         this.scene.anims.create({
 			key: 'attackKnight',
-			frames: scene.anims.generateFrameNumbers('knightAttack', {start:0, end:10}),
+			frames: scene.anims.generateFrameNumbers('knightAttack', {start:0, end:7}),
 			frameRate: 7,
 			repeat: -1
 		});
 		this.play('walkKnight');
-		this.onCollide = true;
 
-		
 		scene.physics.add.existing(this);
-        
-		//this.body.setCollideWorldBounds();
 
 		// COLLIDER
-		this.bodyOffsetWidth = this.body.width/2;
+		this.bodyOffsetWidth = this.body.width/3;
 		this.bodyOffsetHeight = this.body.height/3;
 		this.bodyWidth = this.body.width/3;
 		this.bodyHeight = this.body.height/2;
@@ -77,10 +70,7 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 		this.respawn();
 	}
     
-	resetCollider(){
-		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-	}
+	
 
 	respawn(){
 		var y = this.scene.generateRandomY();
@@ -92,8 +82,9 @@ export default class Knight extends Phaser.GameObjects.Sprite {
 		this.health = this.initialLife;
 	}
     attack(){
-		this.play('attackKnight');
-        this.witch.perderVida();
+		
+		//this.play('attackKnight');
+        this.scene.witch.perderVida();
     }
 	receiveDamage(damage){
 		this.health -= damage;

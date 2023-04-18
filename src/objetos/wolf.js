@@ -7,14 +7,10 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y, 'wolf');
-		this.speed = 70; 
+		super(scene, x, y);
 		this.initialLife = 20;
 		this.health = this.initialLife;
-		this.diagonalSpeed = 49;
-		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
-		
 		this.setScale(0.5);
 		this.isAlive = true;
 
@@ -28,9 +24,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		});
 
 		this.play('walkWolf');
-		this.onCollide = true;
 
-		
 		scene.physics.add.existing(this);
         
 		//this.body.setCollideWorldBounds();
@@ -72,11 +66,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.setActive(false);
 		this.respawn();
 	}
-    
-	resetCollider(){
-		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-	}
+   
 
 	respawn(){
 		var y = this.scene.generateRandomY();
@@ -103,5 +93,8 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 			this.damageText.destroy();
         }, callbackScope: this});
 	}
-
+	attack(){
+		console.log('atacando')
+		 this.scene.witch.perderVida();
+	 }
 }

@@ -52,17 +52,17 @@ export default class Animation extends Phaser.Scene {
 		this.muchosLobos = this.add.group();
 		
 		for (var i = 0; i < 2; i++) {
-			let wolf = new Enemy(this, Math.random() * 10, Math.random() * 10, 'wolf');
+			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
-			let knight = new Enemy(this, Math.random() * 10, Math.random() * 10, 'knight');
+			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(knight);
 			
 			
 		}
-		let closestEnemy = this.muchosLobos.getClosest(this.witch);
-		this.physics.add.collider(this.witch, this.muchosLobos, closestEnemy.attack, null, this.witch);
+		//console.log( this.muchosLobos.getFirstAlive());
+		this.physics.add.collider(this.witch, this.muchosLobos, this.muchosLobos.getFirstAlive().attack, null, this.witch);
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
-		this.physics.add.collider(this.witch, this.muchosLobos,  enemy.perderVida, null, this);
+		this.physics.add.collider(this.witch, this.muchosLobos,  this.muchosLobos.perderVida, null, this);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 
 		
