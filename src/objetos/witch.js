@@ -4,6 +4,7 @@ import LightningAttack from "./lightningAttack.js";
 import Wolf from "./wolf.js";
 import FireFlower from "./fireFlower.js";
 import LightningFlower from "./lightningFlower.js";
+import IceFlower from "./iceFlower.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -273,6 +274,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		if (flor instanceof LightningFlower){
 			this.flowerArray[1]=true; 
+		}
+		if (flor instanceof IceFlower){
+			this.flowerArray[2]=true;
 		}
 
 		for (let i = 0; i< 3; i++){

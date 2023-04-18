@@ -1,4 +1,4 @@
-export default class LightningAttack extends Phaser.GameObjects.Sprite {
+export default class FreezeAttack extends Phaser.GameObjects.Sprite {
     /**
      * @param {Scene} scene - escena en la que aparece
      * @param {number} x - coordenada x
@@ -6,20 +6,19 @@ export default class LightningAttack extends Phaser.GameObjects.Sprite {
     */
 
     constructor(scene, x, y, damage){
-        super(scene, x, y , 'lightningAttack');
+        super(scene, x, y, 'freezeAttack');
 
-        this.witch = this.scene.witch;
-        this.damage = damage;
         this.scene.add.existing(this);
+        this.damage = damage;
 
         this.scene.anims.create({
-            key: 'idleLightningAttack',
-            frames: scene.anims.generateFrameNumbers('lightningAttack', {start:0, end:8}),
+            key: 'idleFreezeAttack',
+            frames: scene.anims.generateFrameNumbers('freezeAttack', {start: 0, end: 25}),
             frameRate: 15,
             repeat: -1
         });
 
-        this.play('idleLightningAttack');
+        this.play('idleFreezeAttack');
 
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
@@ -27,14 +26,10 @@ export default class LightningAttack extends Phaser.GameObjects.Sprite {
         this.scene.time.addEvent({delay: 2000, callback: function(){
             this.destroy();
         }, callbackScope: this});
+
     }
+
     preUpdate(t, dt){
         super.preUpdate(t, dt);
     }
-    
-    
 }
-
-
-
-
