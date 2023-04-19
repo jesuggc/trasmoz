@@ -13,14 +13,14 @@ export default class Knight extends Enemy {
 		this.attacking = false;
         this.scene.anims.create({
 			key: 'walkKnight',
-			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:8}),
+			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:7}),
 			frameRate: 7,
 			repeat: -1
 		});
 
         this.scene.anims.create({
 			key: 'attackKnight',
-			frames: scene.anims.generateFrameNumbers('knightAttack', {start:0, end:7}),
+			frames: scene.anims.generateFrameNumbers('knightAttack', {start:0, end:6}),
 			frameRate: 12,
 			repeat: 0
 		});
