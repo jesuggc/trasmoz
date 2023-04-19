@@ -32,7 +32,11 @@ let config = {
         zoom: 1
     },
     scene: [
+<<<<<<< HEAD
         // Title,
+=======
+        //Title,
+>>>>>>> ramaElena
         Animation,
         Gameover,
         Pause,

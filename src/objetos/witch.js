@@ -1,5 +1,7 @@
 import WitchAttack from "./witchAttack.js";
 import Wolf from "./wolf.js";
+import Knight from "./knight.js";
+import Enemy from "./enemy.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -97,7 +99,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 		if (t > this.lastBasicAttack + this.rate) {	
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+<<<<<<< HEAD
 			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+=======
+			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
+			if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+		
+>>>>>>> ramaElena
 			this.lastBasicAttack = t;
 
 			console.log(this.speed)

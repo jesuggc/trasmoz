@@ -2,7 +2,8 @@ import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
 import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
-
+import Knight from '../objetos/knight.js';
+import Enemy from '../objetos/enemy.js';
 /**
  * @extends Phaser.Scene
  */
@@ -17,6 +18,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
+<<<<<<< HEAD
 		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); //AQUI
 		this.load.image('patronGround', 'levels/ground.png'); //AQUI
 		this.load.image('patronTrees', 'levels/trees.png'); //AQUI
@@ -28,6 +30,14 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('patronWater', 'levels/water.png'); //AQUI
 		this.load.image('patronStair', 'levels/stair.png'); //AQUI
 
+=======
+		
+		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
+		
+		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
+		this.load.image('patronesTilemap', 'levels/tiles.png');
+>>>>>>> ramaElena
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
 		this.load.image('noname2', 'assets/noname/noName2.png');
@@ -66,15 +76,33 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 532, 3195);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
+<<<<<<< HEAD
 		for (var i = 0; i < this.wolfSize; i++) {
+=======
+		
+		for (var i = 0; i < 2; i++) {
+>>>>>>> ramaElena
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
+			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+			this.muchosLobos.add(knight);
 		}
+<<<<<<< HEAD
 		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.physics.add.collider(this.witch, this.muchosLobos, this.witch.perderVida, null, this.witch)
+=======
+
+		this.physics.add.collider(this.muchosLobos, this.witch, function(enem, witch) {
+			enem.attack();
+			console.log("entro")
+			}, null, this);
+
+		// this.physics.add.collider(this.witch, this.muchosLobos, this.muchosLobos.getFirstAlive().attack, null, this.witch);
+>>>>>>> ramaElena
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
+
 		
 		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
@@ -89,11 +117,26 @@ export default class Animation extends Phaser.Scene {
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
 
 		// BARRA DE VIDA
+<<<<<<< HEAD
 		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000).setScrollFactor(0).setDepth(2);
 		this.lifebarS = this.add.rectangle(328,100,366,20,0x000000).setScrollFactor(0).setDepth(1);
 			
 		this.healthText = this.add.text(300, 90, this.witch.health + '/' + this.witch.maxHealth,{fontFamily: 'titulo'});
 		this.healthText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
+=======
+		this.lifebar = this.add.rectangle(320,100,350,20,0xff0000);
+		this.lifebar.setScrollFactor(0);
+		this.lifebar.setDepth(2);
+		this.healthText = this.add.text(300, 90, this.witch.health + '/' + this.witch.maxHealth ,{fontFamily: 'titulo'});
+		this.healthText.setResolution(100); 
+		this.healthText.setStroke(0x000000,2);
+		this.healthText.setScrollFactor(0);
+		this.healthText.setDepth(3);
+		this.lifebarS = this.add.rectangle(320,100,350,20,0x000000);
+		this.lifebarS.setScrollFactor(0);
+		this.lifebarS.width = 366;
+		this.lifebarS.setDepth(1);
+>>>>>>> ramaElena
 		
 
 		// BOTON DE PAUSA
