@@ -13,7 +13,7 @@ export default class Title extends Phaser.Scene {
         this.load.image('continue', 'assets/GUI/resetButton1.png');
 		this.load.image('continue2', 'assets/GUI/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
-        this.load.image('witchPause', 'assets/Bruja/image.png')
+        this.load.image('witchPause', 'assets/Bruja/bruja_pause.png')
         this.load.image('speed', 'assets/GUI/speed.png')
 		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
 
@@ -49,8 +49,8 @@ export default class Title extends Phaser.Scene {
             this.optionsButton = this.add.image(this.windowW/r, this.windowH/2, 'options').setInteractive();
             this.fullscreenButton = this.add.image(this.windowW/1.45, this.windowH/1.2, 'fullscreen').setInteractive();
             this.soundButton = this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound').setInteractive();
-            this.witch = this.add.image(this.windowW/7, this.windowH/2, 'witchPause').setDepth(2);
-            this.witch.setScale(0.4)
+            this.witch = this.add.image(this.windowW/8, this.windowH/2, 'witchPause').setDepth(2);
+            this.witch.setScale(4)
 
             this.add.image(10,56,'witchBg').setOrigin(0,0)
 
