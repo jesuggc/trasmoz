@@ -100,7 +100,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			// console.log(this.scene.muchosLobos.children.entries);
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
 			//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
-			if (enemy.isAlive && enemy instanceof Enemy) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		
 			this.lastBasicAttack = t;
 		}

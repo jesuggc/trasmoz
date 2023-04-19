@@ -38,8 +38,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
         }
-        if (this.witch.x < this.x) this.setFlipX(true);
-        else this.setFlipX(false);
+       
 		if (this.health <= 0) this.die();
 	}
 	die(){
