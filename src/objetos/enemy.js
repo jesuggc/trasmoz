@@ -82,8 +82,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	attack(){
-		
-		
+		this.witch.perderVida(this.damage)
 	}
     
 
