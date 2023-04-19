@@ -39,7 +39,5 @@ export default class Wolf extends Enemy {
         if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
 		
-	}
-    
-	
+	}	
 }

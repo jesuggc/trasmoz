@@ -10,7 +10,7 @@ export default class Knight extends Enemy {
 		super(scene, x, y);
 		this.initialLife = 40;
 		this.health = this.initialLife; 
-
+		this.attacking = false;
         this.scene.anims.create({
 			key: 'walkKnight',
 			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:8}),
@@ -21,15 +21,15 @@ export default class Knight extends Enemy {
         this.scene.anims.create({
 			key: 'attackKnight',
 			frames: scene.anims.generateFrameNumbers('knightAttack', {start:0, end:7}),
-			frameRate: 7,
-			repeat: -1
+			frameRate: 12,
+			repeat: 0
 		});
-		this.play('walkKnight');
-
 		
-
+		
+		
 		// COLLIDER
-
+		this.play('walkKnight');
+		
 		// this.body.setOffset(this.body.width/5, this.body.height / 10);
         this.body.setSize(this.body.width/2, this.body.height);
     
@@ -43,10 +43,17 @@ export default class Knight extends Enemy {
 		
 	}
     
-	attack(){
+	
+	attack() {
 		super.attack();
-		console.log("🚀 ~ file: knight.js:48 ~ Knight ~ attack ~ u:")
-		
-		this.play('attackKnight');
+		if (!this.attacking) {
+
+			
+			this.play("attackKnight").on('animationcomplete', () => {
+				this.attacking = true;
+				this.play("walkKnight");
+			});
+			this.attacking = false;
+		}
 	}
 }

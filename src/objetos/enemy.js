@@ -82,9 +82,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	attack(){
-		console.log('atacando')
-		 this.scene.witch.perderVida();
-	 }
+		
+		console.log("ENEMY:")
+		
+	}
     
 
 }
