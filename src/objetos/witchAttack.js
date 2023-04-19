@@ -55,6 +55,7 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 			this.objetive.receiveDamage(this.damage);
 			this.destroy();
 		}
+		
 		else if (!this.objetive.isAlive) this.destroy()          
 	}
     

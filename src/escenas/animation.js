@@ -72,7 +72,9 @@ export default class Animation extends Phaser.Scene {
 		}
 		
 		this.physics.add.collider(this.witch, this.colisiones);
-		this.physics.add.collider(this.witch, this.muchosLobos, this.witch.perderVida, null, this.witch)
+		this.physics.add.collider(this.witch, this.muchosLobos, function(witch, enemy){
+			enemy.attack(witch);
+		}, null, this.witch)
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
 		

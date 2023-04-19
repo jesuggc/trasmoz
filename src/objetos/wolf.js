@@ -16,6 +16,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.witch = this.scene.witch;
 		this.setScale(0.5);
 		this.isAlive = true;
+		this.damage = 1;
 
 		this.scene.add.existing(this);
 		scene.physics.add.existing(this);
@@ -80,6 +81,10 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.setActive(true);
 		this.isAlive = true;
 		this.health = this.initialLife;
+	}
+	attack(witch){
+		witch.perderVida(this.damage)
+		this.setTintFill(0xff0000);
 	}
 	receiveDamage(damage){
 		this.health -= damage;

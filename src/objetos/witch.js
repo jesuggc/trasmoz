@@ -165,8 +165,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	winExperience(exp){
 		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += exp;
 	}
-	perderVida(){
-		this.health -= 1;
+	perderVida(damage){
+		this.health -= damage;
 		this.setTintFill(0xff0000);
 		
 		this.scene.time.addEvent({delay: 150, callback: function(){
