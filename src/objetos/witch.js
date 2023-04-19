@@ -5,6 +5,8 @@ import Wolf from "./wolf.js";
 import FireFlower from "./fireFlower.js";
 import LightningFlower from "./lightningFlower.js";
 import IceFlower from "./iceFlower.js";
+import FreezeAttack from "./freezeAttack.js";
+import PoisonFlower from "./poisonFlower.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -40,7 +42,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
 		this.lastFireAttack = 0;
-		this.fireAttackCooldown = 2000;
+		this.fireAttackCooldown = 4000;
 		this.lastLightningAttack = 0;
 		this.lightningAttackCooldown = 2000;
 		this.lastFreezeAttack = 0;
@@ -116,32 +118,32 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 	if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		// 	this.lastBasicAttack = t;
 		// }
-		// if (this.flowerArray[0]){
-		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
-		// 		// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-		// 		 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
-		// 		// this.scene.add.existing(fireAttack);
-		// 		// this.scene.fireAttacks.add(fireAttack);
-		// 		// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
-		// 		this.scene.physics.add.collider(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
-		// 			console.log("quemo");
-		// 			obj2.receiveDamage(this.damage);
-		// 			obj.destroy();
+		if (this.flowerArray[0]){
+			if (t > this.lastFireAttack + this.fireAttackCooldown){
+				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+				 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
+				// this.scene.add.existing(fireAttack);
+				// this.scene.fireAttacks.add(fireAttack);
+				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
+				this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
+					console.log("quemo");
+					obj2.receiveDamage(this.damage);
+					// s
 		
-		// 		});
-		// 		this.lastFireAttack = t;
-		// 	}
-		// }
+				});
+				this.lastFireAttack = t;
+			}
+		}
 		if (this.flowerArray[1]){
 			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
 
 				var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
 
-				this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y, this.damage);
+				this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y,this.wolf, this.damage);
 				this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
 					console.log("rayo");
 					obj2.receiveDamage(this.damage);
-					obj.destroy();
+					// obj.destroy();
 		
 				});
 				this.lastLightningAttack = t;
@@ -149,8 +151,12 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		if (this.flowerArray[2]){
 			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
-				var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-
+				
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);
+				
+				
+				this.lastFreezeAttack = t;
 			}
 		}
 		if(this.scene.noname1){
@@ -278,8 +284,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if (flor instanceof IceFlower){
 			this.flowerArray[2]=true;
 		}
+		if(flor instanceof PoisonFlower){
+			this.flowerArray[3]=true;
+		}
 
-		for (let i = 0; i< 3; i++){
+		for (let i = 0; i< 4; i++){
 			console.log(this.flowerArray[i]);
 		}
 

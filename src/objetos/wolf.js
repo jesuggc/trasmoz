@@ -9,7 +9,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'wolf');
-		this.speed = 70; 
+		this.speed = 50; 
 		this.initialLife = 20;
 		this.health = this.initialLife;
 		this.diagonalSpeed = 49;
@@ -17,6 +17,8 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.witch = this.scene.witch;
 		this.setScale(0.5);
 		this.isAlive = true;
+
+		this.wolf = this;
 
 		this.scene.add.existing(this);
 
@@ -55,7 +57,7 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
    
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		this.scene.physics.moveToObject(this,this.scene.witch, 50);  
+		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
         if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;
@@ -103,6 +105,16 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 		this.scene.time.addEvent({delay: 450, callback: function(){
 			this.damageText.destroy();
         }, callbackScope: this});
+	}
+
+	decreaseSpeed(){
+		console.log("frozen");
+		this.speed = 0;
+		this.wolf.diagonalSpeed = 0;
+	}
+	increaseSpeed(){
+		this.speed =0 ;
+		this.diagonalSpeed = 0;
 	}
 
 }

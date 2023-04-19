@@ -16,7 +16,7 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
         this.scene.anims.create({
             key: 'idleFireAttack',
             frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end: 25}),
-            frameRate: 15,
+            frameRate: 20,
             repeat: -1
         });
 
@@ -26,7 +26,9 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
         this.body.onCollide = true;
         // this.scene.physics.add.collider(this, this.objective, this.burn, null, this);
 
-        this.scene.time.addEvent({delay: 2000, callback: function(){
+        // sthis.scene.physics.overlap(this, )
+
+        this.scene.time.addEvent({delay: 1000, callback: function(){
             this.destroy();
         }, callbackScope: this});
 

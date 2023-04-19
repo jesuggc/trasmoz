@@ -4,6 +4,7 @@ import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
 import LightningFlower from '../objetos/lightningFlower.js';
 import IceFlower from '../objetos/iceFlower.js';
+import PoisonFlower from '../objetos/poisonFlower.js';
 /**
  * @extends Phaser.Scene
  */
@@ -19,9 +20,11 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/Hibiscus.png', { frameWidth: 24, frameHeight: 24 })
 		this.load.spritesheet('lightningFlower', 'assets/GUI/Daffodil.png', { frameWidth: 24, frameHeight: 24 })
-		this.load.spritesheet('iceFlower', 'assets/GUI/Lavender.png', { frameWidth: 24, frameHeight: 24 })
+		this.load.spritesheet('iceFlower', 'assets/GUI/Lavender3.png', { frameWidth: 23.83, frameHeight: 24 })
+		this.load.spritesheet('poisonFlower', 'assets/GUI/Petunia2.png', { frameWidth: 23.83, frameHeight: 24 })
 		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png', {frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunder.png', {frameWidth: 56.8, frameHeight: 256})
+		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunder.png', {frameWidth: 64, frameHeight: 256})
+		this.load.spritesheet('freezeAttack', 'assets/Bruja/freeze.png', {frameWidth: 128, frameHeight: 128 })
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
@@ -50,6 +53,7 @@ export default class Animation extends Phaser.Scene {
 		this.fireflower = new FireFlower(this,350,350);
 		this.lightningflower = new LightningFlower(this, 350, 310);
 		this.iceflower = new IceFlower(this, 350, 270);
+		this.poisonflower = new PoisonFlower(this, 350, 230);
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
@@ -64,6 +68,7 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.fireflower, this.witch, this.fireflower.recogerFlor, null, this.fireflower);
 		this.physics.add.collider(this.lightningflower, this.witch, this.lightningflower.recogerFlor, null, this.lightningflower);
 		this.physics.add.collider(this.iceflower, this.witch, this.iceflower.recogerFlor, null, this.iceflower);
+		this.physics.add.collider(this.poisonflower, this.witch, this.poisonflower.recogerFlor, null, this.poisonflower);
 
 
 		// this.physics.add.collider(this.witch.fireAttack,this.muchosLobos,(obj,obj2) => {
