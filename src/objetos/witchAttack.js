@@ -6,17 +6,16 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'witchAttack');
+		this.speed = 170; // Nuestra velocidad de movimiento sera 140
 		
-		this.speed = 70;
-		this.witch = this.scene.witch;
-		this.damage = damage;
-		this.setScale(0.25);
+		this.witch = this.scene.witch; //Guardamos referencia a la bruja
+		this.setScale(1);
 		this.objetive = objetive;
 		        
 		this.scene.anims.create({
 			key: 'idleAttack',
-			frames: scene.anims.generateFrameNumbers('witchAttack', {start:0, end:8}),
-			frameRate: 15,
+			frames: scene.anims.generateFrameNumbers('witchAttack', {start:0, end:44}),
+			frameRate: 50,
 			repeat: -1
 		});
 		
@@ -32,9 +31,9 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 
 		// Ajustamos el "collider" de nuestro ataque
 		this.bodyOffsetWidth = this.body.width/4;
-		this.bodyOffsetHeight = this.body.height/6+20;
-		this.bodyWidth = this.body.width/1.7;
-		this.bodyHeight = this.body.height/2;
+		this.bodyOffsetHeight = this.body.height/4;
+		this.bodyWidth = this.body.width/3;
+		this.bodyHeight = this.body.height/3;
 		
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
@@ -51,8 +50,12 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.objetive.x, this.objetive.y);
 		this.setRotation(this.radianAngle);
 		
-		this.scene.physics.moveToObject(this,this.objetive, 170);            
-		if (!this.objetive.isAlive) this.destroy()
+		this.scene.physics.moveToObject(this,this.objetive, this.speed);
+		if (this.scene.physics.overlap(this,this.objetive)){
+			this.objetive.receiveDamage(this.damage);
+			this.destroy();
+		}
+		else if (!this.objetive.isAlive) this.destroy()          
 	}
     
 	resetCollider(){
