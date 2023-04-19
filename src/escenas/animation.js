@@ -93,7 +93,7 @@ export default class Animation extends Phaser.Scene {
 
 		// TEXTO DE NIVEL
 		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'})
-		this.levelText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0);
+		this.levelText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
 
 		// BARRA DE EXP
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
