@@ -29,14 +29,9 @@ export default class Knight extends Enemy {
 		
 
 		// COLLIDER
-		this.bodyOffsetWidth = this.body.width/1.1;
-		this.bodyOffsetHeight = this.body.height/2;
-		this.bodyWidth = this.body.width/2;
-		this.bodyHeight = this.body.height;
-		
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		this.body.width = this.bodyWidth;
-		this.body.height = this.bodyHeight;
+
+		// this.body.setOffset(this.body.width/5, this.body.height / 10);
+        this.body.setSize(this.body.width/2, this.body.height);
     
 	}
 
@@ -48,5 +43,10 @@ export default class Knight extends Enemy {
 		
 	}
     
-	
+	attack(){
+		super.attack();
+		console.log("🚀 ~ file: knight.js:48 ~ Knight ~ attack ~ u:")
+		
+		this.play('attackKnight');
+	}
 }

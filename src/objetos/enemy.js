@@ -61,20 +61,26 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 	receiveDamage(damage){
 		this.health -= damage;
-		this.setVisible(false);
-		this.setTintFill(0xffffff);
-		this.scene.time.addEvent({delay: 90, callback: function(){
-			this.setVisible(true);
-			this.clearTint();
-        }, callbackScope: this});
+		this.tinkle();
+		this.printDamage(damage);
+	}
+
+	printDamage(damage){
 		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
 		this.damageText.setResolution(10);
 		this.damageText.setStroke(0x000000,2);
-		
 		this.scene.time.addEvent({delay: 450, callback: function(){
 			this.damageText.destroy();
         }, callbackScope: this});
 	}
+
+	tinkle(){
+		this.setVisible(false);
+		this.scene.time.addEvent({delay: 90, callback: function(){
+			this.setVisible(true);
+        }, callbackScope: this});
+	}
+
 	attack(){
 		console.log('atacando')
 		 this.scene.witch.perderVida();

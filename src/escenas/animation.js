@@ -19,7 +19,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
 		
-		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64.8, frameHeight: 64 })
+		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 64.8, frameHeight: 64 })
 		
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
@@ -131,7 +131,7 @@ export default class Animation extends Phaser.Scene {
 		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;
-		this.cameras.main.zoom = 1.75;
+		// this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 
 		this.events.on('resume', ( sys, skill) =>{
