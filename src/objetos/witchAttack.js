@@ -7,7 +7,6 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'witchAttack');
 		this.speed = 170; // Nuestra velocidad de movimiento sera 140
-		this.damage = damage;
 		this.witch = this.scene.witch; //Guardamos referencia a la bruja
 		this.setScale(1);
 		this.objetive = objetive;
@@ -65,7 +64,7 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 	}
 
 	isShooted(){
-		this.objetive.receiveDamage(this.damage);
+		this.objetive.receiveDamage(this.witch.damage);
 		this.destroy();
 	}
 

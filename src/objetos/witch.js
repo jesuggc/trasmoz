@@ -1,5 +1,7 @@
 import WitchAttack from "./witchAttack.js";
 import Wolf from "./wolf.js";
+import Knight from "./knight.js";
+import Enemy from "./enemy.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -76,8 +78,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.testingKey = this.scene.input.keyboard.addKey('P');
 
-		//this.body.setCollideWorldBounds();
-
 		// COLLIDER
 		this.bodyOffsetWidth = this.body.width/2.5;
 		this.bodyOffsetHeight = this.body.height/3;
@@ -93,21 +93,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
 
 		this.body.setVelocity(0)
-		this.scene.healthText.setText([Math.round(this.health) + '/' + this.maxHealth]);
 		
 		if (t > this.lastBasicAttack + this.rate) {	
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+		
 			this.lastBasicAttack = t;
 
-			console.log(this.speed)
-			console.log(this.health)
-			console.log(this.damage)
-			console.log(this.shield)
-			console.log(this.healthRegen)
-			console.log(this.rate)
-			console.log("----------------------------")
-			
+			console.log(this.speed, this.health, this.damage, this.shield, this.healthRegen, this.rate);
 		}
 		if(this.scene.noname1){
 			this.scene.noname1.setRotation(Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y));

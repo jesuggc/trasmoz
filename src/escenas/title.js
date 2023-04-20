@@ -24,8 +24,6 @@ export default class Title extends Phaser.Scene {
 		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav')
 	}
 	
-	//Creacion de los elementos de la escena principal de juego
-
 	create() {
 		
 		const config = {
@@ -43,7 +41,7 @@ export default class Title extends Phaser.Scene {
 		this.soundTitle.play()
 
 		var back = this.add.image(0, 0, 'title_background').setOrigin(0, 0);
-		//Pintamos un boton de Empezar
+		
 		this.playButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/4, 'play').setInteractive();
 		this.fullscreenButton = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen').setInteractive();
 		this.optionsButton = this.add.image(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 'options').setInteractive();
@@ -52,7 +50,7 @@ export default class Title extends Phaser.Scene {
 		this.soundButton2= this.add.image(this.sys.game.canvas.width/1.1, this.sys.game.canvas.height/1.2, 'sound2').setInteractive();
 		this.soundButton2.setActive(false);
 		this.soundButton2.setVisible(false);
-		// Escuchamos los eventos del raton cuando interactual con nuestro sprite de "Start"
+
 		this.fullscreenButton.on('pointerup', function () {
 			this.fullscreenButton.setVisible(false)
 			this.fullscreenButton2 = this.add.image(this.sys.game.canvas.width/9.9, this.sys.game.canvas.height/1.2, 'fullscreen2')
