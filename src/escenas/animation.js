@@ -22,9 +22,10 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('lightningFlower', 'assets/GUI/Daffodil.png', { frameWidth: 24, frameHeight: 24 })
 		this.load.spritesheet('iceFlower', 'assets/GUI/Lavender3.png', { frameWidth: 23.83, frameHeight: 24 })
 		this.load.spritesheet('poisonFlower', 'assets/GUI/Petunia2.png', { frameWidth: 23.83, frameHeight: 24 })
-		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png', {frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunder.png', {frameWidth: 64, frameHeight: 256})
+		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png',{frameWidth: 96, frameHeight: 96})
+		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunderstrike.png', {frameWidth: 64, frameHeight: 64})
 		this.load.spritesheet('freezeAttack', 'assets/Bruja/freeze.png', {frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('poisonAttack', 'assets/Bruja/poisonProjectile.png', {frameWidth: 64, frameHeight: 64 })
 		this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
 		this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')

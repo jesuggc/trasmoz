@@ -7,6 +7,7 @@ import LightningFlower from "./lightningFlower.js";
 import IceFlower from "./iceFlower.js";
 import FreezeAttack from "./freezeAttack.js";
 import PoisonFlower from "./poisonFlower.js";
+import PoisonAttack from "./poisonAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -47,7 +48,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lightningAttackCooldown = 2000;
 		this.lastFreezeAttack = 0;
 		this.freezeAttackCooldown = 2000;
-		
+		this.lastPoisonAttack = 0;
+		this.poisonAttackCooldown = 8000;
+
 		this.shield =20;
 		this.rate = 10;
 		this.maxAbilitiesLevels = 5;
@@ -118,47 +121,55 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 	if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		// 	this.lastBasicAttack = t;
 		// }
-		if (this.flowerArray[0]){
-			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-				 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
-				// this.scene.add.existing(fireAttack);
-				// this.scene.fireAttacks.add(fireAttack);
-				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
-				this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
-					console.log("quemo");
-					obj2.receiveDamage(this.damage);
-					// s
+		// if (this.flowerArray[0]){
+		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
+		// 		// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+		// 		 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
+		// 		// this.scene.add.existing(fireAttack);
+		// 		// this.scene.fireAttacks.add(fireAttack);
+		// 		// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
+		// 		this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
+		// 			console.log("quemo");
+		// 			obj2.receiveDamage(this.damage);
+		// 			// s
 		
-				});
-				this.lastFireAttack = t;
-			}
-		}
-		if (this.flowerArray[1]){
-			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
+		// 		});
+		// 		this.lastFireAttack = t;
+		// 	}
+		// }
+		// if (this.flowerArray[1]){
+		// 	if(t > this.lastLightningAttack + this.lightningAttackCooldown){
 
-				var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+		// 		var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
 
-				this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y,this.wolf, this.damage);
-				this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
-					console.log("rayo");
-					obj2.receiveDamage(this.damage);
-					// obj.destroy();
+		// 		this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y,this.wolf, this.damage);
+		// 		this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
+		// 			console.log("rayo");
+		// 			obj2.receiveDamage(obj2.health);
+		// 			// obj.destroy();
 		
-				});
-				this.lastLightningAttack = t;
-			}
-		}
-		if (this.flowerArray[2]){
-			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
+		// 		});
+		// 		this.lastLightningAttack = t;
+		// 	}
+		// }
+		// if (this.flowerArray[2]){
+		// 	if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
 				
+		// 		var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+		// 		this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);
+				
+				
+		// 		this.lastFreezeAttack = t;
+		// 	}
+		// }
+		if (this.flowerArray[3]){
+			if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
 				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);
-				
-				
-				this.lastFreezeAttack = t;
+				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
+				this.lastPoisonAttack = t;
 			}
 		}
+
 		if(this.scene.noname1){
 			this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y);
 			this.radianAngle2 = Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname2.x, this.scene.noname2.y);
