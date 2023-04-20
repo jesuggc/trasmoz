@@ -2,6 +2,7 @@ import WitchAttack from "./witchAttack.js";
 import Wolf from "./wolf.js";
 import Knight from "./knight.js";
 import Enemy from "./enemy.js";
+import Torquemada from "./torquemada.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -95,9 +96,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.setVelocity(0)
 		
 		if (t > this.lastBasicAttack + this.rate) {	
-			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-			if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
-		
+			//var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+			//if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			var torque = this.scene.torquemada;
+			if (torque.isAlive && torque instanceof Torquemada ) new WitchAttack(this.scene, this.x, this.y, torque, this.damage);
 			this.lastBasicAttack = t;
 
 		}

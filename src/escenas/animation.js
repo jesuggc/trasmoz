@@ -67,7 +67,7 @@ export default class Animation extends Phaser.Scene {
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
-		this.wolfSize = 2;
+		this.wolfSize = 0; //AQUI UN 2
 
 		
 		this.witch = new Witch(this, 532, 3195);		
@@ -75,21 +75,26 @@ export default class Animation extends Phaser.Scene {
 		this.muchosLobos = this.add.group();
 
 		this.torquemada = new Torquemada(this,532,3250);
-
+		
+		this.time.addEvent({
+			delay: 1, // convierte a milisegundos
+			callback: this.torquemada.spawn_minions,
+			callbackScope: this
+		  });
 		for (var i = 0; i < this.wolfSize; i++) {
-			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(wolf);
-			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(knight);
+		let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
+		this.muchosLobos.add(wolf);
+		let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+		this.muchosLobos.add(knight);
 		}
 
 		this.physics.add.collider(this.muchosLobos, this.witch, function(enemy, witch) {
-			enemy.attack();
-			}, null, this);
+		enemy.attack();
+		}, null, this);
 
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-
+		this.physics.add.collider(this.torquemada,this.witch, this.torquemada.attack(), null, this);
 		
 		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
