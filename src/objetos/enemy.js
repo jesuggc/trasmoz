@@ -7,9 +7,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	 * @param {number} y
      * 
 	 */
-	constructor(scene, x, y) {
+	constructor(scene, x, y, speed, health,damage) {
 		super(scene, x, y);
-		this.speed = 70;
+		this.speed = speed;
+		this.health = health;
+		this.initialLife = health;
+		this.damage = damage;
 		this.diagonalSpeed = 49;
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
@@ -61,6 +64,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 	receiveDamage(damage){
 		this.health -= damage;
+		console.log(this.health)
 		this.tinkle();
 		this.printDamage(damage);
 	}

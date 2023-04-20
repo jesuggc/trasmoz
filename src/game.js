@@ -32,7 +32,7 @@ let config = {
         zoom: 1
     },
     scene: [
-        // Title,
+        Title,
         Animation,
         Gameover,
         Pause,
