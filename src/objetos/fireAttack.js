@@ -21,7 +21,7 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
         });
 
         this.play('idleFireAttack');
-
+        
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
         // this.scene.physics.add.collider(this, this.objective, this.burn, null, this);
@@ -36,6 +36,7 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
 
     preUpdate(t,dt){
         super.preUpdate(t, dt);
+        
     }
 
     // addCollider(muchosLobos, callbackObj) {

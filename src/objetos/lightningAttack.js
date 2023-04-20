@@ -10,12 +10,13 @@ export default class LightningAttack extends Phaser.GameObjects.Sprite {
 
         this.witch = this.scene.witch;
         this.damage = damage;
+        // this.objective = objective;
         this.scene.add.existing(this);
 
         this.scene.anims.create({
             key: 'idleLightningAttack',
-            frames: scene.anims.generateFrameNumbers('lightningAttack', {start:0, end:8}),
-            frameRate: 15,
+            frames: scene.anims.generateFrameNumbers('lightningAttack', {start:3, end:12}),
+            frameRate: 7,
             repeat: -1
         });
 
@@ -24,12 +25,13 @@ export default class LightningAttack extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
 
-        this.scene.time.addEvent({delay: 2000, callback: function(){
+        this.scene.time.addEvent({delay: 1000, callback: function(){
             this.destroy();
         }, callbackScope: this});
     }
     preUpdate(t, dt){
         super.preUpdate(t, dt);
+       
     }
     
     

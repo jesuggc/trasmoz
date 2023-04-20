@@ -121,37 +121,38 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 	if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		// 	this.lastBasicAttack = t;
 		// }
-		// if (this.flowerArray[0]){
-		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
-		// 		// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-		// 		 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
-		// 		// this.scene.add.existing(fireAttack);
-		// 		// this.scene.fireAttacks.add(fireAttack);
-		// 		// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
-		// 		this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
-		// 			console.log("quemo");
-		// 			obj2.receiveDamage(this.damage);
-		// 			// s
+		if (this.flowerArray[0]){
+			if (t > this.lastFireAttack + this.fireAttackCooldown){
+				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+				 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
+				// this.scene.add.existing(fireAttack);
+				// this.scene.fireAttacks.add(fireAttack);
+				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
+				this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
+					console.log("quemo");
+					obj2.receiveDamage(this.damage);
+					
 		
-		// 		});
-		// 		this.lastFireAttack = t;
-		// 	}
-		// }
-		// if (this.flowerArray[1]){
-		// 	if(t > this.lastLightningAttack + this.lightningAttackCooldown){
+				});
+				this.lastFireAttack = t;
+			}
+		}
+		if (this.flowerArray[1]){
+			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
 
-		// 		var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
 
-		// 		this.lightningAttack = new LightningAttack(this.scene, wolf.x , wolf.y,this.wolf, this.damage);
-		// 		this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
-		// 			console.log("rayo");
-		// 			obj2.receiveDamage(obj2.health);
-		// 			// obj.destroy();
+				this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
+				// this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
+				// 	console.log("rayo");
+				// 	obj2.receiveDamage(obj2.health);
+				// 	// obj.destroy();
 		
-		// 		});
-		// 		this.lastLightningAttack = t;
-		// 	}
-		// }
+				// });
+				enemy.receiveDamage(this.damage);
+				this.lastLightningAttack = t;
+			}
+		}
 		// if (this.flowerArray[2]){
 		// 	if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
 				
@@ -164,8 +165,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// }
 		if (this.flowerArray[3]){
 			if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
+				
 				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
 				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
+				// this.scene.physics.add.collider(this.poisonAttack, this.objetive, (obj, obj2) =>{
+
+				// });
+
 				this.lastPoisonAttack = t;
 			}
 		}
