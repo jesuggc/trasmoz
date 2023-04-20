@@ -92,8 +92,8 @@ export default class Animation extends Phaser.Scene {
 
 		
 		if(Math.random() < this.nnprob) {
-			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
-			this.noname2= this.add.image(120, 20, 'noname2').setScale(0.5);
+			this.noname1 = this.add.image(300, 300, 'noname').setScale(0.5);
+			this.noname2= this.add.image(300, 300, 'noname2').setScale(0.5);
 		}
 
 		// TEXTO DE NIVEL
