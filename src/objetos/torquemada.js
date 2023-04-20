@@ -8,7 +8,8 @@ export default class Torquemada extends Enemy {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y,10,40,2);
-		this.health = 1000;
+		this.health = 10000;
+		this.maxHealth = 10000;
 		this.estaAtacando = false;
 		this.body.pushable=false;
 		this.damage=50;
@@ -21,9 +22,8 @@ export default class Torquemada extends Enemy {
 		});
 
 		// BARRA DE VIDA
-		this.lifebar = this.scene.add.rectangle(this.x,this.y,this.health,6,0xff0000).setDepth(3);
-		//this.lifebarS = this.scene.add.rectangle(this.x,this.y,this.health,6,0x000000).setDepth(2);
-		this.lifebar.setScale(50);
+		this.lifebar = this.scene.add.rectangle(this.x,this.y,170,6,0xff0000).setDepth(3);
+		this.lifebarS = this.scene.add.rectangle(this.x,this.y,170,6,0x000000).setDepth(2);
 		
 		this.play('nonameidle');
 		
@@ -40,14 +40,26 @@ export default class Torquemada extends Enemy {
 		
         if (this.witch.x > this.x) this.setFlipX(true);
         else this.setFlipX(false);
-		this.lifebar.x = this.x
-		this.lifebar.y = this.y
-		//this.lifebarS.x = this.x
-		//this.lifebarS.y = this.y
-		// this.lifebar.setY(y)
+
+		this.dinamicLifebar(this.lifebar, this.lifebarS);
+		if(this.health <= this.maxHealth/2){
+			this.generateEnemies();
+		}
+
 	}
-    
+    dinamicLifebar(lb,lbs){
+		lb.width = 170 * this.health/this.maxHealth;
+		lb.x = this.x;
+		lb.y = this.y + this.height;
+		lbs.x = this.x;
+		lbs.y = this.y + this.height;
+
+	}
 	
+	generateEnemies(){
+
+	}
+
 	attack() {
 		super.attack();
 	}

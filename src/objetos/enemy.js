@@ -41,7 +41,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
         }
-       
+		this.setActive(this.scene.spawn)
+		if(!this.scene.spawn){
+			this.x = 0;
+			this.y = 0;
+		}
+		// this.body.setActive(false); // El enemy sigue haciendo collider
 		if (this.health <= 0) this.die();
 	}
 	die(){

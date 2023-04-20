@@ -67,8 +67,8 @@ export default class Animation extends Phaser.Scene {
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
-		this.wolfSize = 0; //AQUI UN 2
-
+		this.wolfSize = 1; //AQUI UN 2
+		this.spawn = false;
 		
 		this.witch = new Witch(this, 532, 3195);		
 		this.physics.add.collider(this.witch, this.colisiones);
@@ -82,10 +82,10 @@ export default class Animation extends Phaser.Scene {
 			callbackScope: this
 		  });
 		for (var i = 0; i < this.wolfSize; i++) {
-		let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-		this.muchosLobos.add(wolf);
-		let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-		this.muchosLobos.add(knight);
+			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
+			this.muchosLobos.add(wolf);
+			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+			this.muchosLobos.add(knight);
 		}
 
 		this.physics.add.collider(this.muchosLobos, this.witch, function(enemy, witch) {
