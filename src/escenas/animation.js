@@ -4,6 +4,7 @@ import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
 import Knight from '../objetos/knight.js';
 import Enemy from '../objetos/enemy.js';
+import Torquemada from '../objetos/torquemada.js';
 /**
  * @extends Phaser.Scene
  */
@@ -32,6 +33,7 @@ export default class Animation extends Phaser.Scene {
 		
 		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
+		this.load.spritesheet('torquemada', 'assets/noname/noName1.png', { frameWidth: 60, frameHeight: 55 })
 		
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
@@ -71,6 +73,9 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 532, 3195);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
+
+		this.torquemada = new Torquemada(this,532,3250);
+
 		for (var i = 0; i < this.wolfSize; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
