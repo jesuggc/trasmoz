@@ -58,7 +58,7 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 300, 300);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < 2; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
 		}

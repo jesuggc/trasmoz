@@ -5,38 +5,45 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
      * @param {number} x - coordenada x
      * @param {number} y - coordenada y
     */
-    constructor(scene, x, y, damage){
+    constructor(scene, witch, x, y, damage){
         super(scene, x, y, 'fireAttack');
-
-        this.witch = this.scene.witch;
+    
+        this.witch = witch;
         // this.objetive = objetive;
         this.scene.add.existing(this);
         this.damage = damage;
 
-        this.scene.anims.create({
+        let animation = this.scene.anims.create({
             key: 'idleFireAttack',
             frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end: 25}),
-            frameRate: 20,
-            repeat: -1
+            frameRate: 35,
+            repeat: 0
         });
 
         this.play('idleFireAttack');
         
         this.scene.physics.add.existing(this);
-        this.body.onCollide = true;
+        this.setVisible(false);
+            this.body.enable= false;
+        // this.body.onCollide = true;
         // this.scene.physics.add.collider(this, this.objective, this.burn, null, this);
 
         // sthis.scene.physics.overlap(this, )
 
-        this.scene.time.addEvent({delay: 1000, callback: function(){
-            this.destroy();
-        }, callbackScope: this});
+        this.on('animationcomplete', function (anim, frame) {
+            this.setVisible(false);
+            this.body.enable= false;
+        }, this);
 
     }
 
     preUpdate(t,dt){
         super.preUpdate(t, dt);
-        
+
+        if(this.body.enable){
+            this.x = this.witch.x;
+            this.y = this.witch.y;
+        }
     }
 
     // addCollider(muchosLobos, callbackObj) {

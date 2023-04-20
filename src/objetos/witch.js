@@ -105,6 +105,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
+		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+
 	}
 
 	preUpdate(t, dt) {
@@ -124,7 +127,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if (this.flowerArray[0]){
 			if (t > this.lastFireAttack + this.fireAttackCooldown){
 				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-				 this.fireAttack = new FireAttack(this.scene, this.x, this.y, this.damage);
+				 this.fireAttack.setVisible(true);
+				 this.fireAttack.body.enable = true;
+				 
 				// this.scene.add.existing(fireAttack);
 				// this.scene.fireAttacks.add(fireAttack);
 				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
