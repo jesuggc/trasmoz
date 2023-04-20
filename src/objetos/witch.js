@@ -100,7 +100,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 			this.lastBasicAttack = t;
 
-			console.log(this.speed, this.health, this.damage, this.shield, this.healthRegen, this.rate);
 		}
 		if(this.scene.noname1){
 			this.scene.noname1.setRotation(Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y));

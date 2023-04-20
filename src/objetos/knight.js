@@ -7,10 +7,7 @@ export default class Knight extends Enemy {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y);
-		this.initialLife = 40;
-		this.health = this.initialLife; 
-		this.damage = 3;
+		super(scene, x, y,70,40,3);
 
 		this.estaAtacando = false;
 
@@ -51,17 +48,14 @@ export default class Knight extends Enemy {
 		super.attack();		
 		
 			if (!this.estaAtacando) {
-				// Establecer la variable de estado a verdadero para indicar que se está reproduciendo la animación de ataque
 				this.estaAtacando = true;
 
-				// Reproducir la animación de ataque
 				this.play('attackKnight');
 				var self = this;
-				// Establecer un temporizador para restablecer la variable de estado después de un tiempo determinado
 				setTimeout(function () {
 					self.estaAtacando = false;
 					self.play('walkKnight');
-				}, 600); // Cambiar 1000 por el tiempo en milisegundos que dura la animación de ataque
+				}, 600); 
 
 			}
 		}
