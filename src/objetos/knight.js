@@ -6,8 +6,9 @@ export default class Knight extends Enemy {
 	 * @param {number} x
 	 * @param {number} y
 	 */
+	
 	constructor(scene, x, y) {
-		super(scene, x, y,70,40,3);
+		super(scene, x, y,40,40,3);
 
 		this.estaAtacando = false;
 

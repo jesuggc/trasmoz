@@ -35,7 +35,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
    
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		this.scene.physics.moveToObject(this,this.scene.witch, 50);  
+		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
         if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;

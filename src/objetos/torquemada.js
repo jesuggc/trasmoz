@@ -7,10 +7,7 @@ export default class Torquemada extends Enemy {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y);
-		this.initialLife = 40;
-		this.health = this.initialLife; 
-		this.damage = 3;
+		super(scene, x, y,10,40,2);
 
 		this.estaAtacando = false;
 
@@ -21,7 +18,10 @@ export default class Torquemada extends Enemy {
 			repeat: 0
 		});
 
-		
+		// BARRA DE VIDA
+		this.lifebar = this.scene.add.rectangle(this.x,this.y,170,6,0xff0000).setDepth(3);
+		this.lifebarS = this.scene.add.rectangle(this.x,this.y,170,6,0x000000).setDepth(2);
+
 		
 		
 		// COLLIDER
@@ -37,7 +37,11 @@ export default class Torquemada extends Enemy {
 		
         if (this.witch.x > this.x) this.setFlipX(true);
         else this.setFlipX(false);
-		
+		this.lifebar.x = this.x
+		this.lifebar.y = this.y
+		this.lifebarS.x = this.x
+		this.lifebarS.y = this.y
+		// this.lifebar.setY(y)
 	}
     
 	
