@@ -44,19 +44,19 @@ export default class Knight extends Enemy {
 	}
     
 	
-	attack() {
-		super.attack();		
+	// attack() {
+	// 	super.attack();		
 		
-			if (!this.estaAtacando) {
-				this.estaAtacando = true;
+	// 		if (!this.estaAtacando) {
+	// 			this.estaAtacando = true;
 
-				this.play('attackKnight');
-				var self = this;
-				setTimeout(function () {
-					self.estaAtacando = false;
-					self.play('walkKnight');
-				}, 600); 
+	// 			this.play('attackKnight');
+	// 			var self = this;
+	// 			setTimeout(function () {
+	// 				self.estaAtacando = false;
+	// 				self.play('walkKnight');
+	// 			}, 600);
 
-			}
-		}
+	// 		}
+	// 	}
 }

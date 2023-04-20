@@ -26,7 +26,7 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		this.scene.physics.add.collider(this, this.objetive, this.isShooted, null, this);
+		this.scene.physics.add.overlap(this, this.objetive, this.isShooted, null, this);
 
 		// Ajustamos el "collider" de nuestro ataque
 		this.bodyOffsetWidth = this.body.width/4;
@@ -50,12 +50,8 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		this.setRotation(this.radianAngle);
 		
 		this.scene.physics.moveToObject(this,this.objetive, this.speed);
-		if (this.scene.physics.overlap(this,this.objetive)){
-			this.objetive.receiveDamage(this.damage);
-			this.destroy();
-		}
 		
-		else if (!this.objetive.isAlive) this.destroy()          
+		if (!this.objetive.isAlive) this.destroy()          
 	}
     
 	resetCollider(){

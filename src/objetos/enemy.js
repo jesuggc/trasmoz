@@ -64,7 +64,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 	receiveDamage(damage){
 		this.health -= damage;
-		console.log(this.health)
+		console.log(this)
 		this.tinkle();
 		this.printDamage(damage);
 	}
