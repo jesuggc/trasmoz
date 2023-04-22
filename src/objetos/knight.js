@@ -9,7 +9,7 @@ export default class Knight extends Enemy {
 	
 	constructor(scene, x, y) {
 		super(scene, x, y,40,40,3);
-
+		this.damage=3;
 		this.estaAtacando = false;
 
         this.scene.anims.create({

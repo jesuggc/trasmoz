@@ -11,23 +11,24 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.setScale(1);
 		this.witch = this.scene.witch;
 		
-        /*Cambiar
+		
+        
 		this.scene.anims.create({
-			key: 'idleAttack',
-			frames: scene.anims.generateFrameNumbers('witchAttack', {start:0, end:44}),
+			key: 'idleTAttack',
+			frames: scene.anims.generateFrameNumbers('torqueAttack', {start:0, end:44}),
 			frameRate: 50,
 			repeat: -1
 		});
 		
-		this.play('idleAttack');
+		this.play('idleTAttack');
 		
-		this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
-		this.setRotation(this.radianAngle);
-		this.scene.add.existing(this);*/
+		/*this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
+		this.setRotation(this.radianAngle);*/
+		this.scene.add.existing(this);
 
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		this.scene.physics.add.collider(this, this.objetive, this.isShooted, null, this);
+		this.scene.physics.add.collider(this, this.witch , this.isShooted, null, this);
 
 		// Ajustamos el "collider" de nuestro ataque
 		this.bodyOffsetWidth = this.body.width/4;
@@ -47,16 +48,16 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
    
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.objetive.x, this.objetive.y);
+		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.witch.x, this.witch.y);
 		this.setRotation(this.radianAngle);
 		
-		this.scene.physics.moveToObject(this,this.objetive, this.speed);
-		if (this.scene.physics.overlap(this,this.objetive)){
-			this.objetive.receiveDamage(this.damage);
+		this.scene.physics.moveToObject(this,this.witch , this.speed);
+		if (this.scene.physics.overlap(this,this.witch )){
+			this.witch.receiveDamage(this.damage);
 			this.destroy();
 		}
 		
-		else if (!this.objetive.isAlive) this.destroy()          
+		else if (!this.witch.isAlive) this.destroy()          
 	}
     
 	resetCollider(){
@@ -65,7 +66,8 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 	}
 
 	isShooted(){
-		this.witch.perderVida(this.torquemada.damage);
+		console.log(this.torque.damage);
+		this.witch.perderVida(this.torque.damage);
 		this.destroy();
 	}
 

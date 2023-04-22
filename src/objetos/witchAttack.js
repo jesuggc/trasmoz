@@ -51,7 +51,8 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		
 		this.scene.physics.moveToObject(this,this.objetive, this.speed);
 		if (this.scene.physics.overlap(this,this.objetive)){
-			this.objetive.receiveDamage(this.damage);
+			
+			this.objetive.receiveDamage(this.witch.damage);
 			this.destroy();
 		}
 		

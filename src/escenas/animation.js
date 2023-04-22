@@ -19,6 +19,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
+		this.load.spritesheet('torqueAttack', 'assets/torquemada/SmallStar.png', { frameWidth: 64, frameHeight: 64 }) //Esto de torquemada iria en escena del castillo
 		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
 		this.load.image('patronGround', 'levels/ground.png'); 
 		this.load.image('patronTrees', 'levels/trees.png'); 
@@ -33,7 +34,8 @@ export default class Animation extends Phaser.Scene {
 		
 		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
-		this.load.spritesheet('torquemada', 'assets/noname/noName1.png', { frameWidth: 60, frameHeight: 55 })
+		this.load.spritesheet('torquemada', 'assets/torquemada/torquemadaIdle.png', { frameWidth: 100, frameHeight: 133 }) //esto en escena castle
+		this.load.spritesheet('torquemadaAttack', 'assets/torquemada/torquemadaAttack.png', { frameWidth: 138, frameHeight: 180 }) //esto en escena castle
 		
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
@@ -74,13 +76,14 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
 
-		this.torquemada = new Torquemada(this,532,3250);
+		this.torquemada = new Torquemada(this,533,3250);
 		
 		this.time.addEvent({
-			delay: 1, // convierte a milisegundos
+			delay: 1, //*1000  convierte a milisegundos
 			callback: this.torquemada.spawn_minions,
 			callbackScope: this
 		  });
+		  //He comentado, quiero probar que es torquemada quien spawnea minions y no animation.
 		for (var i = 0; i < this.wolfSize; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
 			this.muchosLobos.add(wolf);
@@ -94,7 +97,10 @@ export default class Animation extends Phaser.Scene {
 
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
-		this.physics.add.collider(this.torquemada,this.witch, this.torquemada.attack(), null, this);
+		this.physics.add.collider(this.torquemada,this.witch,function(torque) {
+			torque.attack();
+			}, null, this);
+	
 		
 		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
@@ -156,6 +162,10 @@ export default class Animation extends Phaser.Scene {
 		if(this.witch.health <= 0){
 			this.scene.pause();
 			this.scene.launch('gameover');
+		}
+		if(this.torquemada.health<=0){ //Esto en escena castillo solo
+			this.scene.pause();
+			this.scene.launch('win');
 		}
 	}
 	
