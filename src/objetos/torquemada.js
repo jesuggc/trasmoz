@@ -17,7 +17,7 @@ export default class Torquemada extends Enemy {
 		this.body.pushable=false;
 		this.damage=5;
 		this.lastBasicAttack = 0;
-		this.rate = 2000;
+		this.rate = 1200;
         this.scene.anims.create({
 			key: 'torquemadaidle',
 			frames: scene.anims.generateFrameNumbers('torquemada', {start:0, end:1}),
@@ -37,10 +37,10 @@ export default class Torquemada extends Enemy {
 		this.play('torquemadaidle');
 		
 		// COLLIDER
-		this.body.setSize(this.body.width, this.body.height);
+		// this.body.setSize(this.body.width, this.body.height);
+        this.body.setSize(this.body.width*1.5, this.body.height*2);
 
 		// this.body.setOffset(this.body.width/5, this.body.height / 10);
-        this.body.setSize(this.body.width/2, this.body.height);
     
 	}
 
@@ -72,9 +72,9 @@ export default class Torquemada extends Enemy {
     dinamicLifebar(lb,lbs){
 		lb.width = 170 * this.health/this.maxHealth;
 		lb.x = this.x;
-		lb.y = this.y + this.height;
+		lb.y = this.y + this.height/2 + 20;
 		lbs.x = this.x;
-		lbs.y = this.y + this.height;
+		lbs.y = this.y + this.height/2 + 20;
 		lb.setDepth(3);
 	}
 	

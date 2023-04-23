@@ -6,12 +6,12 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 	 */
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'torqueAttack');
-		this.speed = 170; // Nuestra velocidad de movimiento sera 140
+		this.speed = 17; // Nuestra velocidad de movimiento sera 140
 		this.torque = this.scene.torquemada; 
 		this.setScale(1);
 		this.witch = this.scene.witch;
 		
-		
+		this.damage = 93;
         
 		this.scene.anims.create({
 			key: 'idleTAttack',
@@ -22,8 +22,6 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		
 		this.play('idleTAttack');
 		
-		/*this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
-		this.setRotation(this.radianAngle);*/
 		this.scene.add.existing(this);
 
 		this.scene.physics.add.existing(this);
@@ -40,9 +38,10 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
 
-		this.scene.time.addEvent({delay: 2000, callback: function(){
+		this.scene.time.addEvent({delay: 10000, callback: function(){
 			this.destroy();
         }, callbackScope: this});
+		this.scene.physics.moveTo(this,this.witch.x, this.witch.y,200);
 		
 	}
    
@@ -51,7 +50,7 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.witch.x, this.witch.y);
 		this.setRotation(this.radianAngle);
 		
-		this.scene.physics.moveToObject(this,this.witch , this.speed);
+		// this.scene.physics.moveToObject(this,this.witch , this.speed);
 		if (this.scene.physics.overlap(this,this.witch )){
 			this.witch.receiveDamage(this.damage);
 			this.destroy();
@@ -60,14 +59,14 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		else if (!this.witch.isAlive) this.destroy()          
 	}
     
-	resetCollider(){
-		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-	}
+	// resetCollider(){
+	// 	this.body.width = this.bodyWidth;
+	// 	this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
+	// }
 
 	isShooted(){
 		console.log(this.torque.damage);
-		this.witch.perderVida(this.torque.damage);
+		this.witch.perderVida(this.damage);
 		this.destroy();
 	}
 
