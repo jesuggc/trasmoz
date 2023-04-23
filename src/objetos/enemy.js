@@ -41,7 +41,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
         }
-       
+		//dthis.setActive(this.scene.spawn)
+		/*if(!this.scene.spawn){
+			this.x = 0;
+			this.y = 0;
+		}*/
+		// this.body.setActive(false); // El enemy sigue haciendo collider
 		if (this.health <= 0) this.die();
 	}
 	die(){
@@ -64,7 +69,6 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 	receiveDamage(damage){
 		this.health -= damage;
-		console.log(this.health)
 		this.tinkle();
 		this.printDamage(damage);
 	}
@@ -86,6 +90,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	attack(){
+		console.log("por contacto"+this.damage)
 		this.witch.perderVida(this.damage)
 	}
     

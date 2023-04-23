@@ -9,6 +9,7 @@ export default class Wolf extends Enemy {
 	constructor(scene, x, y) {
 		super(scene, x, y, 50,20,2);
 		this.setScale(0.5);
+		this.damage=2;
         this.scene.anims.create({key: 'walkWolf',
 			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:4}),
 			frameRate: 7,
