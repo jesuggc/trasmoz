@@ -149,7 +149,7 @@ export default class Animation extends Phaser.Scene {
 		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(1);
 		button.on('pointerup', poainter => {
 			this.scene.pause();
-			this.scene.launch('pause', {witch: this.witch})
+			this.scene.launch('pause', {witch: this.witch, backScene: 'animation'})
 		})
 		
 		// CAMARA 
@@ -182,12 +182,12 @@ export default class Animation extends Phaser.Scene {
 	levelUp(){
 		this.witch.body.setVelocity(0);
 		this.scene.pause();
-		this.scene.launch('levelUp', {witch: this.witch});
+		this.scene.launch('levelUp', {witch: this.witch, backScene: 'animation'});
 	}
 
 	update(time,delta){
 		if(this.witch.health <= 0){
-			this.scene.pause();
+			this.scene.stop();
 			this.scene.launch('gameover');
 		}
 		if(this.torquemada.health<=0){ //Esto en escena castillo solo

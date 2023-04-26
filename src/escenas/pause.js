@@ -28,6 +28,7 @@ export default class Title extends Phaser.Scene {
 
     init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
+        this.backScene = data.backScene
 	}
 
 	create() {
@@ -101,7 +102,7 @@ export default class Title extends Phaser.Scene {
                 this.playButton2.setVisible(false);
                     this.playButton.setVisible(true);
                     this.time.addEvent({delay: 400, callback: function(){
-                        this.scene.resume('animation');
+                        this.scene.resume(this.backScene);
                         this.scene.stop()
                     }, callbackScope: this});
                 }, callbackScope: this});

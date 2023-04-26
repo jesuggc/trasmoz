@@ -122,9 +122,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 		if (t > this.lastBasicAttack + this.rate) {	
 			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-			if (enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
-			// var torque = this.scene.torquemada;
-			// if (torque.isAlive && torque instanceof Torquemada ) new WitchAttack(this.scene, this.x, this.y, torque, this.damage);
+			if (enemy && enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+		
 			this.lastBasicAttack = t;
 
 		}
@@ -180,6 +179,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(this.testingKey.isDown){
 			this.speed = 600;
 			this.diagonalSpeed = 424;
+			this.health = 500000;
+			this.maxHealth = 500000; //HEALTH
+			this.healthRegen = 5; //LIFE REG
 		}
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){

@@ -86,7 +86,7 @@ export default class Title extends Phaser.Scene {
 				this.playButton.setVisible(true);
 				this.time.addEvent({delay: 400, callback: function(){
 				this.soundTitle.stop();
-				this.scene.start('animation'); 
+				this.scene.start('castle'); 
 				}, callbackScope: this});
 			}, callbackScope: this});
 	    });
