@@ -17,11 +17,10 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.spritesheet('witch', 'assets/Bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 'assets/Bruja/FireBall.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
+		this.load.spritesheet('witch', 'assets/bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
+		this.load.spritesheet('witchAttack', 'assets/bruja/FireBall.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('expBall', 'assets/bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
 		this.load.spritesheet('torqueAttack', 'assets/torquemada/SmallStar.png', { frameWidth: 64, frameHeight: 64 }) //Esto de torquemada iria en escena del castillo
 		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
 		this.load.image('patronGround', 'levels/ground.png'); 
@@ -35,6 +34,10 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('patronStair', 'levels/stair.png'); 
 		this.load.image('patronSquare', 'levels/square.png'); 
 		this.load.image('patronBridge', 'levels/bridge.png'); 
+		this.load.image('fireFlower', 'assets/flowers/fireFlower.png')
+		this.load.image('lightningFlower', 'assets/flowers/lightningFlower.png')
+		this.load.image('iceFlower', 'assets/flowers/iceFlower.png')
+		this.load.image('poisonFlower', 'assets/flowers/poisonFlower.png')
 
 		
 		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
@@ -42,15 +45,11 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('torquemada', 'assets/torquemada/torquemadaIdle.png', { frameWidth: 100, frameHeight: 180 }) //esto en escena castle
 		this.load.spritesheet('torquemadaAttack', 'assets/torquemada/torquemadaAttack.png', { frameWidth: 138, frameHeight: 180 }) //esto en escena castle
 		
-		this.load.spritesheet('fireFlower', 'assets/GUI/Hibiscus.png', { frameWidth: 24, frameHeight: 24 })
-		this.load.spritesheet('lightningFlower', 'assets/GUI/Daffodil.png', { frameWidth: 24, frameHeight: 24 })
-		this.load.spritesheet('iceFlower', 'assets/GUI/Lavender3.png', { frameWidth: 23.83, frameHeight: 24 })
-		this.load.spritesheet('poisonFlower', 'assets/GUI/Petunia2.png', { frameWidth: 23.83, frameHeight: 24 })
 
-		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png',{frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunderstrike.png', {frameWidth: 64, frameHeight: 64})
-		this.load.spritesheet('freezeAttack', 'assets/Bruja/freeze.png', {frameWidth: 128, frameHeight: 128 })
-		this.load.spritesheet('poisonAttack', 'assets/Bruja/poisonProjectile.png', {frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('fireAttack', 'assets/bruja/fireAttack.png',{frameWidth: 96, frameHeight: 96})
+		this.load.spritesheet('lightningAttack', 'assets/bruja/lightningAttack.png', {frameWidth: 64, frameHeight: 64})
+		this.load.spritesheet('freezeAttack', 'assets/bruja/freezeAttack.png', {frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('poisonAttack', 'assets/bruja/poisonAttack.png', {frameWidth: 64, frameHeight: 64 })
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
 		this.load.image('noname2', 'assets/noname/noName2.png');
@@ -94,10 +93,10 @@ export default class Animation extends Phaser.Scene {
 		
 		this.torquemada = new Torquemada(this,533,3350).setActive(false);
 		
-		this.fireflower = new FireFlower(this,390,355);
-		this.lightningflower = new LightningFlower(this, 390, 355);
-		this.iceflower = new IceFlower(this, 344, 1427);
-		this.poisonflower = new PoisonFlower(this, 4549, 390);
+		this.fireflower = new FireFlower(this,390,355,'fireFlower');
+		this.lightningflower = new LightningFlower(this, 4549, 392), 'lightningFlower';
+		this.iceflower = new IceFlower(this, 344, 1427, 'iceFlower');
+		this.poisonflower = new PoisonFlower(this, 4280, 1843, 'poisonFlower');
 		
 		for (var i = 0; i < this.wolfSize; i++) {
 			this.enemyPool.add(new Wolf(this, 0, 0));
