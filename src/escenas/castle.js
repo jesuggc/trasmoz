@@ -7,9 +7,9 @@ import Enemy from '../objetos/enemy.js';
 /**
  * @extends Phaser.Scene
  */
-export default class Animation extends Phaser.Scene {
+export default class Castle extends Phaser.Scene {
 	constructor() {
-		super({ key: 'animation' });
+		super({ key: 'castle' });
 	}
 
 	preload() {
@@ -18,16 +18,9 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
-		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
-		this.load.image('patronGround', 'levels/ground.png'); 
-		this.load.image('patronTrees', 'levels/trees.png'); 
-		this.load.image('patronHouse', 'levels/witchHouse.png');
-		this.load.image('patronCliff', 'levels/cliff.png');
-		this.load.image('patronRocks', 'levels/rocks.png'); 
-		this.load.image('patronGraves', 'levels/graves.png');
-		this.load.image('patronDecoration', 'levels/decoration.png'); 
-		this.load.image('patronWater', 'levels/water.png'); 
-		this.load.image('patronStair', 'levels/stair.png'); 
+		this.load.tilemapTiledJSON('castleTilemap', 'levels/castillo.json'); 
+		this.load.image('patronCastle', 'levels/Castle.png'); 
+
 
 		
 		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
@@ -41,34 +34,28 @@ export default class Animation extends Phaser.Scene {
 	}
 	create() {
 		this.map = this.make.tilemap({
-			key: 'tilemap',
+			key: 'castleTilemap',
 			tileWidth: 16,
 			tileHeight: 16,
 			width: 64,
 			height: 32
 		});
-		const tileset1 = this.map.addTilesetImage('ground', 'patronGround'); //AQUI
-		const tileset2 = this.map.addTilesetImage('trees', 'patronTrees'); //AQUI
-		const tileset3 = this.map.addTilesetImage('witchHouse', 'patronHouse'); //AQUI
-		const tileset4 = this.map.addTilesetImage('cliff', 'patronCliff'); //AQUI
-		const tileset5 = this.map.addTilesetImage('rocks', 'patronRocks'); //AQUI
-		const tileset6 = this.map.addTilesetImage('graves', 'patronGraves'); //AQUI
-		const tileset7 = this.map.addTilesetImage('decoration', 'patronDecoration'); //AQUI
-		const tileset8 = this.map.addTilesetImage('water', 'patronWater'); //AQUI
-		const tileset9 = this.map.addTilesetImage('stair', 'patronStair'); //AQUI
-
-		this.suelo = this.map.createLayer('Suelo',  [ tileset1,tileset4, tileset8, tileset9 ]);
-		this.colisiones = this.map.createLayer('Colliders', [ tileset1,tileset3,tileset4,tileset5,tileset6,tileset7, tileset8, tileset9 ]).setCollisionByExclusion(-1);
-		this.arboles = this.map.createLayer('Arboles', [ tileset2,tileset7]).setDepth(2);
-		this.arboles2 = this.map.createLayer('Arboles 2', [ tileset2,tileset7]).setDepth(2);;
-		this.arboles3 = this.map.createLayer('Arboles 3', [ tileset2,tileset7]).setDepth(2);;
-
+		const tileset = this.map.addTilesetImage('castillo', 'patronCastle'); //AQUI
+        
+        
+		this.suelo = this.map.createLayer('Suelo',  [ tileset]);
+		this.colisiones = this.map.createLayer('Colisiones', [tileset]).setCollisionByExclusion(-1);
+		this.puertas = this.map.createLayer('Puertas', [tileset]).setVisible(false)
+		this.decorado = this.map.createLayer('Decorado', [tileset]);
+        this.evento = this.map.createLayer('Evento', [tileset]).setVisible(false);
+        this.eventoActivado = false;
+        
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
 		this.wolfSize = 2;
-
+        
 		
-		this.witch = new Witch(this, 532, 3195);		
+		this.witch = new Witch(this, 516, 1416);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
 		for (var i = 0; i < this.wolfSize; i++) {
@@ -84,6 +71,12 @@ export default class Animation extends Phaser.Scene {
 
 		this.physics.add.collider(this.muchosLobos, this.colisiones);
 		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
+        this.physics.add.overlap(this.witch,this.evento,(player, capa)=> {
+            if(capa.index !== -1 && !this.eventoActivado)
+            this.puertas.setVisible(true);
+            this.physics.add.collider(this.witch, this.puertas);
+            this.physics.add.collider(this.muchosLobos, this.puertas);
+        })
 
 		
 		if(Math.random() < this.nnprob) {
@@ -106,7 +99,7 @@ export default class Animation extends Phaser.Scene {
 		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(1);
 		button.on('pointerup', poainter => {
 			this.scene.pause();
-			this.scene.launch('pause', {witch: this.witch, backScene: 'animation'})
+			this.scene.launch('pause', {witch: this.witch, backScene: 'castle'})
 		})
 		
 		// CAMARA 
@@ -117,7 +110,6 @@ export default class Animation extends Phaser.Scene {
 		this.events.on('resume', ( sys, skill) =>{
 			if (skill) this.witch[skill.skillSelected]()
 		})
-		
 	}
 	generateRandomY(){
 		let k = this.witch.y;
@@ -139,12 +131,12 @@ export default class Animation extends Phaser.Scene {
 	levelUp(){
 		this.witch.body.setVelocity(0);
 		this.scene.pause();
-		this.scene.launch('levelUp', {witch: this.witch, backScene: 'animation'});
+		this.scene.launch('levelUp', {witch: this.witch, backScene: 'castle'});
 	}
 
 	update(time,delta){
 		if(this.witch.health <= 0){
-			this.scene.stop();
+            this.scene.stop();
 			this.scene.launch('gameover');
 		}
 	}

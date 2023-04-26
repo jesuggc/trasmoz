@@ -21,6 +21,7 @@ export default class LevelUp extends Phaser.Scene {
 
 	init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
+		this.backScene = data.backScene;
 	}
 
 	create() {
@@ -98,7 +99,7 @@ export default class LevelUp extends Phaser.Scene {
 	changeScene(ab) {
 		this.scene.pause();
         this.scene.setVisible(false);
-		this.scene.resume('animation',{skillSelected: this.abilityMap.get(ab)})
+		this.scene.resume(this.backScene,{skillSelected: this.abilityMap.get(ab)})
 	}
 
 	getRandomAbility(abilities) {

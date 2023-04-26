@@ -2,6 +2,7 @@ import Animation from './escenas/animation.js';
 import Title from './escenas/title.js'
 import Pause from './escenas/pause.js'
 import LevelUp from './escenas/levelUp.js';
+import Castle from './escenas/castle.js'
 import Credits from './escenas/credits.js';
 import Gameover from './escenas/gameover.js';
 /**
@@ -34,6 +35,7 @@ let config = {
     scene: [
         Title,
         Animation,
+        Castle,
         Gameover,
         Pause,
         Credits,
