@@ -38,7 +38,8 @@ export default class Torquemada extends Enemy {
 		
 		// COLLIDER
 		// this.body.setSize(this.body.width, this.body.height);
-        this.body.setSize(this.body.width*1.5, this.body.height*2);
+        //this.body.setSize(this.body.width*1.5, this.body.height*2);
+		this.body.setSize(this.width, this.height, true );
 
 		// this.body.setOffset(this.body.width/5, this.body.height / 10);
     
