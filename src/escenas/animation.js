@@ -46,17 +46,14 @@ export default class Animation extends Phaser.Scene {
 		this.load.spritesheet('lightningFlower', 'assets/GUI/Daffodil.png', { frameWidth: 24, frameHeight: 24 })
 		this.load.spritesheet('iceFlower', 'assets/GUI/Lavender3.png', { frameWidth: 23.83, frameHeight: 24 })
 		this.load.spritesheet('poisonFlower', 'assets/GUI/Petunia2.png', { frameWidth: 23.83, frameHeight: 24 })
+
 		this.load.spritesheet('fireAttack', 'assets/Bruja/FireCast_96x96.png',{frameWidth: 96, frameHeight: 96})
 		this.load.spritesheet('lightningAttack', 'assets/Bruja/Thunderstrike.png', {frameWidth: 64, frameHeight: 64})
 		this.load.spritesheet('freezeAttack', 'assets/Bruja/freeze.png', {frameWidth: 128, frameHeight: 128 })
 		this.load.spritesheet('poisonAttack', 'assets/Bruja/poisonProjectile.png', {frameWidth: 64, frameHeight: 64 })
-		// this.load.tilemapTiledJSON('tilemap', 'levels/Mapa_inicial.json');
-		// this.load.image('patronesTilemap', 'levels/tiles.png');
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
 		this.load.image('noname2', 'assets/noname/noName2.png');
-
-		// this.load.css('css', 'css/mainsheet.css')
 	}
 	create() {
 		this.map = this.make.tilemap({
@@ -87,38 +84,33 @@ export default class Animation extends Phaser.Scene {
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
-		this.wolfSize = 1; //AQUI UN 2
+		this.wolfSize = 0; //AQUI UN 2
 		this.spawn = false;
 		
-		this.witch = new Witch(this, 532, 3195);		
+		// this.witch = new Witch(this, 532, 3195);		
+		this.witch = new Witch(this, 200, 200);		
 		this.physics.add.collider(this.witch, this.colisiones);
-		this.muchosLobos = this.add.group();
-
-		this.torquemada = new Torquemada(this,533,3350);
+		this.enemyPool = this.add.group();
 		
-		this.fireflower = new FireFlower(this,350,350);
-		this.lightningflower = new LightningFlower(this, 350, 310);
-		this.iceflower = new IceFlower(this, 350, 270);
-		this.poisonflower = new PoisonFlower(this, 350, 230);
+		this.torquemada = new Torquemada(this,533,3350).setActive(false);
 		
-		// this.witch = new Witch(this, 300, 300);		
-		// this.physics.add.collider(this.witch, this.colisiones);
-		// this.muchosLobos = this.add.group();
-		// for (var i = 0; i < 2; i++) {
+		this.fireflower = new FireFlower(this,390,355);
+		this.lightningflower = new LightningFlower(this, 390, 355);
+		this.iceflower = new IceFlower(this, 344, 1427);
+		this.poisonflower = new PoisonFlower(this, 4549, 390);
+		
 		for (var i = 0; i < this.wolfSize; i++) {
-			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(wolf);
-			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(knight);
+			this.enemyPool.add(new Wolf(this, 0, 0));
+			this.enemyPool.add(new Knight(this, 0,0));
 		}
-		this.muchosLobos.add(this.torquemada);
+		this.enemyPool.add(this.torquemada);
 
-		this.physics.add.collider(this.muchosLobos, this.witch, function(enemy, witch) {
-		enemy.attack();
+		this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) {
+			enemy.attack();
 		}, null, this);
 
-		this.physics.add.collider(this.muchosLobos, this.colisiones);
-		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
+		this.physics.add.collider(this.enemyPool, this.colisiones);
+		this.physics.add.collider(this.enemyPool,this.enemyPool);
 		this.physics.add.collider(this.torquemada,this.witch,function(torque) {
 			torque.attack();
 			}, null, this);
@@ -141,6 +133,10 @@ export default class Animation extends Phaser.Scene {
 		// BARRA DE EXP
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
 
+		// CASTLE DOOR
+		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1);
+		this.physics.add.existing(this.prueba)
+		this.physics.add.overlap(this.witch, this.prueba, this.gotoCastle,null,this)
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,15,0xff0000).setScrollFactor(0).setDepth(3);
 		this.lifebarS = this.add.rectangle(328,100,366,15,0x000000).setScrollFactor(0).setDepth(2);
@@ -184,6 +180,11 @@ export default class Animation extends Phaser.Scene {
 		this.scene.pause();
 		this.scene.launch('levelUp', {witch: this.witch, backScene: 'animation'});
 	}
+	gotoCastle(){
+		// this.sys.scenePlugin.switch('castle', {witch :this.witch})
+		this.scene.launch('castle', {witch: this.witch});
+		this.scene.stop();
+	}
 
 	update(time,delta){
 		if(this.witch.health <= 0){
@@ -194,6 +195,7 @@ export default class Animation extends Phaser.Scene {
 			this.scene.pause();
 			this.scene.launch('win');
 		}
+
 	}
 	
 }

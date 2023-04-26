@@ -80,17 +80,18 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.scene.anims.create({
 			key: 'idleWitch',
-			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
+			frames: this.scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
 			frameRate: 12,
 			repeat: -1
 		});
 		
 		this.scene.anims.create({
 			key: 'runWitch',
-			frames: scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
+			frames: this.scene.anims.generateFrameNumbers('witch', {start:0, end:8}),
 			frameRate: 12,
 			repeat: -1
 		});
+		
 		
 		this.play('idleWitch');
 
@@ -102,15 +103,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.testingKey = this.scene.input.keyboard.addKey('P');
 
 		// COLLIDER
-		this.body.setSize(this.width, this.height, true );
-		// this.bodyOffsetWidth = this.body.width/2.5;
-		// this.bodyOffsetHeight = this.body.height/3;
-		// this.bodyWidth = this.body.width/5;
-		// this.bodyHeight = this.body.height/2;
-		
-		// this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		// this.body.width = this.bodyWidth;
-		// this.body.height = this.bodyHeight;
+		this.body.setSize(this.width*0.3, this.height*0.4, true ); // TODO
 
 		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
 
@@ -183,6 +176,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.health = 500000;
 			this.maxHealth = 500000; //HEALTH
 			this.healthRegen = 5; //LIFE REG
+			console.log(this.x,this.y)
 		}
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
@@ -263,18 +257,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	}
 
 	guardarFlor(flor){
-
-		if (flor instanceof FireFlower){
-			this.flowerArray[0]=true;
-		}
-		if (flor instanceof LightningFlower){
-			this.flowerArray[1]=true; 
-		}
-		if (flor instanceof IceFlower){
-			this.flowerArray[2]=true;
-		}
-		if(flor instanceof PoisonFlower){
-			this.flowerArray[3]=true;
-		}
+		if (flor instanceof FireFlower) this.flowerArray[0]=true;
+		if (flor instanceof LightningFlower) this.flowerArray[1]=true; 
+		if (flor instanceof IceFlower) this.flowerArray[2]=true;
+		if(flor instanceof PoisonFlower) this.flowerArray[3]=true;
 	}
+
 }

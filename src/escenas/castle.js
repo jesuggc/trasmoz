@@ -35,6 +35,10 @@ export default class Castle extends Phaser.Scene {
 
 	init (data) {
 		this.witch = data.witch;
+		this.witch.scene = this;
+		this.witch.createAnims();
+		console.log("🚀 ~ file: castle.js:38 ~ Castle ~ init ~ data.witch:", data.witch)
+		
 	}
 	create() {
 		this.map = this.make.tilemap({
@@ -45,7 +49,6 @@ export default class Castle extends Phaser.Scene {
 			height: 32
 		});
 		const tileset = this.map.addTilesetImage('castillo', 'patronCastle'); //AQUI
-        
         
 		this.suelo = this.map.createLayer('Suelo',  [ tileset]);
 		this.colisiones = this.map.createLayer('Colisiones', [tileset]).setCollisionByExclusion(-1);
@@ -62,25 +65,25 @@ export default class Castle extends Phaser.Scene {
 		this.witch.x = 516;
 		this.witch.y = 1416;	
 		this.physics.add.collider(this.witch, this.colisiones);
-		this.muchosLobos = this.add.group();
+		this.enemyPool = this.add.group();
 		for (var i = 0; i < this.wolfSize; i++) {
 			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(wolf);
+			this.enemyPool.add(wolf);
 			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-			this.muchosLobos.add(knight);
+			this.enemyPool.add(knight);
 		}
 
-		this.physics.add.collider(this.muchosLobos, this.witch, function(enemy, witch) {
+		this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) {
 			enemy.attack();
 			}, null, this);
 
-		this.physics.add.collider(this.muchosLobos, this.colisiones);
-		this.physics.add.collider(this.muchosLobos,this.muchosLobos);
+		this.physics.add.collider(this.enemyPool, this.colisiones);
+		this.physics.add.collider(this.enemyPool,this.enemyPool);
         this.physics.add.overlap(this.witch,this.evento,(player, capa)=> {
             if(capa.index !== -1 && !this.eventoActivado)
             this.puertas.setVisible(true);
             this.physics.add.collider(this.witch, this.puertas);
-            this.physics.add.collider(this.muchosLobos, this.puertas);
+            this.physics.add.collider(this.enemyPool, this.puertas);
         })
 
 		

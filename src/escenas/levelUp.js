@@ -10,13 +10,13 @@ export default class LevelUp extends Phaser.Scene {
 	}
 	 
 	preload(){
-		this.load.image('letter', 'assets/GUI/abilitiesBG.png');
-		this.load.image('Shield', 'assets/GUI/shield.png');
-		this.load.image('Life  Reg.', 'assets/GUI/healthRegen.png');
-		this.load.image('Speed', 'assets/GUI/movementSpeed.png');
-		this.load.image('Health', 'assets/GUI/health.png');
-		this.load.image('Damage', 'assets/GUI/damage.png');
-		this.load.image('Fire  Rate', 'assets/GUI/attackSpeed.png');
+		this.load.image('letter', 'assets/GUI/abilities/abilitiesBG.png');
+		this.load.image('Shield', 'assets/GUI/abilities/shield.png');
+		this.load.image('Life  Reg.', 'assets/GUI/abilities/healthRegen.png');
+		this.load.image('Speed', 'assets/GUI/abilities/movementSpeed.png');
+		this.load.image('Health', 'assets/GUI/abilities/health.png');
+		this.load.image('Damage', 'assets/GUI/abilities/damage.png');
+		this.load.image('Fire  Rate', 'assets/GUI/abilities/attackSpeed.png');
 	}
 
 	init (data) {
@@ -25,15 +25,6 @@ export default class LevelUp extends Phaser.Scene {
 	}
 
 	create() {
-		/* POOL DE HABILIDADES
-			- VELOCIDAD DE ATAQUE
-			- VELOCIDAD DE MOVIMIENTO
-			- ESCUDO
-			- VIDA
-			- DAÑO
-			- REGENERACIÓN DE VIDA
-		*/
-
 		var abilityPool = ["Speed", "Health", "Damage", "Shield", "Life  Reg.", "Fire  Rate"];
 		this.abilityMap = new Map([
 			["Speed", "addSpeed"],

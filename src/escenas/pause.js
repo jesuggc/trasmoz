@@ -10,25 +10,25 @@ export default class Title extends Phaser.Scene {
 	}
 	 
 	preload(){
-        this.load.image('continue', 'assets/GUI/resetButton1.png');
-		this.load.image('continue2', 'assets/GUI/resetButton2.png');
+        this.load.image('continue', 'assets/GUI/buttons/resetButton1.png');
+		this.load.image('continue2', 'assets/GUI/buttons/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
         this.load.image('witchPause', 'assets/Bruja/bruja_pause.png')
-        this.load.image('speed', 'assets/GUI/speed.png')
+        this.load.image('speed', 'assets/GUI/abilities/speed.png')
 		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
 
         // Repetidas
-        this.load.image('Shield', 'assets/GUI/shield.png');
-		this.load.image('Life  Reg.', 'assets/GUI/healthRegen.png');
-		this.load.image('Speed', 'assets/GUI/movementSpeed.png');
-		this.load.image('Health', 'assets/GUI/health.png');
-		this.load.image('Damage', 'assets/GUI/damage.png');
-		this.load.image('Fire  Rate', 'assets/GUI/attackSpeed.png');
+        this.load.image('Shield', 'assets/GUI/abilities/shield.png');
+		this.load.image('Life  Reg.', 'assets/GUI/abilities/healthRegen.png');
+		this.load.image('Speed', 'assets/GUI/abilities/movementSpeed.png');
+		this.load.image('Health', 'assets/GUI/abilities/health.png');
+		this.load.image('Damage', 'assets/GUI/abilities/damage.png');
+		this.load.image('Fire  Rate', 'assets/GUI/abilities/attackSpeed.png');
 	}
 
     init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
-        this.backScene = data.backScene
+        this.backScene = data.backScene;
 	}
 
 	create() {

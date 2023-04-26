@@ -19,14 +19,9 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		 
-
-
+		
 		// COLLIDER
-		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width, this.body.height);
-        
-        
+		this.body.setSize(this.width, this.height, true );
 		
 	}
    

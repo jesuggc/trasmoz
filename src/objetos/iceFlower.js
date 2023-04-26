@@ -32,7 +32,6 @@ export default class IceFlower extends Phaser.GameObjects.Sprite {
     }
 
     recogerFlor(){
-        console.log("hola");
         this.scene.witch.guardarFlor(this);
         this.body.destroy();
         this.destroy();

@@ -23,8 +23,7 @@ export default class LightningFlower extends Phaser.GameObjects.Sprite {
 
 
 		// COLLIDER
-		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-		this.body.setSize(this.body.width, this.body.height);        
+		this.body.setSize(this.width, this.height, true );      
         
 		
 	}
@@ -34,7 +33,6 @@ export default class LightningFlower extends Phaser.GameObjects.Sprite {
 	}
 
 	recogerFlor(){
-		console.log("hola");
 		this.scene.witch.guardarFlor(this);
 		this.body.destroy();
 		this.destroy();

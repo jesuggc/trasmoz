@@ -1,11 +1,6 @@
 import Enemy from "./enemy.js";
 
 export default class Wolf extends Enemy {
-	/**
-	 * @param {Scene} scene
-	 * @param {number} x
-	 * @param {number} y
-	*/
 	constructor(scene, x, y) {
 		super(scene, x, y, 50,20,2);
 		this.setScale(0.5);
@@ -19,25 +14,15 @@ export default class Wolf extends Enemy {
 		this.play('walkWolf');
 
 		// COLLIDER
-		this.bodyOffsetWidth = this.body.width/2;
-		this.bodyOffsetHeight = this.body.height/3.5;
-		this.bodyWidth = this.body.width/3;
-		this.bodyHeight = this.body.height/3;
-		
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		this.body.width = this.bodyWidth;
-		this.body.height = this.bodyHeight;
-
+		this.body.setSize(this.width, this.height, true );
     
 	}
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		
+
         if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
-		
-	
 	}
 
 	decreaseSpeed(){
