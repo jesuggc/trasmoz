@@ -32,6 +32,10 @@ export default class Castle extends Phaser.Scene {
 
 		this.load.css('css', 'css/mainsheet.css')
 	}
+
+	init (data) {
+		this.witch = data.witch;
+	}
 	create() {
 		this.map = this.make.tilemap({
 			key: 'castleTilemap',
@@ -55,7 +59,8 @@ export default class Castle extends Phaser.Scene {
 		this.wolfSize = 2;
         
 		
-		this.witch = new Witch(this, 516, 1416);		
+		this.witch.x = 516;
+		this.witch.y = 1416;	
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.muchosLobos = this.add.group();
 		for (var i = 0; i < this.wolfSize; i++) {
