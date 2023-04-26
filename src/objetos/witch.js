@@ -1,8 +1,16 @@
 import WitchAttack from "./witchAttack.js";
+import FireAttack from "./fireAttack.js";
+import LightningAttack from "./lightningAttack.js";
 import Wolf from "./wolf.js";
 import Knight from "./knight.js";
 import Enemy from "./enemy.js";
 import Torquemada from "./torquemada.js";
+import FireFlower from "./fireFlower.js";
+import LightningFlower from "./lightningFlower.js";
+import IceFlower from "./iceFlower.js";
+import FreezeAttack from "./freezeAttack.js";
+import PoisonFlower from "./poisonFlower.js";
+import PoisonAttack from "./poisonAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	/**
 	 * @param {Scene} scene
@@ -12,6 +20,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
+		this.flowerArray = [false, false, false, false];
+
+		
 		this.diagonalSpeed = 49;
 		this.health = 500;
 		this.experience = 0;
@@ -40,8 +51,18 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			62931345125,101825055370,164756400495,266581455865,43133785636010];
 		this.level = 0;
 		this.maxLevel = 15;
+
+		this.basicAttackCooldown = 2000;
 		this.lastBasicAttack = 0;
-		
+		this.lastFireAttack = 0;
+		this.fireAttackCooldown = 4000;
+		this.lastLightningAttack = 0;
+		this.lightningAttackCooldown = 2000;
+		this.lastFreezeAttack = 0;
+		this.freezeAttackCooldown = 2000;
+		this.lastPoisonAttack = 0;
+		this.poisonAttackCooldown = 8000;
+
 		
 		this.maxAbilitiesLevels = 5;
 		this.abilityLevels = new Map([
@@ -89,6 +110,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
+		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+
 	}
 
 	preUpdate(t, dt) {
@@ -104,6 +128,39 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.lastBasicAttack = t;
 
 		}
+		if (this.flowerArray[0]){
+			if (t > this.lastFireAttack + this.fireAttackCooldown){
+				 this.fireAttack.setVisible(true);
+				 this.fireAttack.body.enable = true;
+				this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
+					obj2.receiveDamage(this.damage);
+				});
+				this.lastFireAttack = t;
+			}
+		}
+		if (this.flowerArray[1]){
+			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
+				this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
+				enemy.receiveDamage(this.damage);
+				this.lastLightningAttack = t;
+			}
+		}
+		if (this.flowerArray[2]){
+			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);		
+				this.lastFreezeAttack = t;
+			}
+		}
+		if (this.flowerArray[3]){
+			if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
+				this.lastPoisonAttack = t;
+			}
+		}
+
 		if(this.scene.noname1){
 			this.scene.noname1.setRotation(Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y));
 			this.scene.noname2.setRotation(Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname2.x, this.scene.noname2.y));
@@ -111,7 +168,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366 * this.health/this.maxHealth;
-		
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
@@ -201,5 +257,21 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.speed += this.speedJump;
 		this.diagonalSpeed += this.diagonalSpeedJump;
 		if(this.abilityLevels.get("Speed") < this.maxAbilitiesLevels) this.abilityLevels.set("Speed", this.abilityLevels.get("Speed") + 1);
+	}
+
+	guardarFlor(flor){
+
+		if (flor instanceof FireFlower){
+			this.flowerArray[0]=true;
+		}
+		if (flor instanceof LightningFlower){
+			this.flowerArray[1]=true; 
+		}
+		if (flor instanceof IceFlower){
+			this.flowerArray[2]=true;
+		}
+		if(flor instanceof PoisonFlower){
+			this.flowerArray[3]=true;
+		}
 	}
 }

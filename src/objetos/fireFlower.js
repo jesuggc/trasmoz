@@ -7,7 +7,7 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y);
 		this.scene.add.existing(this);
-		this.setScale(0.1)
+		this.setScale(1)
 
 		this.scene.anims.create({
 			key: 'idleFireFlower',
@@ -19,11 +19,12 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
+		 
 
 
 		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
+        this.body.setSize(this.body.width, this.body.height);
         
         
 		
@@ -33,5 +34,12 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
 	}
 
+	recogerFlor(){
+		this.scene.witch.guardarFlor(this);
+		this.body.destroy();
+		this.destroy();
+		
+
+	}
 
 }

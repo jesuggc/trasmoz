@@ -27,6 +27,7 @@ export default class Wolf extends Enemy {
 		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
 		this.body.width = this.bodyWidth;
 		this.body.height = this.bodyHeight;
+
     
 	}
 
@@ -36,5 +37,16 @@ export default class Wolf extends Enemy {
         if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
 		
-	}	
+	
+	}
+
+	decreaseSpeed(){
+		this.speed = 0;
+		this.wolf.diagonalSpeed = 0;
+	}
+	increaseSpeed(){
+		this.speed =0 ;
+		this.diagonalSpeed = 0;
+	}
+
 }
