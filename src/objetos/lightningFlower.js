@@ -13,7 +13,7 @@ export default class LightningFlower extends Phaser.GameObjects.Sprite {
 			key: 'idleLightningFlower',
 			frames: scene.anims.generateFrameNumbers('lightningFlower', {start:0, end:0}),
 			frameRate: 1,
-			repeat: -1
+			repeat: 0
 		});
 		this.play('idleLightningFlower');
 		
@@ -24,8 +24,7 @@ export default class LightningFlower extends Phaser.GameObjects.Sprite {
 
 		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
-        
+		this.body.setSize(this.body.width, this.body.height);        
         
 		
 	}

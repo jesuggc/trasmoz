@@ -71,18 +71,6 @@ export default class Animation extends Phaser.Scene {
 		this.physics.add.collider(this.iceflower, this.witch, this.iceflower.recogerFlor, null, this.iceflower);
 		this.physics.add.collider(this.poisonflower, this.witch, this.poisonflower.recogerFlor, null, this.poisonflower);
 
-
-		// this.physics.add.collider(this.witch.fireAttack,this.muchosLobos,(obj,obj2) => {
-		// 	console.log("quemo");
-        // 	obj2.receiveDamage(this.damage);
-        // 	obj.destroy();
-
-		// });
-		// this.physics.add.collider(this.flower, this.witch, this.flower.recogerFlor, null, this);
-
-		
-		// this.physics.add.collider(this.muchosLobos, this.fireAttacks, this.burn, null, this);
-
 		if(Math.random() < 0.95) {
 			this.noname1 = this.add.image(20, 20, 'noname');
 			this.noname2= this.add.image(120, 20, 'noname2');

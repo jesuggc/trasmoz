@@ -24,7 +24,7 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 
 		// COLLIDER
 		this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
+        this.body.setSize(this.body.width, this.body.height);
         
         
 		
@@ -35,7 +35,6 @@ export default class FireFlower extends Phaser.GameObjects.Sprite {
 	}
 
 	recogerFlor(){
-		console.log("hola");
 		this.scene.witch.guardarFlor(this);
 		this.body.destroy();
 		this.destroy();

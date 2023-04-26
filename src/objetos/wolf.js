@@ -108,7 +108,6 @@ export default class Wolf extends Phaser.GameObjects.Sprite {
 	}
 
 	decreaseSpeed(){
-		console.log("frozen");
 		this.speed = 0;
 		this.wolf.diagonalSpeed = 0;
 	}

@@ -117,66 +117,40 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.scene.healthText.setText([Math.round(this.health) + '/' + this.maxHealth]);
 		
-		// if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
-		// 	// console.log(this.scene.muchosLobos.children.entries);
-		// 	var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-		// 	//console.log(this.scene.physics.closest(this, this.scene.muchosLobos.children.entries));
-		// 	if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
-		// 	this.lastBasicAttack = t;
-		// }
+		if (t > this.lastBasicAttack + this.basicAttackCooldown) {	
+			var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+			if (enemy instanceof Wolf && enemy.isAlive) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+			this.lastBasicAttack = t;
+		}
 		if (this.flowerArray[0]){
 			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				// var wolf = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
 				 this.fireAttack.setVisible(true);
 				 this.fireAttack.body.enable = true;
-				 
-				// this.scene.add.existing(fireAttack);
-				// this.scene.fireAttacks.add(fireAttack);
-				// fireAttack.addCollider(this.scene.muchosLobos, this.fireAttack);
 				this.scene.physics.add.overlap(this.fireAttack,this.scene.muchosLobos,(obj,obj2) => {
-					console.log("quemo");
 					obj2.receiveDamage(this.damage);
-					
-		
 				});
 				this.lastFireAttack = t;
 			}
 		}
 		if (this.flowerArray[1]){
 			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
-
 				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);				
-
 				this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
-				// this.scene.physics.add.collider(this.lightningAttack,this.scene.muchosLobos,(obj,obj2) => {
-				// 	console.log("rayo");
-				// 	obj2.receiveDamage(obj2.health);
-				// 	// obj.destroy();
-		
-				// });
 				enemy.receiveDamage(this.damage);
 				this.lastLightningAttack = t;
 			}
 		}
-		// if (this.flowerArray[2]){
-		// 	if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
-				
-		// 		var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
-		// 		this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);
-				
-				
-		// 		this.lastFreezeAttack = t;
-		// 	}
-		// }
+		if (this.flowerArray[2]){
+			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
+				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
+				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);		
+				this.lastFreezeAttack = t;
+			}
+		}
 		if (this.flowerArray[3]){
 			if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
-				
 				var enemy = this.scene.physics.closest(this, this.scene.muchosLobos.children.entries);
 				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
-				// this.scene.physics.add.collider(this.poisonAttack, this.objetive, (obj, obj2) =>{
-
-				// });
-
 				this.lastPoisonAttack = t;
 			}
 		}
@@ -188,10 +162,8 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.scene.noname2.setRotation(this.radianAngle2);
 		}
 		
-		// console.log(this.scene.physics.closest(this));
 		this.scene.expbar.width = 366* this.experience/this.levelExp[this.level];
 		this.scene.lifebar.width = 366 * this.health/this.maxHealth;
-		// console.log(this.scene.lifebarFill.width)
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
@@ -309,10 +281,5 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(flor instanceof PoisonFlower){
 			this.flowerArray[3]=true;
 		}
-
-		for (let i = 0; i< 4; i++){
-			console.log(this.flowerArray[i]);
-		}
-
 	}
 }

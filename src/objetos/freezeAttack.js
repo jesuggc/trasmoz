@@ -30,7 +30,7 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
 
         this.scene.physics.add.collider(this, this.objetive, this.freeze, null, this);
 
-        this.scene.time.addEvent({delay: 2000, callback: function(){
+        this.scene.time.addEvent({delay: 1000, callback: function(){
             this.destroy();
         }, callbackScope: this});
 
@@ -46,11 +46,7 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
     }
 
     freeze(){
-        console.log("freeze");
 		this.objetive.decreaseSpeed();
-		// setTimeout(() => {
-		// 	this.objetive.increaseSpeed(this.objetive.speed);
-		// }, 4000);
 		this.destroy();
     }
 }

@@ -23,8 +23,7 @@ export default class PoisonFlower extends Phaser.GameObjects.Sprite {
         this.body.onCollide= true;
 
         this.body.setOffset(this.body.width * 31, this.body.height / 2);
-        this.body.setSize(this.body.width* 1.6, this.body.height*1.6);
-
+        this.body.setSize(this.body.width, this.body.height);
     }
 
     preUpdate(t, dt){

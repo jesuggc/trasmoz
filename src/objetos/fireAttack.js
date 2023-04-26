@@ -45,17 +45,5 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
             this.y = this.witch.y;
         }
     }
-
-    // addCollider(muchosLobos, callbackObj) {
-    //     this.scene.physics.add.collider(muchosLobos, this, function(lobo) {
-    //         callbackObj.burn(lobo, this);
-    //     });
-    // }
-    
-    // burn(objetive, fireAttack){
-    //     consolelog("quemo");
-    //     this.objetive.receiveDamage(this.damage);
-    //     this.destroy();
-    // }
     
 }

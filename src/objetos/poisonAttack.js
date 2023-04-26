@@ -48,19 +48,6 @@ export default class PoisonAttack extends Phaser.GameObjects.Sprite {
     }
 
     poison(){
-
-       
-            // Añadimos un evento de tiempo que se dispara cada 4 segundos durante 4 veces
-            // this.time.addEvent({
-            //   delay: 4000, // 4 segundos
-            //   repeat: 3, // 4 veces (el primer disparo cuenta como la primera repetición)
-            //   callback: function() {
-            //     // Quitamos un poco de vida al objetivo
-            //     this.objetive.receiveDamage(10); // Puedes ajustar la cantidad de vida que se quita
-            //   },
-            //   callbackScope: this
-            // });
-
         this.destroy();
 		
 	}
