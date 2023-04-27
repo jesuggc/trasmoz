@@ -25,13 +25,13 @@ export default class Wolf extends Enemy {
         else this.setFlipX(false);
 	}
 
-	decreaseSpeed(){
-		this.speed = 0;
-		this.wolf.diagonalSpeed = 0;
-	}
-	increaseSpeed(){
-		this.speed =0 ;
-		this.diagonalSpeed = 0;
-	}
+	// decreaseSpeed(){
+	// 	this.speed = 0;
+	// 	this.wolf.diagonalSpeed = 0;
+	// }
+	// increaseSpeed(){
+	// 	this.speed = 10 ;
+	// 	this.diagonalSpeed = 0;
+	// }
 
 }

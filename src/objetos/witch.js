@@ -114,30 +114,30 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.body.setVelocity(0)
 		
-		if (t > this.lastBasicAttack + this.rate) {	
-			var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
-			if (enemy && enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
+		// if (t > this.lastBasicAttack + this.rate) {	
+		// 	var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
+		// 	if (enemy && enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		
-			this.lastBasicAttack = t;
+		// 	this.lastBasicAttack = t;
 
-		}
-		if (this.flowerArray[0]){
-			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
-				this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
-					obj2.receiveDamage(this.damage);
-				});
-				this.lastFireAttack = t;
-			}
-		}
-		if (this.flowerArray[1]){
-			if(t > this.lastLightningAttack + this.lightningAttackCooldown){
-				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);				
-				this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
-				enemy.receiveDamage(this.damage);
-				this.lastLightningAttack = t;
-			}
-		}
+		// }
+		// if (this.flowerArray[0]){
+		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
+		// 		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+		// 		this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
+		// 			obj2.receiveDamage(this.damage);
+		// 		});
+		// 		this.lastFireAttack = t;
+		// 	}
+		// }
+		// if (this.flowerArray[1]){
+		// 	if(t > this.lastLightningAttack + this.lightningAttackCooldown){
+		// 		var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);				
+		// 		this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
+		// 		enemy.receiveDamage(this.damage);
+		// 		this.lastLightningAttack = t;
+		// 	}
+		// }
 		if (this.flowerArray[2]){
 			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
 				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
@@ -145,13 +145,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 				this.lastFreezeAttack = t;
 			}
 		}
-		if (this.flowerArray[3]){
-			if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
-				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
-				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
-				this.lastPoisonAttack = t;
-			}
-		}
+		// if (this.flowerArray[3]){
+		// 	if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
+		// 		var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
+		// 		this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
+		// 		this.lastPoisonAttack = t;
+		// 	}
+		// }
 
 		if(this.scene.noname1){
 			this.scene.noname1.setRotation(Phaser.Math.Angle.Between(this.x, this.y, this.scene.noname1.x, this.scene.noname1.y));

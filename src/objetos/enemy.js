@@ -10,6 +10,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, speed, health,damage) {
 		super(scene, x, y);
 		this.speed = speed;
+		this.oldSpeed = speed;
 		this.health = health;
 		this.initialLife = health;
 		this.damage = damage;
@@ -17,7 +18,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
 		this.isAlive = true;
-		
+		this.freezeAttackTime = 0;
+		this.frozenCooldown = 4000;
+		this.now = 1;
+
 		this.scene.add.existing(this);
 		this.onCollide = true;
 		scene.physics.add.existing(this);
@@ -41,12 +45,16 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
         }
-		//dthis.setActive(this.scene.spawn)
-		/*if(!this.scene.spawn){
-			this.x = 0;
-			this.y = 0;
-		}*/
-		// this.body.setActive(false); // El enemy sigue haciendo collider
+		if( this.now == 1){
+			this.freezeAttackTime = t;
+			this.now = 0;
+		}
+		else{
+			if(t > this.freezeAttackTime + this.frozenCooldown){
+				this.increaseSpeed();
+				this.fozen = 0;
+			}
+		}
 		if (this.health <= 0) this.die();
 	}
 	die(){
@@ -92,6 +100,16 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	attack(){
 		console.log("por contacto"+this.damage)
 		this.witch.perderVida(this.damage)
+	}
+
+	decreaseSpeed(){
+		this.speed = 0;
+		this.now = 1;
+		
+	}
+	increaseSpeed(){
+		this.speed = this.oldSpeed;
+		
 	}
     
 
