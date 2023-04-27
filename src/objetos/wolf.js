@@ -16,7 +16,7 @@ export default class Wolf extends Enemy {
 		});
 
 		this.play('walkWolf');
-
+		
 		// COLLIDER
 		this.body.setSize(this.width, this.height, true );
     
@@ -24,7 +24,6 @@ export default class Wolf extends Enemy {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		console.log("Vida lobo: ",this.initialLife)
         if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
 	}

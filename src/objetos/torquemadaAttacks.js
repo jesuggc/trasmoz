@@ -29,27 +29,22 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.scene.time.addEvent({delay: 10000, callback: function(){
 			this.destroy();
         }, callbackScope: this});
+		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.witch.x, this.witch.y);
+		this.setRotation(this.radianAngle); //TODO check if working
 		this.scene.physics.moveTo(this,this.witch.x, this.witch.y,200);
 		
 	}
    
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.witch.x, this.witch.y);
-		this.setRotation(this.radianAngle);
 		
-		// this.scene.physics.moveToObject(this,this.witch , this.speed);
 		if (this.scene.physics.overlap(this,this.witch )){
 			this.witch.receiveDamage(this.damage);
 			this.destroy();
-		}
-		
-		else if (!this.witch.isAlive) this.destroy()          
+		}    
 	}
-    
 
 	isShooted(){
-		console.log(this.torque.damage);
 		this.witch.perderVida(this.damage);
 		this.destroy();
 	}

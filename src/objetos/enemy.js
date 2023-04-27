@@ -1,12 +1,7 @@
 import ExpBall from "../objetos/expBall.js";
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
-	/**
-	 * @param {Scene} scene
-	 * @param {number} x
-	 * @param {number} y
-     * 
-	 */
+	
 	constructor(scene, x, y, speed, health,damage) {
 		super(scene, x, y);
 		this.speed = speed;
@@ -17,40 +12,35 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
 		this.isAlive = true;
-	
+
+		this.inactive();
 
 		this.scene.add.existing(this);
 		this.onCollide = true;
 		scene.physics.add.existing(this);
 		
 	}
-
-	resetCollider(){
-		this.body.width = this.bodyWidth;
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-	}
-	calcularDiagonal(x1,y1,x2,y2){
-		return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
-	}
-
-   
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
-        if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
+		if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
-        }
-		//dthis.setActive(this.scene.spawn)
-		/*if(!this.scene.spawn){
-			this.x = 0;
-			this.y = 0;
-		}*/
-		// this.body.setActive(false); // El enemy sigue haciendo collider
+		}
+		
 		if (this.health <= 0) this.die();
-		//this.levelUp();
 	}
+	
+	calcularDiagonal(x1,y1,x2,y2){
+		return Math.sqrt(Math.pow(x1 - x2,2)+Math.pow(y1 - y2,2));
+	}   
+
+	inactive(){
+		this.setVisible(false);
+		this.setActive(false);
+	}
+
 	die(){
 		this.isAlive = false;
 		new ExpBall(this.scene,this.x,this.y,'expBall');

@@ -91,8 +91,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			frameRate: 12,
 			repeat: -1
 		});
-		
-		
+
 		this.play('idleWitch');
 
 		this.wKey = this.scene.input.keyboard.addKey('W'); 
@@ -104,9 +103,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		// COLLIDER
 		this.body.setSize(this.width*0.3, this.height*0.4, true ); // TODO
-
-		
-
 	}
 
 	preUpdate(t, dt) {
@@ -114,7 +110,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		this.body.setVelocity(0)
 		
-		if (t > this.lastBasicAttack + this.rate) {	
+		if (t > this.lastBasicAttack + this.rate && this.scene.spawn) {	
 			var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
 			if (enemy && enemy.isAlive && enemy instanceof Enemy ) new WitchAttack(this.scene, this.x, this.y, enemy, this.damage);
 		
@@ -163,19 +159,16 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(this.health < this.maxHealth) this.health += this.healthRegen;
 		// EXPERIENCIA
 		if(this.experience >= this.levelExp[this.level] && this.level < this.maxLevel) {
-			this.experience = 0;
-			this.level++;
-			this.scene.levelUp();
+			this.levelUp();
 		}
 
 		// TESTING BUTTON
 		if(this.testingKey.isDown){
 			this.speed = 600;
 			this.diagonalSpeed = 424;
-			this.health = 500000;
-			this.maxHealth = 500000; //HEALTH
+			this.health = 5000;
+			this.maxHealth = 5000; //HEALTH
 			this.healthRegen = 5; //LIFE REG
-			console.log(this.x,this.y)
 		}
 		// MOVERSE A LA IZQUIERDA
 		if(this.aKey.isDown){
@@ -222,6 +215,12 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(this.health<=0) this.isAlive=false;
 	}
 
+	levelUp(){
+		this.experience = 0;
+		this.level++;
+		this.body.setVelocity(0);
+		this.scene.levelUp();
+	}
 	addRate(){
 		this.rate -= this.rateJump;
 		if(this.abilityLevels.get("Fire  Rate") < this.maxAbilitiesLevels) this.abilityLevels.set("Fire  Rate", this.abilityLevels.get("Fire  Rate") + 1); 
