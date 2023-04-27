@@ -90,7 +90,6 @@ export default class Animation extends Phaser.Scene {
 		this.witch = new Witch(this, 200, 200);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.enemyPool = this.add.group();
-		
 		this.torquemada = new Torquemada(this,533,3350).setActive(false);
 		
 		this.fireflower = new FireFlower(this,390,355,'fireFlower');
@@ -99,8 +98,10 @@ export default class Animation extends Phaser.Scene {
 		this.poisonflower = new PoisonFlower(this, 4280, 1843, 'poisonFlower');
 		
 		for (var i = 0; i < this.wolfSize; i++) {
-			this.enemyPool.add(new Wolf(this, 0, 0));
-			this.enemyPool.add(new Knight(this, 0,0));
+			var wolf= new Wolf(this, 210, 200);
+			this.enemyPool.add(wolf);
+			var knight= new Knight(this, -200, -200);
+			this.enemyPool.add(new Knight(this, -200,-200));
 		}
 		this.enemyPool.add(this.torquemada);
 
@@ -194,6 +195,10 @@ export default class Animation extends Phaser.Scene {
 			this.scene.launch('win');
 		}
 
+	}
+
+	levelUpEnemies(){
+		this.enemyPool.children.entries.forEach(enemigo=>enemigo.levelUp())
 	}
 	
 }

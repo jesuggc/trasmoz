@@ -17,7 +17,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.respawnDistance = 360;
 		this.witch = this.scene.witch;
 		this.isAlive = true;
-		
+	
+
 		this.scene.add.existing(this);
 		this.onCollide = true;
 		scene.physics.add.existing(this);
@@ -48,6 +49,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		}*/
 		// this.body.setActive(false); // El enemy sigue haciendo collider
 		if (this.health <= 0) this.die();
+		//this.levelUp();
 	}
 	die(){
 		this.isAlive = false;
@@ -94,5 +96,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.witch.perderVida(this.damage)
 	}
     
+	levelUp(){
+			this.damage+=this.damageJump;
+			this.initialLife+=this.initialLifeJump;
+	}
 
 }

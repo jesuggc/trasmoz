@@ -260,6 +260,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if (flor instanceof LightningFlower) this.flowerArray[1]=true; 
 		if (flor instanceof IceFlower) this.flowerArray[2]=true;
 		if (flor instanceof PoisonFlower) this.flowerArray[3]=true;
+		this.scene.levelUpEnemies();
 	}
 
 }

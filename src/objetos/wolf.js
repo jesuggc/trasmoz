@@ -5,6 +5,10 @@ export default class Wolf extends Enemy {
 		super(scene, x, y, 50,20,2);
 		this.setScale(0.5);
 		this.damage=2;
+		this.damageJump=1;
+		this.initialLifeJump=10;
+
+
         this.scene.anims.create({key: 'walkWolf',
 			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:4}),
 			frameRate: 7,
@@ -20,7 +24,7 @@ export default class Wolf extends Enemy {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-
+		console.log("Vida lobo: ",this.initialLife)
         if (this.witch.x < this.x) this.setFlipX(true);
         else this.setFlipX(false);
 	}

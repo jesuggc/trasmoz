@@ -11,7 +11,10 @@ export default class Knight extends Enemy {
 		super(scene, x, y,40,40,3);
 		this.damage=3;
 		this.estaAtacando = false;
-
+		this.damageJump=1;
+		this.initialLifeJump=20;
+		this.setActive(false);
+		this.setVisible(false);
         this.scene.anims.create({
 			key: 'walkKnight',
 			frames: scene.anims.generateFrameNumbers('knight', {start:0, end:7}),
