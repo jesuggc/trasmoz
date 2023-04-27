@@ -1,21 +1,14 @@
 export default class FireAttack extends Phaser.GameObjects.Sprite {
-
-    /**
-     * @param {Scene} scene - escena en la que aparece
-     * @param {number} x - coordenada x
-     * @param {number} y - coordenada y
-    */
     constructor(scene, witch, x, y, damage){
         super(scene, x, y, 'fireAttack');
     
         this.witch = witch;
-        // this.objetive = objetive;
         this.scene.add.existing(this);
         this.damage = damage;
 
         let animation = this.scene.anims.create({
             key: 'idleFireAttack',
-            frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end: 25}),
+            frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end: 26}),
             frameRate: 35,
             repeat: 0
         });
@@ -23,17 +16,13 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
         this.play('idleFireAttack');
         
         this.scene.physics.add.existing(this);
-        this.setVisible(false);
-            this.body.enable= false;
-        // this.body.onCollide = true;
-        // this.scene.physics.add.collider(this, this.objective, this.burn, null, this);
+        
+        this.body.onCollide = true;
+        this.scene.physics.add.collider(this, this.objective, this.burn, null, this);
 
-        // sthis.scene.physics.overlap(this, )
-
-        this.on('animationcomplete', function (anim, frame) {
-            this.setVisible(false);
-            this.body.enable= false;
-        }, this);
+        this.scene.time.addEvent({delay: 1000, callback: function(){
+            this.destroy()
+        }, callbackScope: this});
 
     }
 

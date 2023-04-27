@@ -1,9 +1,4 @@
 export default class PoisonAttack extends Phaser.GameObjects.Sprite {
-    /**
-     * @param {Scene} scene - escena en la que aparece
-     * @param {number} x - coordenada x
-     * @param {number} y - coordenada y
-    */
    constructor(scene, x, y, objetive, damage){
         super(scene, x, y, 'poisonAttack');
 

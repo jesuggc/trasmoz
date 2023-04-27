@@ -51,7 +51,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 	die(){
 		this.isAlive = false;
-		new ExpBall(this.scene,this.x,this.y);
+		new ExpBall(this.scene,this.x,this.y,'expBall');
 		this.setVisible(false);
 		this.setActive(false);
 		this.respawn();

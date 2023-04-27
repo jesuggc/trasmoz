@@ -30,7 +30,8 @@ export default class Knight extends Enemy {
 		
 		this.play('walkKnight');
 		// COLLIDER
-		this.body.setSize(this.width, this.height, true );
+		this.body.setSize(this.width*0.25, this.height*0.55, true );
+		// this.body.setOffset();
     
 	}
 

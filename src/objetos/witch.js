@@ -105,7 +105,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// COLLIDER
 		this.body.setSize(this.width*0.3, this.height*0.4, true ); // TODO
 
-		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+		
 
 	}
 
@@ -123,8 +123,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		if (this.flowerArray[0]){
 			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				 this.fireAttack.setVisible(true);
-				 this.fireAttack.body.enable = true;
+				this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
 				this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
 					obj2.receiveDamage(this.damage);
 				});
@@ -260,7 +259,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if (flor instanceof FireFlower) this.flowerArray[0]=true;
 		if (flor instanceof LightningFlower) this.flowerArray[1]=true; 
 		if (flor instanceof IceFlower) this.flowerArray[2]=true;
-		if(flor instanceof PoisonFlower) this.flowerArray[3]=true;
+		if (flor instanceof PoisonFlower) this.flowerArray[3]=true;
 	}
 
 }

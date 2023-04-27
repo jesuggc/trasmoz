@@ -1,9 +1,4 @@
 export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
-	/**
-	 * @param {Scene} scene - escena en la que aparece
-	 * @param {number} x - coordenada x
-	 * @param {number} y - coordenada y
-	 */
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'torqueAttack');
 		this.speed = 17; // Nuestra velocidad de movimiento sera 140
@@ -29,14 +24,7 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.scene.physics.add.collider(this, this.witch , this.isShooted, null, this);
 
 		// Ajustamos el "collider" de nuestro ataque
-		this.bodyOffsetWidth = this.body.width/4;
-		this.bodyOffsetHeight = this.body.height/4;
-		this.bodyWidth = this.body.width/3;
-		this.bodyHeight = this.body.height/3;
-		
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		this.body.width = this.bodyWidth;
-		this.body.height = this.bodyHeight;
+		this.setSize(this.width,this.height,true)
 
 		this.scene.time.addEvent({delay: 10000, callback: function(){
 			this.destroy();
@@ -59,10 +47,6 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		else if (!this.witch.isAlive) this.destroy()          
 	}
     
-	// resetCollider(){
-	// 	this.body.width = this.bodyWidth;
-	// 	this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-	// }
 
 	isShooted(){
 		console.log(this.torque.damage);

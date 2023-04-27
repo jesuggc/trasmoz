@@ -19,7 +19,6 @@ export default class Animation extends Phaser.Scene {
 	preload() {
 		this.load.spritesheet('witch', 'assets/bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
 		this.load.spritesheet('witchAttack', 'assets/bruja/FireBall.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('expBall', 'assets/bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('torqueAttack', 'assets/torquemada/SmallStar.png', { frameWidth: 64, frameHeight: 64 }) //Esto de torquemada iria en escena del castillo
 		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
@@ -38,6 +37,7 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('lightningFlower', 'assets/flowers/lightningFlower.png')
 		this.load.image('iceFlower', 'assets/flowers/iceFlower.png')
 		this.load.image('poisonFlower', 'assets/flowers/poisonFlower.png')
+		this.load.image('expBall', 'assets/Bruja/expBall.png')
 
 		
 		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
@@ -83,7 +83,7 @@ export default class Animation extends Phaser.Scene {
 
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
-		this.wolfSize = 0; //AQUI UN 2
+		this.wolfSize = 1; //AQUI UN 2
 		this.spawn = false;
 		
 		// this.witch = new Witch(this, 532, 3195);		
@@ -180,7 +180,6 @@ export default class Animation extends Phaser.Scene {
 		this.scene.launch('levelUp', {witch: this.witch, backScene: 'animation'});
 	}
 	gotoCastle(){
-		// this.sys.scenePlugin.switch('castle', {witch :this.witch})
 		this.scene.launch('castle', {witch: this.witch});
 		this.scene.stop();
 	}
