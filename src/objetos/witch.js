@@ -61,7 +61,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastFreezeAttack = 0;
 		this.freezeAttackCooldown = 2000;
 		this.lastPoisonAttack = 0;
-		this.poisonAttackCooldown = 8000;
+		this.poisonAttackCooldown = 2000;
 
 		
 		this.maxAbilitiesLevels = 5;
@@ -105,7 +105,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// COLLIDER
 		this.body.setSize(this.width*0.3, this.height*0.4, true ); // TODO
 
-		
+		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+		this.fireAttack.collider.active = false;
+		this.fireAttack.stop('fireAttack', 26);
+		this.fireAttack.setVisible(false);
 
 	}
 
@@ -121,15 +124,25 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 	this.lastBasicAttack = t;
 
 		// }
-		// if (this.flowerArray[0]){
-		// 	if (t > this.lastFireAttack + this.fireAttackCooldown){
-		// 		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
-		// 		this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
-		// 			obj2.receiveDamage(this.damage);
-		// 		});
-		// 		this.lastFireAttack = t;
-		// 	}
-		// }
+		if (this.flowerArray[0]){
+			if (t > this.lastFireAttack + this.fireAttackCooldown){
+				
+				this.firecollider = this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
+					obj2.receiveDamage(this.damage);
+				});
+				this.fireAttack.setVisible(true);
+				this.fireAttack.play('fireAttack');
+				this.firecollider.active = true;
+
+				this.scene.time.addEvent({delay: 1000, callback: function(){
+					this.fireAttack.stop('fireAttack', 25);
+					this.firecollider.active = false;
+					this.fireAttack.setVisible(false);
+				}, callbackScope: this});
+				
+				this.lastFireAttack = t;
+			}
+		}
 		// if (this.flowerArray[1]){
 		// 	if(t > this.lastLightningAttack + this.lightningAttackCooldown){
 		// 		var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);				
@@ -138,13 +151,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// 		this.lastLightningAttack = t;
 		// 	}
 		// }
-		if (this.flowerArray[2]){
-			if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
-				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
-				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);		
-				this.lastFreezeAttack = t;
-			}
-		}
+		// if (this.flowerArray[2]){
+		// 	if(t > this.lastFreezeAttack + this.freezeAttackCooldown){
+		// 		var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
+		// 		this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);		
+		// 		this.lastFreezeAttack = t;
+		// 	}
+		// }
 		// if (this.flowerArray[3]){
 		// 	if(t > this.lastPoisonAttack + this.poisonAttackCooldown){
 		// 		var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);

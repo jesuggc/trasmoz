@@ -88,7 +88,7 @@ export default class Animation extends Phaser.Scene {
 		
 		// this.witch = new Witch(this, 532, 3195);	
 		// 200, 200	
-		this.witch = new Witch(this, 344, 1427);		
+		this.witch = new Witch(this, 390, 355);		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.enemyPool = this.add.group();
 		

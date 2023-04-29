@@ -19,8 +19,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.witch = this.scene.witch;
 		this.isAlive = true;
 		this.freezeAttackTime = 0;
+		this.poisonAttackTime = 0;
 		this.frozenCooldown = 4000;
-		this.now = 1;
+		this.poisonCooldown = 8000;
+		this.poisonAttackFinal = 0;
+		this.poisonAttackIncrease = 2000;
+		this.now = 0;
+		this.poisonAttack = 0;
 
 		this.scene.add.existing(this);
 		this.onCollide = true;
@@ -52,8 +57,23 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		else{
 			if(t > this.freezeAttackTime + this.frozenCooldown){
 				this.increaseSpeed();
-				this.fozen = 0;
+				// this.fozen = 0;
 			}
+		}
+
+		if( this.poisonAttack == 1){
+			this.poisonAttackTime = t;
+			this.poisonAttackFinal = t + this.poisonCooldown;
+			this.poisonAttack = 0;
+			console.log("poison time");
+		}
+		else {
+			if(t == this.poisonAttackTime + this.poisonAttackIncrease && t < this.poisonAttackFinal ){
+				this.receiveDamage(this.damage);
+				this.poisonAttackTime = t;
+				console.log("poison damage");
+			}
+			
 		}
 		if (this.health <= 0) this.die();
 	}
@@ -112,5 +132,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		
 	}
     
+	poison(){
+		console.log("poison 2");
+		this.poisonAttack = 1;
+		this.receiveDamage();
+	}
 
 }
