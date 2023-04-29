@@ -11,36 +11,6 @@ export default class Animation extends Phaser.Scene {
 		super({ key: 'animation' });
 	}
 
-	preload() {
-		this.load.tilemapTiledJSON('tilemap',	'levels/MapaPrueba.json'); 
-		this.load.spritesheet('witch', 			'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 	'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('wolf', 			'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('knight', 		'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('knightAttack', 	'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
-		this.load.spritesheet('fireAttack', 	'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack','assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})
-		this.load.spritesheet('freezeAttack', 	'assets/witch/freezeAttack.png', 			{frameWidth: 128, frameHeight: 128 })
-		this.load.spritesheet('poisonAttack', 	'assets/witch/poisonAttack.png', 			{frameWidth: 64, frameHeight: 64 })
-		this.load.image('patronGround', 	'levels/ground.png'); 
-		this.load.image('patronTrees', 		'levels/trees.png'); 
-		this.load.image('patronHouse', 		'levels/witchHouse.png');
-		this.load.image('patronCliff',		'levels/cliff.png');
-		this.load.image('patronRocks',		'levels/rocks.png'); 
-		this.load.image('patronGraves', 	'levels/graves.png');
-		this.load.image('patronDecoration',	'levels/decoration.png'); 
-		this.load.image('patronWater', 		'levels/water.png'); 
-		this.load.image('patronSquare', 	'levels/square.png'); 
-		this.load.image('patronBridge', 	'levels/bridge.png'); 
-		this.load.image('fireFlower', 		'assets/flowers/fireFlower.png')
-		this.load.image('lightningFlower', 	'assets/flowers/lightningFlower.png')
-		this.load.image('iceFlower', 		'assets/flowers/iceFlower.png')
-		this.load.image('poisonFlower', 	'assets/flowers/poisonFlower.png')
-		this.load.image('expBall',			'assets/witch/expBall.png')
-		this.load.image('pause_button', 	'assets/GUI/pause_button.png')
-		this.load.image('noname', 			'assets/noname/noName1.png');
-		this.load.image('noname2', 			'assets/noname/noName2.png');
-	}
 	create() {
 		this.map = this.make.tilemap({
 			key: 'tilemap',
@@ -71,7 +41,7 @@ export default class Animation extends Phaser.Scene {
 		this.nnprob = 0.05;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 9;
+		this.initialEnemies = 0;
 		this.enemiesJump = 3;
 		this.spawn = false;
 		

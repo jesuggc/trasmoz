@@ -107,7 +107,6 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-console.log(t)
 		this.body.setVelocity(0)
 		this.direccion.x = 0;
 		this.direccion.y = 0;
@@ -166,7 +165,7 @@ console.log(t)
 
 		// TESTING BUTTON
 		if(this.testingKey.isDown){
-			this.speed = 100;
+			this.speed = 1000;
 			this.diagonalSpeed = 424;
 			this.health = 5000;
 			this.maxHealth = 5000; //HEALTH

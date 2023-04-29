@@ -1,29 +1,8 @@
-/**
- * @extends Phaser.Scene
- */
 export default class Title extends Phaser.Scene {
-	/**
-	 * 	 * @extends Phaser.Scene
-	 */
 	constructor() {
 		super({ key: 'title' });
 	}
 	 
-	preload(){
-		this.load.image('play', 'assets/GUI/buttons/playButton1.png');
-		this.load.image('play2', 'assets/GUI/buttons/playButton2.png');
-		this.load.image('credits', 'assets/GUI/buttons/creditsButton1.png');
-		this.load.image('credits2', 'assets/GUI/buttons/creditsButton2.png');
-		this.load.image('options', 'assets/GUI/buttons/optionsButton1.png');
-		this.load.image('options2', 'assets/GUI/buttons/optionsButton2.png');
-		this.load.image('sound', 'assets/GUI/buttons/soundButton1.png');
-		this.load.image('sound2', 'assets/GUI/buttons/soundButton2.png');
-		this.load.image('fullscreen', 'assets/GUI/buttons/fullscreenButton1.png');
-		this.load.image('fullscreen2', 'assets/GUI/buttons/fullscreenButton2.png');
-		this.load.image('title_background', 'assets/title_background.jpg')
-		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav')
-	}
-	
 	create() {
 		
 		const config = {

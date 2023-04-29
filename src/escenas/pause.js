@@ -1,29 +1,6 @@
-/**
- * @extends Phaser.Scene
- */
 export default class Title extends Phaser.Scene {
-	/**
-	 * @extends Phaser.Scene
-	 */
 	constructor() {
 		super({ key: 'pause' });
-	}
-	 
-	preload(){
-        this.load.image('continue', 'assets/GUI/buttons/resetButton1.png');
-		this.load.image('continue2', 'assets/GUI/buttons/resetButton2.png');
-        this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
-        this.load.image('witchPause', 'assets/witch/bruja_pause.png')
-        this.load.image('speed', 'assets/GUI/abilities/speed.png')
-		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
-
-        // Repetidas
-        this.load.image('Shield', 'assets/GUI/abilities/shield.png');
-		this.load.image('Life  Reg.', 'assets/GUI/abilities/healthRegen.png');
-		this.load.image('Speed', 'assets/GUI/abilities/movementSpeed.png');
-		this.load.image('Health', 'assets/GUI/abilities/health.png');
-		this.load.image('Damage', 'assets/GUI/abilities/damage.png');
-		this.load.image('Fire  Rate', 'assets/GUI/abilities/attackSpeed.png');
 	}
 
     init (data) {

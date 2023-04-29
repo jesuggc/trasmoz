@@ -13,27 +13,6 @@ export default class Castle extends Phaser.Scene {
 		super({ key: 'castle' });
 	}
 
-	preload() {
-		this.load.spritesheet('witch', 'assets/Bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 'assets/Bruja/fireBall.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
-		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })
-		this.load.tilemapTiledJSON('castleTilemap', 'levels/castillo.json'); 
-		this.load.image('patronCastle', 'levels/Castle.png'); 
-
-
-		
-		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
-		
-		this.load.image('pause_button', 'assets/GUI/pause_button.png')
-		this.load.image('noname', 'assets/noname/noName1.png');
-		this.load.image('noname2', 'assets/noname/noName2.png');
-
-		this.load.css('css', 'css/mainsheet.css')
-	}
-
 	init (data) {
 		this.oldWitch = data.witch
 	}
@@ -155,11 +134,9 @@ export default class Castle extends Phaser.Scene {
             this.scene.stop();
 			this.scene.launch('gameover');
 		}
-		console.log(this.witch.x,this.witch.y)
 	}
 
 	initWitch(oldWitch){
-		console.log(this)
 		//this.witch=new Witch(this,516,1416)
 		this.witch=new Witch(this,580,540)
 		this.witch.level = oldWitch.level;

@@ -7,10 +7,6 @@ export default class Win extends Phaser.Scene {
        
 	}
 	 
-	preload(){
-		this.load.image('winImage', 'assets/GUI/victoryMsg.png');
-	}
-
 	create() {
 		this.defeat = this.add.image(this.sys.game.config.width/2, this.sys.game.config.height/2, 'winImage').setScrollFactor(0).setInteractive();
 		this.defeat.on('pointerup', () => {

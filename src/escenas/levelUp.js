@@ -3,16 +3,6 @@ export default class LevelUp extends Phaser.Scene {
 	constructor() {
 		super({ key: 'levelUp' });
 	}
-	 
-	preload(){
-		this.load.image('letter', 'assets/GUI/abilities/abilitiesBG.png');
-		this.load.image('Shield', 'assets/GUI/abilities/shield.png');
-		this.load.image('Life  Reg.', 'assets/GUI/abilities/healthRegen.png');
-		this.load.image('Speed', 'assets/GUI/abilities/movementSpeed.png');
-		this.load.image('Health', 'assets/GUI/abilities/health.png');
-		this.load.image('Damage', 'assets/GUI/abilities/damage.png');
-		this.load.image('Fire  Rate', 'assets/GUI/abilities/attackSpeed.png');
-	}
 
 	init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
