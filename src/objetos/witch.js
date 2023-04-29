@@ -13,8 +13,8 @@ import PoisonFlower from "./poisonFlower.js";
 import PoisonAttack from "./poisonAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
 	constructor(scene) {
-		super(scene, 240, 200, 'witch');
-		//532, 3195)
+		super(scene, 532, 3195, 'witch');
+		//532, 3195) 240 200
 		this.flowerArray = [false, false, false, false];
 		
 		this.diagonalSpeed = 49;

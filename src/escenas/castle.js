@@ -14,7 +14,7 @@ export default class Castle extends Phaser.Scene {
 
 	preload() {
 		this.load.spritesheet('witch', 'assets/Bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 'assets/Bruja/FireBall.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('witchAttack', 'assets/Bruja/fireBall.png', { frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('expBall', 'assets/Bruja/expBall.png', { frameWidth: 19, frameHeight: 18 })
 		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('fireFlower', 'assets/GUI/fireFlower.png', { frameWidth: 479, frameHeight: 576 })

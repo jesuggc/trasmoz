@@ -13,7 +13,7 @@ export default class Title extends Phaser.Scene {
         this.load.image('continue', 'assets/GUI/buttons/resetButton1.png');
 		this.load.image('continue2', 'assets/GUI/buttons/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
-        this.load.image('witchPause', 'assets/Bruja/bruja_pause.png')
+        this.load.image('witchPause', 'assets/witch/bruja_pause.png')
         this.load.image('speed', 'assets/GUI/abilities/speed.png')
 		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
 

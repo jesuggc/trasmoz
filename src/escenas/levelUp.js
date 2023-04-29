@@ -1,10 +1,5 @@
-/**
- * @extends Phaser.Scene
- */
+
 export default class LevelUp extends Phaser.Scene {
-	/**
-	 * @extends Phaser.Scene
-	 */
 	constructor() {
 		super({ key: 'levelUp' });
 	}

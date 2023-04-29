@@ -1,14 +1,8 @@
 export default class WitchAttack extends Phaser.GameObjects.Sprite {
-	/**
-	 * @param {Scene} scene - escena en la que aparece
-	 * @param {number} x - coordenada x
-	 * @param {number} y - coordenada y
-	 */
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'witchAttack');
-		this.speed = 170; // Nuestra velocidad de movimiento sera 140
-		this.witch = this.scene.witch; //Guardamos referencia a la bruja
-		this.setScale(1);
+		this.speed = 170; 
+		this.witch = this.scene.witch;
 		this.objetive = objetive;
 		        
 		this.scene.anims.create({
@@ -20,27 +14,13 @@ export default class WitchAttack extends Phaser.GameObjects.Sprite {
 		
 		this.play('idleAttack');
 		
-		this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
-		this.setRotation(this.radianAngle);
 		this.scene.add.existing(this);
-
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		// this.scene.physics.add.overlap(this, this.objetive, this.isShooted, null, this);
 
-		// Ajustamos el "collider" de nuestro ataque
-		this.bodyOffsetWidth = this.body.width/4;
-		this.bodyOffsetHeight = this.body.height/4;
-		this.bodyWidth = this.body.width/3;
-		this.bodyHeight = this.body.height/3;
-		
-		this.body.setOffset(this.bodyOffsetWidth, this.bodyOffsetHeight);
-		this.body.width = this.bodyWidth;
-		this.body.height = this.bodyHeight;
+		this.body.setSize(this.width*0.4, this.height*0.4, true)
 
-		this.scene.time.addEvent({delay: 2000, callback: function(){
-			this.destroy();
-        }, callbackScope: this});
+		this.scene.time.addEvent({delay: 2000, callback: function(){ this.destroy(); }, callbackScope: this});
 		
 	}
    
