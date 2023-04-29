@@ -87,7 +87,8 @@ export default class Animation extends Phaser.Scene {
 		this.spawn = false;
 		
 		// this.witch = new Witch(this, 532, 3195);		
-		this.witch = new Witch(this, 200, 200);		
+		this.witch = new Witch(this, 1800, 720);
+		this.witch.inCombat = true;		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.enemyPool = this.add.group();
 		
@@ -133,7 +134,7 @@ export default class Animation extends Phaser.Scene {
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
 
 		// CASTLE DOOR
-		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1);
+		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1).setVisible(false);
 		this.physics.add.existing(this.prueba)
 		this.physics.add.overlap(this.witch, this.prueba, this.gotoCastle,null,this)
 		// BARRA DE VIDA

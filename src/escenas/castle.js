@@ -4,6 +4,7 @@ import ExpBall from '../objetos/expBall.js';
 import FireFlower from '../objetos/fireFlower.js';
 import Knight from '../objetos/knight.js';
 import Enemy from '../objetos/enemy.js';
+import Torquemada from '../objetos/torquemada.js';
 /**
  * @extends Phaser.Scene
  */
@@ -34,11 +35,7 @@ export default class Castle extends Phaser.Scene {
 	}
 
 	init (data) {
-		this.witch = data.witch;
-		this.witch.scene = this;
-		this.witch.createAnims();
-		console.log("🚀 ~ file: castle.js:38 ~ Castle ~ init ~ data.witch:", data.witch)
-		
+		this.oldWitch = data.witch
 	}
 	create() {
 		this.map = this.make.tilemap({
@@ -52,41 +49,52 @@ export default class Castle extends Phaser.Scene {
         
 		this.suelo = this.map.createLayer('Suelo',  [ tileset]);
 		this.colisiones = this.map.createLayer('Colisiones', [tileset]).setCollisionByExclusion(-1);
-		this.puertas = this.map.createLayer('Puertas', [tileset]).setVisible(false)
+		this.puertas = this.map.createLayer('Puertas', [tileset]).setVisible(false).setCollisionByExclusion(-1).setDepth(2);
 		this.decorado = this.map.createLayer('Decorado', [tileset]);
-        this.evento = this.map.createLayer('Evento', [tileset]).setVisible(false);
         this.eventoActivado = false;
         
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
 		this.wolfSize = 2;
         
-		
-		this.witch.x = 516;
-		this.witch.y = 1416;	
+		this.initWitch(this.oldWitch);
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.enemyPool = this.add.group();
-		for (var i = 0; i < this.wolfSize; i++) {
-			let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
-			this.enemyPool.add(wolf);
-			let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
-			this.enemyPool.add(knight);
-		}
+		// for (var i = 0; i < this.wolfSize; i++) {
+		// 	let wolf = new Wolf(this, Math.random() * 10, Math.random() * 10);
+		// 	this.enemyPool.add(wolf);
+		// 	let knight = new Knight(this, Math.random() * 10, Math.random() * 10);
+		// 	this.enemyPool.add(knight);
+		// }
 
-		this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) {
-			enemy.attack();
-			}, null, this);
+		// this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) {
+		// 	enemy.attack();
+		// 	}, null, this);
 
-		this.physics.add.collider(this.enemyPool, this.colisiones);
-		this.physics.add.collider(this.enemyPool,this.enemyPool);
-        this.physics.add.overlap(this.witch,this.evento,(player, capa)=> {
-            if(capa.index !== -1 && !this.eventoActivado)
-            this.puertas.setVisible(true);
-            this.physics.add.collider(this.witch, this.puertas);
-            this.physics.add.collider(this.enemyPool, this.puertas);
-        })
+		// this.physics.add.collider(this.enemyPool, this.colisiones);
+		// this.physics.add.collider(this.enemyPool,this.enemyPool);
+        // this.physics.add.overlap(this.witch,this.evento,(player, capa)=> {
+        //     if(capa.index !== -1 && !this.eventoActivado)
+        //     this.puertas.setVisible(true);
+        //     this.physics.add.collider(this.witch, this.puertas);
+        //     this.physics.add.collider(this.enemyPool, this.puertas);
+        // })
 
-		
+		// CASTLE DOOR
+		this.prueba = this.add.rectangle( 660, 780,750,30,0x000000).setVisible(false);
+		this.physics.add.existing(this.prueba)
+		this.physics.add.overlap(this.witch, this.prueba, () => {
+			if(!this.eventoActivado){
+				this.puertas.setVisible(true);
+				this.physics.add.collider(this.witch, this.puertas);
+				this.torquemada = new Torquemada(this,580,540)
+				this.enemyPool.add(this.torquemada);
+				this.witch.inCombat =true;
+				this.eventoActivado = true;
+			//     this.physics.add.collider(this.enemyPool, this.puertas);
+			}
+		},null,this)
+
 		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
 			this.noname2= this.add.image(120, 20, 'noname2').setScale(0.5);
@@ -147,6 +155,27 @@ export default class Castle extends Phaser.Scene {
             this.scene.stop();
 			this.scene.launch('gameover');
 		}
+		console.log(this.witch.x,this.witch.y)
+	}
+
+	initWitch(oldWitch){
+		console.log(this)
+		//this.witch=new Witch(this,516,1416)
+		this.witch=new Witch(this,580,540)
+		this.witch.level = oldWitch.level;
+		this.witch.abilityLevels = oldWitch.abilityLevels;
+		this.witch.health = oldWitch.health;
+		this.witch.experience = oldWitch.experience;
+		this.witch.speed = oldWitch.speed;
+		this.witch.maxHealth = oldWitch.maxHealth;
+		this.witch.damage = oldWitch.damage;
+		this.witch.shield = oldWitch.shield;
+		this.witch.healthRegen = oldWitch.healthRegen;
+		this.witch.rate = oldWitch.rate;
+		this.witch.flowerArray = oldWitch.flowerArray;
+		this.witch.level = oldWitch.level;
+		this.witch.level = oldWitch.level;
+
 	}
 	
 }

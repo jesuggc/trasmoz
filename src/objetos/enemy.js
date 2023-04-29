@@ -36,11 +36,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
-        if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
-			let y1 = this.scene.generateRandomY();
-			this.y = y1;
-			this.x = this.scene.generateRandomX(y1);
-        }
+        this.updatePosition();
 		//dthis.setActive(this.scene.spawn)
 		/*if(!this.scene.spawn){
 			this.x = 0;
@@ -48,6 +44,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		}*/
 		// this.body.setActive(false); // El enemy sigue haciendo collider
 		if (this.health <= 0) this.die();
+	}
+	updatePosition(){
+		if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
+			let y1 = this.scene.generateRandomY();
+			this.y = y1;
+			this.x = this.scene.generateRandomX(y1);
+        }
 	}
 	die(){
 		this.isAlive = false;
