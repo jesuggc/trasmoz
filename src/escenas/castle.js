@@ -66,11 +66,10 @@ export default class Castle extends Phaser.Scene {
 			if(!this.eventoActivado){
 				this.puertas.setVisible(true);
 				this.physics.add.collider(this.witch, this.puertas);
+				this.physics.add.collider(this.enemyPool, this.puertas);
 				this.torquemada = new Torquemada(this,580,540)
 				this.enemyPool.add(this.torquemada);
-				this.witch.inCombat =true;
 				this.eventoActivado = true;
-			//     this.physics.add.collider(this.enemyPool, this.puertas);
 			}
 		},null,this)
 
@@ -106,36 +105,15 @@ export default class Castle extends Phaser.Scene {
 			if (skill) this.witch[skill.skillSelected]()
 		})
 	}
-	generateRandomY(){
-		let k = this.witch.y;
-		let leftL = k - this.spawnDistance;
-		let rightL = k + this.spawnDistance;
-		return Math.random()*(rightL - leftL) + leftL;
-	}
-	generateRandomX(y){
-		let h = this.witch.x;
-		let k = this.witch.y;
-		let b = -2 * this.witch.x;
-		let c = Math.pow(h,2) + Math.pow(y,2) + Math.pow(k,2) - Math.pow(this.spawnDistance,2) - 2 * y * k;
-		let x = (-b+ Math.sqrt(Math.pow(b,2)-4*c))/2;	
-		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
-		if (Math.random()>0.5) return x;
-		else return x1;
-	}
-
-	levelUp(){
-		this.witch.body.setVelocity(0);
-		this.scene.pause();
-		this.scene.launch('levelUp', {witch: this.witch, backScene: 'castle'});
-	}
-
+	
 	update(time,delta){
 		if(this.witch.health <= 0){
             this.scene.stop();
 			this.scene.launch('gameover');
 		}
+		console.log(this.torquemada)
 	}
-
+	
 	initWitch(oldWitch){
 		//this.witch=new Witch(this,516,1416)
 		this.witch=new Witch(this,580,540)
@@ -152,7 +130,29 @@ export default class Castle extends Phaser.Scene {
 		this.witch.flowerArray = oldWitch.flowerArray;
 		this.witch.level = oldWitch.level;
 		this.witch.level = oldWitch.level;
-
+		
 	}
 	
+	generateRandomY(){
+		let k = this.witch.y;
+		let leftL = k - this.spawnDistance;
+		let rightL = k + this.spawnDistance;
+		return Math.random()*(rightL - leftL) + leftL;
+	}
+	generateRandomX(y){
+		let h = this.witch.x;
+		let k = this.witch.y;
+		let b = -2 * this.witch.x;
+		let c = Math.pow(h,2) + Math.pow(y,2) + Math.pow(k,2) - Math.pow(this.spawnDistance,2) - 2 * y * k;
+		let x = (-b+ Math.sqrt(Math.pow(b,2)-4*c))/2;	
+		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
+		if (Math.random()>0.5) return x;
+		else return x1;
+	}
+	
+	levelUp(){
+		this.witch.body.setVelocity(0);
+		this.scene.pause();
+		this.scene.launch('levelUp', {witch: this.witch, backScene: 'castle'});
+	}
 }

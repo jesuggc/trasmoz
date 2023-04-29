@@ -7,15 +7,18 @@ export default class Boot extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap',	    'levels/MapaPrueba.json'); 
         this.load.tilemapTiledJSON('castleTilemap', 'levels/castillo.json'); 
 
-		this.load.spritesheet('witch', 			'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 	'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('wolf', 			'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('knight', 		'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('knightAttack', 	'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
-		this.load.spritesheet('fireAttack', 	'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack','assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})
-		this.load.spritesheet('freezeAttack', 	'assets/witch/freezeAttack.png', 			{frameWidth: 128, frameHeight: 128 })
-		this.load.spritesheet('poisonAttack', 	'assets/witch/poisonAttack.png', 			{frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('witch', 				'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
+		this.load.spritesheet('witchAttack', 		'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('wolf', 				'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
+		this.load.spritesheet('knight', 			'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('knightAttack', 		'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
+		this.load.spritesheet('fireAttack', 		'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
+		this.load.spritesheet('lightningAttack',	'assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})
+		this.load.spritesheet('freezeAttack', 		'assets/witch/freezeAttack.png', 			{frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('poisonAttack', 		'assets/witch/poisonAttack.png', 			{frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('torqueAttack', 		'assets/torquemada/SmallStar.png', 			{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('torquemada', 		'assets/torquemada/torquemadaIdle.png', 	{ frameWidth: 100, frameHeight: 180 })
+		this.load.spritesheet('torquemadaAttack', 	'assets/torquemada/torquemadaAttack.png', 	{ frameWidth: 138, frameHeight: 180 })
         
 		this.load.image('patronGround', 	'levels/ground.png'); 
 		this.load.image('patronTrees', 		'levels/trees.png'); 
@@ -45,12 +48,12 @@ export default class Boot extends Phaser.Scene {
 		this.load.image('Health',           'assets/GUI/abilities/health.png');
 		this.load.image('Damage',           'assets/GUI/abilities/damage.png');
 		this.load.image('Fire  Rate',       'assets/GUI/abilities/attackSpeed.png');
-        this.load.image('continue', 'assets/GUI/buttons/resetButton1.png');
-		this.load.image('continue2', 'assets/GUI/buttons/resetButton2.png');
+        this.load.image('continue', 		'assets/GUI/buttons/resetButton1.png');
+		this.load.image('continue2', 		'assets/GUI/buttons/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
-        this.load.image('witchPause', 'assets/witch/bruja_pause.png')
-        this.load.image('speed', 'assets/GUI/abilities/speed.png')
-		this.load.image('witchBg', 'assets/GUI/woodPannel.png');
+        this.load.image('witchPause', 		'assets/witch/bruja_pause.png')
+        this.load.image('speed', 			'assets/GUI/abilities/speed.png')
+		this.load.image('witchBg', 			'assets/GUI/woodPannel.png');
         this.load.image('play',             'assets/GUI/buttons/playButton1.png');
 		this.load.image('play2',            'assets/GUI/buttons/playButton2.png');
 		this.load.image('credits',          'assets/GUI/buttons/creditsButton1.png');
@@ -58,9 +61,9 @@ export default class Boot extends Phaser.Scene {
 		this.load.image('options',          'assets/GUI/buttons/optionsButton1.png');
 		this.load.image('options2',         'assets/GUI/buttons/optionsButton2.png');
 		this.load.image('sound',            'assets/GUI/buttons/soundButton1.png');
-		this.load.image('sound2', 'assets/GUI/buttons/soundButton2.png');
-		this.load.image('fullscreen', 'assets/GUI/buttons/fullscreenButton1.png');
-		this.load.image('fullscreen2', 'assets/GUI/buttons/fullscreenButton2.png');
+		this.load.image('sound2', 			'assets/GUI/buttons/soundButton2.png');
+		this.load.image('fullscreen', 		'assets/GUI/buttons/fullscreenButton1.png');
+		this.load.image('fullscreen2', 		'assets/GUI/buttons/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg');
 
 		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav');
