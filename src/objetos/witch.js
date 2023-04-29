@@ -12,9 +12,9 @@ import FreezeAttack from "./freezeAttack.js";
 import PoisonFlower from "./poisonFlower.js";
 import PoisonAttack from "./poisonAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
-	constructor(scene, x, y) {
-		super(scene, x, y, 'witch');
-
+	constructor(scene) {
+		super(scene, 240, 200, 'witch');
+		//532, 3195)
 		this.flowerArray = [false, false, false, false];
 		
 		this.diagonalSpeed = 49;
@@ -57,6 +57,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastPoisonAttack = 0;
 		this.poisonAttackCooldown = 8000;
 
+
 		
 		this.maxAbilitiesLevels = 5;
 		this.abilityLevels = new Map([
@@ -70,7 +71,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		
 		this.onCollide = true;
 		this.scene.add.existing(this);
-		scene.physics.add.existing(this);
+		this.scene.physics.add.existing(this);
+		this.body.pushable = false;
+
 
 		this.scene.anims.create({
 			key: 'idleWitch',
