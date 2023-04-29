@@ -2,15 +2,14 @@ import ExpBall from "../objetos/expBall.js";
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
 	
-	constructor(scene, x, y, speed, health,damage) {
-		super(scene, x, y);
+	constructor(scene, speed, health,damage) {
+		super(scene, 0, 0);
 		this.speed = speed;
 		this.health = health;
 		this.initialLife = health;
 		this.damage = damage;
 		this.diagonalSpeed = 49;
 		this.respawnDistance = 360;
-		this.witch = this.scene.witch;
 		this.isAlive = true;
 
 		this.inactive();
@@ -23,7 +22,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
-		if(this.calcularDiagonal(this.x, this.y, this.witch.x, this.witch.y) > this.respawnDistance){
+		if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
 			let y1 = this.scene.generateRandomY();
 			this.y = y1;
 			this.x = this.scene.generateRandomX(y1);
@@ -42,10 +41,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	die(){
-		this.isAlive = false;
 		new ExpBall(this.scene,this.x,this.y,'expBall');
-		this.setVisible(false);
-		this.setActive(false);
+		this.inactive();
+		this.isAlive = false;
 		this.respawn();
 	}
    
@@ -82,8 +80,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	attack(){
-		console.log("por contacto"+this.damage)
-		this.witch.perderVida(this.damage)
+		this.scene.witch.perderVida(this.damage)
 	}
     
 	levelUp(){

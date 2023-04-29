@@ -12,16 +12,10 @@ import FreezeAttack from "./freezeAttack.js";
 import PoisonFlower from "./poisonFlower.js";
 import PoisonAttack from "./poisonAttack.js";
 export default class Witch extends Phaser.GameObjects.Sprite {
-	/**
-	 * @param {Scene} scene
-	 * @param {number} x 
-	 * @param {number} y 
-	 */
 	constructor(scene, x, y) {
 		super(scene, x, y, 'witch');
 
 		this.flowerArray = [false, false, false, false];
-
 		
 		this.diagonalSpeed = 49;
 		this.health = 500;

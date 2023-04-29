@@ -12,10 +12,16 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	preload() {
+		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
 		this.load.spritesheet('witch', 'assets/bruja/bruja.png', { frameWidth: 66, frameHeight: 66 })
 		this.load.spritesheet('witchAttack', 'assets/bruja/FireBall.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('wolf', 'assets/enemies/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
-		this.load.tilemapTiledJSON('tilemap', 'levels/MapaPrueba.json'); 
+		this.load.spritesheet('wolf', 'assets/enemies/wolf/wolfWalk.png', { frameWidth: 64.8, frameHeight: 33 })
+		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
+		this.load.spritesheet('fireAttack', 'assets/bruja/fireAttack.png',{frameWidth: 96, frameHeight: 96})
+		this.load.spritesheet('lightningAttack', 'assets/bruja/lightningAttack.png', {frameWidth: 64, frameHeight: 64})
+		this.load.spritesheet('freezeAttack', 'assets/bruja/freezeAttack.png', {frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('poisonAttack', 'assets/bruja/poisonAttack.png', {frameWidth: 64, frameHeight: 64 })
 		this.load.image('patronGround', 'levels/ground.png'); 
 		this.load.image('patronTrees', 'levels/trees.png'); 
 		this.load.image('patronHouse', 'levels/witchHouse.png');
@@ -34,12 +40,6 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('pause_button', 'assets/GUI/pause_button.png')
 		this.load.image('noname', 'assets/noname/noName1.png');
 		this.load.image('noname2', 'assets/noname/noName2.png');
-		this.load.spritesheet('knight', 'assets/enemies/knight/knightWalk.png', { frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('knightAttack', 'assets/enemies/knight/knightAttack.png', { frameWidth: 74, frameHeight: 73 })
-		this.load.spritesheet('fireAttack', 'assets/bruja/fireAttack.png',{frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack', 'assets/bruja/lightningAttack.png', {frameWidth: 64, frameHeight: 64})
-		this.load.spritesheet('freezeAttack', 'assets/bruja/freezeAttack.png', {frameWidth: 128, frameHeight: 128 })
-		this.load.spritesheet('poisonAttack', 'assets/bruja/poisonAttack.png', {frameWidth: 64, frameHeight: 64 })
 	}
 	create() {
 		this.map = this.make.tilemap({
@@ -64,14 +64,15 @@ export default class Animation extends Phaser.Scene {
 		this.suelo2 = this.map.createLayer('Suelo2',  [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10 ]);
 		this.colisiones = this.map.createLayer('Colliders', [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10 ]).setCollisionByExclusion(-1);
 		this.arboles = this.map.createLayer('Arboles 1', [ ts2,ts7, ts9, ts10]).setDepth(2);
-		this.arboles2 = this.map.createLayer('Arboles 2', [ ts2,ts7, ts9,ts10]).setDepth(2);;
-		this.arboles3 = this.map.createLayer('Arboles 3', [ ts2,ts7, ts9,ts10]).setDepth(2);;
+		this.arboles2 = this.map.createLayer('Arboles 2', [ ts2,ts7, ts9,ts10]).setDepth(2);
+		this.arboles3 = this.map.createLayer('Arboles 3', [ ts2,ts7, ts9,ts10]).setDepth(2);
 
 		this.spawnDist = 280;
 		this.nnprob = 0.05;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 0;
+		this.initialEnemies = 9;
+		this.enemiesJump = 3;
 		this.spawn = false;
 		
 		// this.witch = new Witch(this, 532, 3195);		
@@ -83,8 +84,8 @@ export default class Animation extends Phaser.Scene {
 		
 		this.enemyPool = this.add.group();
 		for (var i = 0; i < this.poolSize; i++) {
-			this.enemyPool.add(new Wolf(this, 0, 0));
-			this.enemyPool.add(new Knight(this, 0, 0));
+			this.enemyPool.add(new Wolf(this));
+			this.enemyPool.add(new Knight(this));
 		}
 		this.updatePoolSize(this.initialEnemies);
 		
@@ -158,7 +159,7 @@ export default class Animation extends Phaser.Scene {
 
 	levelUp(){
 		this.levelUpScene();
-		this.updatePoolSize(5);
+		this.updatePoolSize(this.enemiesJump);
 	}
 	
 	levelUpScene(){
@@ -185,7 +186,6 @@ export default class Animation extends Phaser.Scene {
 
 	levelUpEnemies(){
 		this.enemyPool.children.entries.forEach(enemigo=>enemigo.levelUp())
-		console.log("Subida de nivel de enemigos")
 	}
 	
 }

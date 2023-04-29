@@ -1,13 +1,14 @@
 import Enemy from "./enemy.js";
 
 export default class Wolf extends Enemy {
-	constructor(scene, x, y) {
-		super(scene, x, y, 50,20,2);
+	constructor(scene) {
+		let speed = 50;
+		let health = 20;
+		let damage=1.5;
+		super(scene, speed, health,damage);
 		this.setScale(0.5);
-		this.damage=2;
 		this.damageJump=1;
 		this.initialLifeJump=10;
-
 
         this.scene.anims.create({key: 'walkWolf',
 			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:4}),
@@ -24,8 +25,8 @@ export default class Wolf extends Enemy {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-        if (this.witch.x < this.x) this.setFlipX(true);
-        else this.setFlipX(false);
+		this.setFlipX(this.scene.witch.x > this.x ? false : true)
+
 	}
 
 	decreaseSpeed(){

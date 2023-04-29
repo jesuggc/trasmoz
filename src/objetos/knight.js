@@ -1,18 +1,16 @@
 import Enemy from "./enemy.js";
 
 export default class Knight extends Enemy {
-	/**
-	 * @param {Scene} scene
-	 * @param {number} x
-	 * @param {number} y
-	 */
-	
-	constructor(scene, x, y) {
-		super(scene, x, y,40,40,3);
-		this.damage=3;
+	constructor(scene) {
+		let speed = 40;
+		let health = 40;
+		let damage=2.25;
+		super(scene, speed, health, damage);
+
 		this.estaAtacando = false;
 		this.damageJump=1;
 		this.initialLifeJump=20;
+		// this.x = super.x;
 
 
 		this.scene.anims.create({
@@ -30,7 +28,6 @@ export default class Knight extends Enemy {
 		});
 		
 		
-		
 		this.play('walkKnight');
 		// COLLIDER
 		this.body.setSize(this.width*0.25, this.height*0.55, true );
@@ -40,10 +37,7 @@ export default class Knight extends Enemy {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		
-        if (this.witch.x > this.x) this.setFlipX(true);
-        else this.setFlipX(false);
-		
+		this.setFlipX(this.scene.witch.x > this.x ? true : false)
 	}
     
 	
