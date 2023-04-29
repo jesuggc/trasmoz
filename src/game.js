@@ -5,6 +5,7 @@ import LevelUp from './escenas/levelUp.js';
 import Castle from './escenas/castle.js'
 import Credits from './escenas/credits.js';
 import Gameover from './escenas/gameover.js';
+import Intro from './escenas/intro.js';
 import Win from './escenas/win.js';
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
@@ -34,7 +35,8 @@ let config = {
         zoom: 1
     },
     scene: [
-        // Title,
+        Title,
+        Intro,
         Animation,
         Castle,
         Gameover,

@@ -112,7 +112,7 @@ export default class Animation extends Phaser.Scene {
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(2);
 
 		// CASTLE DOOR
-		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1);
+		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1).setVisible(false);
 		this.physics.add.existing(this.prueba)
 		this.physics.add.overlap(this.witch, this.prueba, this.gotoCastle,null,this)
 		

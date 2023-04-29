@@ -1,7 +1,7 @@
 export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'torqueAttack');
-		this.speed = 17; // Nuestra velocidad de movimiento sera 140
+		this.speed = 300; // Nuestra velocidad de movimiento sera 140
 		this.torque = this.scene.torquemada; 
 		this.setScale(1);
 		this.witch = this.scene.witch;
@@ -21,17 +21,14 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 
 		this.scene.physics.add.existing(this);
 		this.body.onCollide = true;
-		this.scene.physics.add.collider(this, this.witch , this.isShooted, null, this);
-
 		// Ajustamos el "collider" de nuestro ataque
-		this.setSize(this.width,this.height,true)
+		this.body.setSize(this.width*0.5,this.height*0.5,true)
 
 		this.scene.time.addEvent({delay: 10000, callback: function(){
 			this.destroy();
         }, callbackScope: this});
-		this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.witch.x, this.witch.y);
-		this.setRotation(this.radianAngle); //TODO check if working
-		this.scene.physics.moveTo(this,this.witch.x, this.witch.y,200);
+		this.scene.physics.moveTo(this,this.witch.x, this.witch.y,this.speed);
+		
 		
 	}
    
@@ -39,14 +36,10 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
 		
 		if (this.scene.physics.overlap(this,this.witch )){
-			this.witch.receiveDamage(this.damage);
+			this.witch.perderVida(this.damage);
 			this.destroy();
-		}    
-	}
-
-	isShooted(){
-		this.witch.perderVida(this.damage);
-		this.destroy();
+		}
+		else if (!this.witch.isAlive) this.destroy()		
 	}
 
 }

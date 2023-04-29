@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-import TorquemadaAttack from "./torquemadaAttacks.js";
+import TorquemadaAttack from "./torquemadaAttack.js";
 import Witch from "./witch.js";
 export default class Torquemada extends Enemy {
 	/**
@@ -8,7 +8,7 @@ export default class Torquemada extends Enemy {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y,10,40,2);
+		super(scene, x, y,0,40,2);
 		this.x=x;
 		this.y=y;
 		this.health = 10000;
@@ -64,6 +64,9 @@ export default class Torquemada extends Enemy {
 		if(this.health <= this.maxHealth/2){
 			this.generateEnemies();
 		}
+
+	}
+	updatePosition(){
 
 	}
     dinamicLifebar(lb,lbs){

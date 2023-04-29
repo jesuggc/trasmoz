@@ -10,16 +10,16 @@ export default class Title extends Phaser.Scene {
 	}
 	 
 	preload(){
-		this.load.image('play', 'assets/GUI/playButton1.png');
-		this.load.image('play2', 'assets/GUI/playButton2.png');
-		this.load.image('credits', 'assets/GUI/creditsButton1.png');
-		this.load.image('credits2', 'assets/GUI/creditsButton2.png');
-		this.load.image('options', 'assets/GUI/optionsButton1.png');
-		this.load.image('options2', 'assets/GUI/optionsButton2.png');
-		this.load.image('sound', 'assets/GUI/soundButton1.png');
-		this.load.image('sound2', 'assets/GUI/soundButton2.png');
-		this.load.image('fullscreen', 'assets/GUI/fullscreenButton1.png');
-		this.load.image('fullscreen2', 'assets/GUI/fullscreenButton2.png');
+		this.load.image('play', 'assets/GUI/buttons/playButton1.png');
+		this.load.image('play2', 'assets/GUI/buttons/playButton2.png');
+		this.load.image('credits', 'assets/GUI/buttons/creditsButton1.png');
+		this.load.image('credits2', 'assets/GUI/buttons/creditsButton2.png');
+		this.load.image('options', 'assets/GUI/buttons/optionsButton1.png');
+		this.load.image('options2', 'assets/GUI/buttons/optionsButton2.png');
+		this.load.image('sound', 'assets/GUI/buttons/soundButton1.png');
+		this.load.image('sound2', 'assets/GUI/buttons/soundButton2.png');
+		this.load.image('fullscreen', 'assets/GUI/buttons/fullscreenButton1.png');
+		this.load.image('fullscreen2', 'assets/GUI/buttons/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg')
 		this.load.audio('titleSoundtrack', 'assets/soundtrack/title_soundtrack.wav')
 	}
@@ -85,8 +85,7 @@ export default class Title extends Phaser.Scene {
 			this.playButton2.setVisible(false);
 				this.playButton.setVisible(true);
 				this.time.addEvent({delay: 400, callback: function(){
-				this.soundTitle.stop();
-				this.scene.start('castle'); 
+				this.scene.start('intro',{music:this.soundTitle}); 
 				}, callbackScope: this});
 			}, callbackScope: this});
 	    });

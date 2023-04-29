@@ -16,9 +16,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		super(scene, 532, 3195, 'witch');
 		//532, 3195) 240 200
 		this.flowerArray = [false, false, false, false];
-		
-		this.diagonalSpeed = 49;
+
+		this.direccion = new Phaser.Math.Vector2();
 		this.health = 500;
+		this.inCombat = false;
 		this.experience = 0;
 		this.isAlive = true;
 		this.speed = 70; //SPEED
@@ -28,8 +29,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.healthRegen = 0.05; //LIFE REG
 		this.rate = 2000; //FIRE RATE
 		// ------------------------------------------------
-		this.speedJump = 30; // SPEED JUMP
-		this.diagonalSpeedJump = 21;
+		this.speedJump = 7; // SPEED JUMP
 		this.healthJump = 50; //HEALTH JUMP
 		this.damageJump = 10; //DAMAGE JUMP
 		this.shieldJump = 2; //SHIELD JUMP
@@ -99,13 +99,18 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.testingKey = this.scene.input.keyboard.addKey('P');
 
 		// COLLIDER
-		this.body.setSize(this.width*0.3, this.height*0.4, true ); // TODO
+		this.body.setSize(this.width*0.2, this.height*0.4, true ); // TODO
+
+		
+
 	}
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-
+console.log(t)
 		this.body.setVelocity(0)
+		this.direccion.x = 0;
+		this.direccion.y = 0;
 		
 		if (t > this.lastBasicAttack + this.rate && this.scene.spawn) {	
 			var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
@@ -161,39 +166,40 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 		// TESTING BUTTON
 		if(this.testingKey.isDown){
-			this.speed = 600;
+			this.speed = 100;
 			this.diagonalSpeed = 424;
 			this.health = 5000;
 			this.maxHealth = 5000; //HEALTH
 			this.healthRegen = 5; //LIFE REG
 		}
 		// MOVERSE A LA IZQUIERDA
-		if(this.aKey.isDown){
-			this.setFlipX(true)
-			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(-this.diagonalSpeed);
-			else this.body.setVelocityX(-this.speed);
-		}
-
-		// MOVERSE A LA DERECHA
-		if(this.dKey.isDown){
+		if (this.aKey.isDown) {
+			this.setFlipX(true);
+			this.direccion.x = -1;
+			}
+	
+			// MOVERSE A LA DERECHA
+			if (this.dKey.isDown) {
 			this.setFlipX(false);
-			if (this.wKey.isDown || this.sKey.isDown) this.body.setVelocityX(this.diagonalSpeed);
-			else this.body.setVelocityX(this.speed);
-		}
-
-		// MOVERSE ARRIBA
-		if(this.wKey.isDown){
-			this.setFlipX(this.flipX)
-			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(-this.diagonalSpeed);
-			else this.body.setVelocityY(-this.speed);
-		}
-
-		// MOVERSE ABAJO
-		if(this.sKey.isDown){
-			this.setFlipX(this.flipX)			
-			if (this.aKey.isDown || this.dKey.isDown) this.body.setVelocityY(this.diagonalSpeed);
-			else this.body.setVelocityY(this.speed);
-		}
+			this.direccion.x = 1;
+			}
+	
+			// MOVERSE ARRIBA
+			if (this.wKey.isDown) {
+				this.direccion.y = -1;
+			}
+	
+			// MOVERSE ABAJO
+			if (this.sKey.isDown) {
+				this.direccion.y = 1;
+			}
+	
+			// Normalizar el vector de dirección
+			this.direccion.normalize();
+	
+			// Aplicar el movimiento al personaje
+			this.body.setVelocityX(this.direccion.x * this.speed);
+			this.body.setVelocityY(this.direccion.y * this.speed);
 		
 		if(Phaser.Input.Keyboard.JustUp(this.aKey) || Phaser.Input.Keyboard.JustUp(this.dKey) || Phaser.Input.Keyboard.JustUp(this.wKey)|| Phaser.Input.Keyboard.JustUp(this.sKey)) this.body.setVelocity(0);
 	
