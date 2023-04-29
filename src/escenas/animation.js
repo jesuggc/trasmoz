@@ -24,7 +24,6 @@ export default class Animation extends Phaser.Scene {
 		this.load.image('patronGraves', 'levels/graves.png');
 		this.load.image('patronDecoration', 'levels/decoration.png'); 
 		this.load.image('patronWater', 'levels/water.png'); 
-		this.load.image('patronStair', 'levels/stair.png'); 
 		this.load.image('patronSquare', 'levels/square.png'); 
 		this.load.image('patronBridge', 'levels/bridge.png'); 
 		this.load.image('fireFlower', 'assets/flowers/fireFlower.png')
@@ -50,30 +49,29 @@ export default class Animation extends Phaser.Scene {
 			width: 64,
 			height: 32
 		});
-		const ts1 = this.map.addTilesetImage('ground', 'patronGround'); //AQUI
-		const ts2 = this.map.addTilesetImage('trees', 'patronTrees'); //AQUI
-		const ts3 = this.map.addTilesetImage('witchHouse', 'patronHouse'); //AQUI
-		const ts4 = this.map.addTilesetImage('cliff', 'patronCliff'); //AQUI
-		const ts5 = this.map.addTilesetImage('rocks', 'patronRocks'); //AQUI
-		const ts6 = this.map.addTilesetImage('graves', 'patronGraves'); //AQUI
-		const ts7 = this.map.addTilesetImage('decoration', 'patronDecoration'); //AQUI
-		const ts8 = this.map.addTilesetImage('water', 'patronWater'); //AQUI
-		const ts9 = this.map.addTilesetImage('stair', 'patronStair'); //AQUI
-		const ts10 = this.map.addTilesetImage('square', 'patronSquare'); //AQUI
-		const ts11 = this.map.addTilesetImage('bridge', 'patronBridge'); //AQUI
+		const ts1 = this.map.addTilesetImage('ground', 'patronGround');
+		const ts2 = this.map.addTilesetImage('trees', 'patronTrees'); 
+		const ts3 = this.map.addTilesetImage('witchHouse', 'patronHouse'); 
+		const ts4 = this.map.addTilesetImage('cliff', 'patronCliff'); 
+		const ts5 = this.map.addTilesetImage('rocks', 'patronRocks'); 
+		const ts6 = this.map.addTilesetImage('graves', 'patronGraves'); 
+		const ts7 = this.map.addTilesetImage('decoration', 'patronDecoration');
+		const ts8 = this.map.addTilesetImage('water', 'patronWater'); 
+		const ts9 = this.map.addTilesetImage('square', 'patronSquare'); 
+		const ts10 = this.map.addTilesetImage('bridge', 'patronBridge');
 
-		this.suelo = this.map.createLayer('Suelo',  [ ts1,ts4, ts8, ts9, ts10, ts11]);
-		this.suelo2 = this.map.createLayer('Suelo2',  [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10, ts11 ]);
-		this.colisiones = this.map.createLayer('Colliders', [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10, ts11 ]);
-		this.arboles = this.map.createLayer('Arboles 1', [ ts2,ts7, ts10, ts11]).setDepth(2);
-		this.arboles2 = this.map.createLayer('Arboles 2', [ ts2,ts7, ts10, ts11]).setDepth(2);;
-		this.arboles3 = this.map.createLayer('Arboles 3', [ ts2,ts7, ts10, ts11]).setDepth(2);;
+		this.suelo = this.map.createLayer('Suelo',  [ ts1,ts4, ts8, ts9, ts10]);
+		this.suelo2 = this.map.createLayer('Suelo2',  [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10 ]);
+		this.colisiones = this.map.createLayer('Colliders', [ ts1,ts2,ts3,ts4,ts5,ts6,ts7, ts8, ts9, ts10 ]).setCollisionByExclusion(-1);
+		this.arboles = this.map.createLayer('Arboles 1', [ ts2,ts7, ts9, ts10]).setDepth(2);
+		this.arboles2 = this.map.createLayer('Arboles 2', [ ts2,ts7, ts9,ts10]).setDepth(2);;
+		this.arboles3 = this.map.createLayer('Arboles 3', [ ts2,ts7, ts9,ts10]).setDepth(2);;
 
 		this.spawnDist = 280;
 		this.nnprob = 0.05;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 12;
+		this.initialEnemies = 0;
 		this.spawn = false;
 		
 		// this.witch = new Witch(this, 532, 3195);		
@@ -140,7 +138,7 @@ export default class Animation extends Phaser.Scene {
 	}
 	update(time,delta){
 		if(this.witch.health <= 0) this.gameOverScene();
-		this.spawn = this.enemyPool !== null;
+		this.spawn = this.enemiesSize !== 0;
 	}
 	generateRandomY(){
 		let leftL = this.witch.y - this.spawnDist;
