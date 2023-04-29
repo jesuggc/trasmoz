@@ -31,6 +31,7 @@ export default class Castle extends Phaser.Scene {
 		this.puertas = this.map.createLayer('Puertas', [tileset]).setVisible(false).setCollisionByExclusion(-1).setDepth(2);
 		this.decorado = this.map.createLayer('Decorado', [tileset]);
         this.eventoActivado = false;
+		this.spawn = true;
         
 		this.spawnDistance = 280;
 		this.nnprob = 0.05;
@@ -71,7 +72,8 @@ export default class Castle extends Phaser.Scene {
 				this.enemyPool.add(this.torquemada);
 				this.eventoActivado = true;
 			}
-		},null,this)
+		},null,this);
+		this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) { enemy.attack(); }, null, this);
 
 		if(Math.random() < this.nnprob) {
 			this.noname1 = this.add.image(20, 20, 'noname').setScale(0.5);
@@ -111,7 +113,11 @@ export default class Castle extends Phaser.Scene {
             this.scene.stop();
 			this.scene.launch('gameover');
 		}
-		console.log(this.torquemada)
+		else if(this.torquemada && this.torquemada.health <= 0){
+			this.scene.restart()
+			this.scene.stop()
+			this.scene.launch('win')
+		}
 	}
 	
 	initWitch(oldWitch){

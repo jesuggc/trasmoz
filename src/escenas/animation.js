@@ -42,7 +42,7 @@ export default class Animation extends Phaser.Scene {
 		this.nnprob = 0.05;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 0;
+		this.initialEnemies = 3;
 		this.enemiesJump = 3;
 		this.spawn = false;
 		
@@ -146,6 +146,7 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	gotoCastle(){
+		this.scene.restart();
 		this.scene.stop();
 		this.scene.launch('castle', {witch: this.witch});
 	}

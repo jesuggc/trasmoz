@@ -170,6 +170,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.health = 5000;
 			this.maxHealth = 5000; //HEALTH
 			this.healthRegen = 5; //LIFE REG
+			this.damage = 4000;
 		}
 		// MOVERSE A LA IZQUIERDA
 		if (this.aKey.isDown) {

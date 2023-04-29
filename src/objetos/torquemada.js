@@ -8,14 +8,12 @@ export default class Torquemada extends Enemy {
 	 * @param {number} y
 	 */
 	constructor(scene, x, y) {
-		super(scene, x, y,0,40,2);
+		super(scene, x, y,0,10000,5);
 		this.setVisible(true);
 		this.setActive(true);
-		this.health = 10000;
 		this.maxHealth = 10000;
 		this.estaAtacando = false;
 		this.body.pushable=false;
-		this.damage=5;
 		this.lastBasicAttack = 0;
 		this.rate = 1200;
         this.scene.anims.create({
@@ -67,6 +65,9 @@ export default class Torquemada extends Enemy {
 	updatePosition(){
 
 	}
+	die(){
+		
+	}
     dinamicLifebar(lb,lbs){
 		lb.width = 170 * this.health/this.maxHealth;
 		lb.x = this.x;
@@ -75,7 +76,6 @@ export default class Torquemada extends Enemy {
 		lbs.y = this.y + this.height/2 + 20;
 		lb.setDepth(3);
 	}
-	
 	generateEnemies(){
 
 	}
