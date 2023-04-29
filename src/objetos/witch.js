@@ -110,7 +110,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-
+console.log(t)
 		this.body.setVelocity(0)
 		this.direccion.x = 0;
 		this.direccion.y = 0;
