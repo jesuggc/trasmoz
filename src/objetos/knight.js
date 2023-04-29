@@ -5,7 +5,7 @@ export default class Knight extends Enemy {
 		let speed = 40;
 		let health = 40;
 		let damage=2.25;
-		super(scene, speed, health, damage);
+		super(scene,0,0, speed, health, damage);
 
 		this.estaAtacando = false;
 		this.damageJump=1;

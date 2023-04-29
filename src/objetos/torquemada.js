@@ -9,8 +9,8 @@ export default class Torquemada extends Enemy {
 	 */
 	constructor(scene, x, y) {
 		super(scene, x, y,0,40,2);
-		this.x=x;
-		this.y=y;
+		this.setVisible(true);
+		this.setActive(true);
 		this.health = 10000;
 		this.maxHealth = 10000;
 		this.estaAtacando = false;
@@ -43,9 +43,7 @@ export default class Torquemada extends Enemy {
 
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		
-        if (this.witch.x < this.x) this.setFlipX(true);
-        else this.setFlipX(false);
+		this.setFlipX(this.scene.witch.x > this.x ? false : true)
 		
 		this.dinamicLifebar(this.lifebar, this.lifebarS);
 		

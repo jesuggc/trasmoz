@@ -11,6 +11,7 @@ export default class Animation extends Phaser.Scene {
 		super({ key: 'animation' });
 	}
 
+
 	create() {
 		this.map = this.make.tilemap({
 			key: 'tilemap',
