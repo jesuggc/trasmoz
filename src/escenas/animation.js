@@ -55,8 +55,8 @@ export default class Animation extends Phaser.Scene {
 		
 		this.enemyPool = this.add.group();
 		for (var i = 0; i < this.poolSize; i++) {
-			this.enemyPool.add(new Wolf(this));
-			this.enemyPool.add(new Knight(this));
+			this.enemyPool.add(new Wolf(this, 0, 0));
+			this.enemyPool.add(new Knight(this, 0, 0));
 		}
 		this.updatePoolSize(this.initialEnemies);
 		

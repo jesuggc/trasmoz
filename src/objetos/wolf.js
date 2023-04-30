@@ -1,11 +1,11 @@
 import Enemy from "./enemy.js";
 
 export default class Wolf extends Enemy {
-	constructor(scene) {
+	constructor(scene, x, y) {
 		let speed = 50;
 		let health = 20;
 		let damage=1.5;
-		super(scene, 0, 0, speed, health,damage);
+		super(scene, x, y, speed, health,damage);
 		this.setScale(0.5);
 		this.damageJump=1;
 		this.initialLifeJump=10;

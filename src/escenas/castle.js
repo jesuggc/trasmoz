@@ -30,7 +30,12 @@ export default class Castle extends Phaser.Scene {
 		this.colisiones = this.map.createLayer('Colisiones', [tileset]).setCollisionByExclusion(-1);
 		this.puertas = this.map.createLayer('Puertas', [tileset]).setVisible(false).setCollisionByExclusion(-1).setDepth(2);
 		this.decorado = this.map.createLayer('Decorado', [tileset]);
-        this.eventoActivado = false;
+		this.spawn = this.map.createLayer('Spawn', [tileset]);
+        this.spawnPositions = this.initSpawn()
+		console.log(this.spawnPositions)
+
+		
+		this.eventoActivado = false;
 		this.spawn = true;
         
 		this.spawnDistance = 280;
@@ -68,7 +73,7 @@ export default class Castle extends Phaser.Scene {
 				this.puertas.setVisible(true);
 				this.physics.add.collider(this.witch, this.puertas);
 				this.physics.add.collider(this.enemyPool, this.puertas);
-				this.torquemada = new Torquemada(this,580,540)
+				this.torquemada = new Torquemada(this,580,540,this.spawnPositions)
 				this.enemyPool.add(this.torquemada);
 				this.eventoActivado = true;
 			}
@@ -137,6 +142,18 @@ export default class Castle extends Phaser.Scene {
 		this.witch.level = oldWitch.level;
 		this.witch.level = oldWitch.level;
 		
+	}
+
+	initSpawn(){
+		let tiles = [];
+
+		this.spawn.forEachTile(function (tile) {
+			if (tile.index !== -1) {
+			tiles.push({ x: tile.pixelX, y: tile.pixelY });
+			}
+		});
+
+		return tiles;
 	}
 	
 	generateRandomY(){
