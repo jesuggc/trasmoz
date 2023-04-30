@@ -91,7 +91,7 @@ export default class Castle extends Phaser.Scene {
 		this.lifebarS = this.add.rectangle(328,100,366,15,0x000000).setScrollFactor(0).setDepth(2);
 
 		// BOTON DE PAUSA
-		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(1);
+		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.4).setDepth(1);
 		button.on('pointerup', poainter => {
 			this.scene.pause();
 			this.scene.launch('pause', {witch: this.witch, backScene: 'castle'})
