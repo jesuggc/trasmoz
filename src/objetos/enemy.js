@@ -17,11 +17,11 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.freezeAttackTime = 0;
 		this.poisonAttackTime = 0;
 		this.frozenCooldown = 4000;
-		this.poisonCooldown = 8000;
-		this.poisonAttackFinal = 0;
-		this.poisonAttackIncrease = 2000;
 		this.now = 0;
-		this.poisonAttack = 0;
+		this.hasBeenDamaged = false;
+
+		this.poisonTicks = 0;
+		this.poisonDamage = 5;
 
 		this.scene.add.existing(this);
 		this.onCollide = true;
@@ -38,15 +38,14 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		}
 		else if(t > this.freezeAttackTime + this.frozenCooldown) this.increaseSpeed();
 
-		if( this.poisonAttack == 1){
+		if (this.poisonTicks === 0) this.clearTint();
+		else if(this.poisonTicks > 0 && t > this.poisonAttackTime + 700){
+			this.receiveDamage(this.poisonDamage, '0x49f21b');
+			this.poisonTicks--;
 			this.poisonAttackTime = t;
-			this.poisonAttackFinal = t + this.poisonCooldown;
-			this.poisonAttack = 0;
 		}
-		else if(t == this.poisonAttackTime + this.poisonAttackIncrease && t < this.poisonAttackFinal ){
-			this.receiveDamage(this.damage);
-			this.poisonAttackTime = t;			
-		}
+
+
 		if (this.health <= 0) this.die();
 	}
 	
@@ -61,6 +60,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
 	die(){
 		new ExpBall(this.scene,this.x,this.y,'expBall');
+		this.poisonTicks = 0;
 		this.inactive();
 		this.isAlive = false;
 		this.respawn();
@@ -80,16 +80,29 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.isAlive = true;
 		this.health = this.initialLife;
 	}
-	receiveDamage(damage){
+	receiveDamage(damage,col){
 		this.health -= damage;
 		this.tinkle();
-		this.printDamage(damage);
+		this.printDamage(damage,col);
 	}
 
-	printDamage(damage){
-		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' }).setResolution(10).setStroke(0x000000,2);
-		this.scene.time.addEvent({delay: 450, callback: function(){ this.damageText.destroy(); }, callbackScope: this});
-	}
+	printDamage(damage,col){
+		let damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
+		damageText.setResolution(10);
+		damageText.setStroke(0x000000,2);
+		if (col) damageText.setTint(col)
+		else (damageText.setTint(0xffffff))
+		this.scene.tweens.add({
+		  targets: damageText,
+		  y: damageText.y - 20, 
+		  alpha: 0,
+		  duration: 1000,
+		  ease: 'Linear',
+		  onComplete: function() {
+			damageText.destroy();
+		  }
+		});
+	  }
 
 	tinkle(){
 		this.setVisible(false);
@@ -118,8 +131,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.initialLife+=this.initialLifeJump;
 	}
 	poison(){
-		this.poisonAttack = 1;
-		this.receiveDamage();
+		this.poisonTicks = 4;
 	}
 
 }

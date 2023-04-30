@@ -3,7 +3,7 @@ import Enemy from "./enemy.js";
 export default class Knight extends Enemy {
 	constructor(scene, x, y) {
 		let speed = 40;
-		let health = 40;
+		let health = 60;
 		let damage=2.25;
 		super(scene,x,y, speed, health, damage);
 

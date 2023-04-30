@@ -1,20 +1,19 @@
 export default class FireAttack extends Phaser.GameObjects.Sprite {
-    constructor(scene, witch, x, y, damage){
+    constructor(scene, witch, x, y){
         super(scene, x, y, 'fireAttack');
     
         this.witch = witch;
         this.scene.add.existing(this);
-        this.damage = damage;
+        this.damage = 30;
 
-        let animation = this.scene.anims.create({
+        this.scene.anims.create({
             key: 'idleFireAttack',
             frames: scene.anims.generateFrameNumbers('fireAttack', {start:0, end: 26}),
             frameRate: 27,
-            repeat: true
+            repeat: 0
         });
 
-        this.play('idleFireAttack');
-        
+        this.play('idleFireAttack')
         this.scene.physics.add.existing(this);
         
         this.body.onCollide = true;

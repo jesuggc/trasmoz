@@ -29,12 +29,13 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.speedJump = 7; // SPEED JUMP
 		this.healthJump = 50; //HEALTH JUMP
 		this.damageJump = 10; //DAMAGE JUMP
-		this.shieldJump = 2; //SHIELD JUMP
+		this.shieldJump = 4; //SHIELD JUMP
 		this.healthRegenJump = 0.02; // LIFE REG JUMP
-		this.rateJump = 100; //FIRE RATE JUMP
+		this.rateJump = 150; //FIRE RATE JUMP
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165,1885,3050,4935,7985];
 		this.level = 0;
 		this.maxLevel = 15;
+		this.isBurning = false;
 
 		this.lastBasicAttack = 0;
 		this.lastFireAttack = 0;
@@ -42,9 +43,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastLightningAttack = 0;
 		this.lightningAttackCooldown = 2000;
 		this.lastFreezeAttack = 0;
-		this.freezeAttackCooldown = 2000;
+		this.freezeAttackCooldown = 1992;
 		this.lastPoisonAttack = 0;
-		this.poisonAttackCooldown = 2000;
+		this.poisonAttackCooldown = 1996;
 
 
 		
@@ -77,20 +78,18 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			frameRate: 12,
 			repeat: -1
 		});
-
+		
 		this.play('idleWitch');
-
+		
 		this.wKey = this.scene.input.keyboard.addKey('W'); 
 		this.aKey = this.scene.input.keyboard.addKey('A'); 
 		this.sKey = this.scene.input.keyboard.addKey('S'); 
 		this.dKey = this.scene.input.keyboard.addKey('D');
-
-		this.testingKey = this.scene.input.keyboard.addKey('P');
-
-		// COLLIDER
-		this.body.setSize(this.width*0.2, this.height*0.4, true ); // TODO
-
 		
+		this.testingKey = this.scene.input.keyboard.addKey('P');
+		
+		// COLLIDER
+		this.body.setSize(this.width*0.2, this.height*0.4, true ); 
 		
 
 	}
@@ -109,41 +108,52 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		if (this.flowerArray[0]){
 			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				
-				this.firecollider = this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => { obj2.receiveDamage(this.damage); });
+				this.fireAttack.play('idleFireAttack')
 				this.fireAttack.setVisible(true);
-				this.fireAttack.play('fireAttack');
-				this.firecollider.active = true;
-
-				this.scene.time.addEvent({delay: 1000, callback: function(){
-					this.fireAttack.stop('fireAttack', 25);
-					this.firecollider.active = false;
-					this.fireAttack.setVisible(false);
-				}, callbackScope: this});
+				this.firecollider = this.scene.physics.add.overlap(this.fireAttack, this.scene.enemyPool, function(obj1, obj2) {
+					if (!obj2.hasBeenDamaged) { 
+						obj2.hasBeenDamaged = true; 
+						obj2.receiveDamage(obj1.damage, '0xff0000'); 
+					}
+				});
 				
 				this.lastFireAttack = t;
+				}
+				this.fireAttack.on('animationcomplete', function() {
+					this.firecollider.active=false;
+					this.scene.enemyPool.getChildren().forEach(function(enemy) {
+						enemy.hasBeenDamaged = false;
+					});
+					this.fireAttack.setVisible(false);
+				}, this);
 			}
-		}
 		if (this.flowerArray[1]){
 			if(t > this.lastLightningAttack + this.lightningAttackCooldown) {
-				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);				
-				this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30, this.damage);
-				enemy.receiveDamage(this.damage);
-				this.lastLightningAttack = t;
+				var enemy = this.scene.getRandomAlive();
+				if (enemy){
+					this.lightningAttack = new LightningAttack(this.scene, enemy.x, enemy.y - 30);
+					enemy.receiveDamage(this.lightningAttack.damage, '0xffff00');
+					this.lastLightningAttack = t;
+				} 
 			}
 		}
 		if (this.flowerArray[2]){
-			if(t > this.lastFreezeAttack + this.freezeAttackCooldown) {
+			if(t > this.lastFreezeAttack + this.freezeAttackCooldown && this.scene.spawn) {
 				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
-				this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy, this.damage);		
-				this.lastFreezeAttack = t;
+				if (enemy){
+					this.freezeAttack = new FreezeAttack(this.scene, this.x, this.y, enemy);		
+					enemy.receiveDamage(this.freezeAttack.damage, '0x038cfc');
+					this.lastFreezeAttack = t;
+				} 
 			}
 		}
 		if (this.flowerArray[3]){
 			if(t > this.lastPoisonAttack + this.poisonAttackCooldown) {
-				var enemy = this.scene.physics.closest(this, this.scene.enemyPool.children.entries);
-				this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy, this.damage);
-				this.lastPoisonAttack = t;
+				var enemy = this.scene.getRandomAlive();
+				if (enemy){
+					this.poisonAttack = new PoisonAttack(this.scene, this.x, this.y, enemy);
+					this.lastPoisonAttack = t;
+				} 
 			}
 		}
 
@@ -167,7 +177,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			this.health = 5000;
 			this.maxHealth = 5000; //HEALTH
 			this.healthRegen = 5; //LIFE REG
-			this.damage = 1000;
+			this.damage = 20;
 		}
 		// MOVERSE A LA IZQUIERDA
 		if (this.aKey.isDown) {
@@ -196,13 +206,14 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		if(this.level < this.maxLevel || this.experience < this.levelExp[this.level]) this.experience += exp;
 	}
 	perderVida(damage){
-		this.health -= damage;
+		let damageTaken = damage * ((100 - this.shield)/100);
+		this.health -= damageTaken;
 		this.setTintFill(0xff0000);
 		
 		this.scene.time.addEvent({delay: 150, callback: function(){
 			this.clearTint();
         }, callbackScope: this});
-		if(this.health<=0) this.isAlive=false;
+		if(this.health<=0) this.isAlive=false;	
 	}
 
 	levelUp(){
@@ -247,15 +258,15 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 	guardarFlor(flor){
 		if (flor instanceof FireFlower) {
 			this.flowerArray[0]=true;
-			this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
-			this.fireAttack.collider.active = false;
-			this.fireAttack.stop('fireAttack', 26);
-			this.fireAttack.setVisible(false);
+			this.createFire();
 		}
 		if (flor instanceof LightningFlower) this.flowerArray[1]=true; 
 		if (flor instanceof IceFlower) this.flowerArray[2]=true;
 		if (flor instanceof PoisonFlower) this.flowerArray[3]=true;
 		this.scene.levelUpEnemies();
+	}
+	createFire(){
+		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y);
 	}
 
 }

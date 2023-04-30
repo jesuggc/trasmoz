@@ -90,15 +90,6 @@ export default class Title extends Phaser.Scene {
             this.soundButton.on('pointerup', () => {
                 this.soundButton2.setVisible(true);
                 this.soundButton.setVisible(false);
-<<<<<<< HEAD
-                this.soundButton2= this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound2')
-                this.time.addEvent({delay: 100, callback: function(){
-                    this.soundButton2.setVisible(false);
-                    this.soundButton.setVisible(true);
-                    this.time.addEvent({delay: 400, callback: function(){
-                    }, callbackScope: this});
-                }, callbackScope: this});
-=======
                 this.soundButton.setActive(false);
                 this.music.mute = true;
             });
@@ -107,7 +98,6 @@ export default class Title extends Phaser.Scene {
                 this.soundButton2.setActive(false);
                 this.soundButton.setVisible(true);
                 this.music.mute = false;
->>>>>>> ramaFrancis
             });
     
             this.optionsButton.on('pointerup', () => {

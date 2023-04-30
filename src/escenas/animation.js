@@ -55,7 +55,7 @@ export default class Animation extends Phaser.Scene {
 		this.arboles2 = this.map.createLayer('Arboles 2', 	[ ts2,ts7, ts9,ts10]).setDepth(2);
 		this.arboles3 = this.map.createLayer('Arboles 3', 	[ ts2,ts7, ts9,ts10]).setDepth(2);
 
-		this.spawnDist = 280;
+		this.spawnDist = 260;
 		this.nnprob = 1;
 		this.poolSize = 55; 
 		this.enemiesSize = 0; 
@@ -64,11 +64,12 @@ export default class Animation extends Phaser.Scene {
 		this.spawn = false;
 		
 		//this.witch = new Witch(this,532, 3195);		
-		this.witch = new Witch(this, 1850, 790);
+		this.witch = new Witch(this,300, 300);
 		this.fireflower = new FireFlower(this,390,355,'fireFlower');
 		this.lightningflower = new LightningFlower(this, 4549, 392, 'lightningFlower');
 		this.iceflower = new IceFlower(this, 344, 1427, 'iceFlower');
 		this.poisonflower = new PoisonFlower(this, 4280, 1843, 'poisonFlower');
+		
 		
 		this.enemyPool = this.add.group();
 		for (var i = 0; i < this.poolSize; i++) {
@@ -76,7 +77,6 @@ export default class Animation extends Phaser.Scene {
 			this.enemyPool.add(new Knight(this, 0, 0));
 		}
 		this.updatePoolSize(this.initialEnemies);
-		
 		
 		this.physics.add.collider(this.witch, this.colisiones);
 		this.physics.add.collider(this.enemyPool, this.witch, function(enemy, witch) { enemy.attack(); }, null, this);
@@ -179,5 +179,15 @@ export default class Animation extends Phaser.Scene {
 		this.soundForest.stop()
 		this.scene.launch('castle', {witch: this.witch});
 	}
+
+	getRandomAlive() {
+		const aliveMembers = this.enemyPool.getChildren().filter((child) => child.active && child.visible);
+		if (aliveMembers.length === 0) {
+		  return null;
+		}
+		const randomIndex = Phaser.Math.Between(0, aliveMembers.length - 1);
+		return aliveMembers[randomIndex];
+	}
+	  
 	
 }

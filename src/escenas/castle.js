@@ -141,6 +141,12 @@ export default class Castle extends Phaser.Scene {
 		this.witch.flowerArray = oldWitch.flowerArray;
 		this.witch.level = oldWitch.level;
 		this.witch.level = oldWitch.level;
+		
+		if(this.witch.flowerArray[0]===true) this.witch.createFire();
+			// this.fireAttack = new FireAttack(this.scene, this, this.x, this.y);
+			// this.fireAttack.collider.active = false;
+			// this.fireAttack.stop('fireAttack', 26);
+			// this.fireAttack.setVisible(false);
 	}
 
 	initSpawn(){
@@ -170,5 +176,13 @@ export default class Castle extends Phaser.Scene {
 		this.witch.body.setVelocity(0);
 		this.scene.pause();
 		this.scene.launch('levelUp', {witch: this.witch, backScene: 'castle'});
+	}
+	getRandomAlive() {
+		const aliveMembers = this.enemyPool.getChildren().filter((child) => child.active && child.visible);
+		if (aliveMembers.length === 0) {
+		  return null; // No alive members in the group
+		}
+		const randomIndex = Phaser.Math.Between(0, aliveMembers.length - 1);
+		return aliveMembers[randomIndex];
 	}
 }
