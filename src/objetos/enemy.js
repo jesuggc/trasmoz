@@ -31,9 +31,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
-		if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
-			this.updatePosition()
-		}
+		if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance) this.updatePosition()
 		if( this.now == 1){
 			this.freezeAttackTime = t;
 			this.now = 0;
@@ -44,15 +42,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.poisonAttackTime = t;
 			this.poisonAttackFinal = t + this.poisonCooldown;
 			this.poisonAttack = 0;
-			console.log("poison time");
 		}
-		else {
-			if(t == this.poisonAttackTime + this.poisonAttackIncrease && t < this.poisonAttackFinal ){
-				this.receiveDamage(this.damage);
-				this.poisonAttackTime = t;
-				console.log("poison damage");
-			}
-			
+		else if(t == this.poisonAttackTime + this.poisonAttackIncrease && t < this.poisonAttackFinal ){
+			this.receiveDamage(this.damage);
+			this.poisonAttackTime = t;			
 		}
 		if (this.health <= 0) this.die();
 	}
@@ -94,12 +87,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	}
 
 	printDamage(damage){
-		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' });
-		this.damageText.setResolution(10);
-		this.damageText.setStroke(0x000000,2);
-		this.scene.time.addEvent({delay: 450, callback: function(){
-			this.damageText.destroy();
-        }, callbackScope: this});
+		this.damageText = this.scene.add.text(this.x-20, this.y-20, damage, { fontFamily: 'titulo' }).setResolution(10).setStroke(0x000000,2);
+		this.scene.time.addEvent({delay: 450, callback: function(){ this.damageText.destroy(); }, callbackScope: this});
 	}
 
 	tinkle(){
@@ -115,12 +104,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
 	decreaseSpeed(){
 		this.speed = 0;
+		this.anims.pause();
 		this.now = 1;
-		
 	}
+	
 	increaseSpeed(){
 		this.speed = this.oldSpeed;
-		
+		this.anims.resume();
 	}
     
 	levelUp(){
@@ -128,7 +118,6 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.initialLife+=this.initialLifeJump;
 	}
 	poison(){
-		console.log("poison 2");
 		this.poisonAttack = 1;
 		this.receiveDamage();
 	}

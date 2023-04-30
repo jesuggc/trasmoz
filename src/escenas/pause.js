@@ -92,7 +92,6 @@ export default class Title extends Phaser.Scene {
                     this.soundButton2.setVisible(false);
                     this.soundButton.setVisible(true);
                     this.time.addEvent({delay: 400, callback: function(){
-                    /*AQUI IRA LA FUNCIONALIDAD DE SONIDO*/
                     }, callbackScope: this});
                 }, callbackScope: this});
             });
@@ -104,7 +103,6 @@ export default class Title extends Phaser.Scene {
                     this.optionsButton2.setVisible(false);
                     this.optionsButton.setVisible(true);
                     this.time.addEvent({delay: 400, callback: function(){
-                    /*AQUI IRA LA FUNCIONALIDAD DE optioon*/
                     }, callbackScope: this});
                 }, callbackScope: this});
             });

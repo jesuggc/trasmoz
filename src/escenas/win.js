@@ -1,7 +1,4 @@
 export default class Win extends Phaser.Scene {
-	/**
-	 * @extends Phaser.Scene
-	 */
 	constructor() {
 		super({ key: 'win' });
        

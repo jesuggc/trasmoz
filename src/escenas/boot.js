@@ -53,7 +53,6 @@ export default class Boot extends Phaser.Scene {
 		this.load.image('continue2', 		'assets/GUI/buttons/resetButton2.png');
         this.load.image('pause_background', 'assets/GUI/pause_background.jpg')
         this.load.image('witchPause', 		'assets/witch/bruja_pause.png')
-        this.load.image('speed', 			'assets/GUI/abilities/speed.png')
 		this.load.image('witchBg', 			'assets/GUI/woodPannel.png');
         this.load.image('play',             'assets/GUI/buttons/playButton1.png');
 		this.load.image('play2',            'assets/GUI/buttons/playButton2.png');

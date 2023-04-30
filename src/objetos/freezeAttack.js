@@ -1,19 +1,11 @@
 export default class FreezeAttack extends Phaser.GameObjects.Sprite {
-    /**
-     * @param {Scene} scene - escena en la que aparece
-     * @param {number} x - coordenada x
-     * @param {number} y - coordenada y
-    */
-
-    constructor(scene, x, y, objetive, damage){
+       constructor(scene, x, y, objetive, damage){
         super(scene, x, y, 'freezeAttack');
 
         this.setScale(0.25);
         this.scene.add.existing(this);
         this.objetive = objetive;
         this.damage = damage;
-        this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
-		this.setRotation(this.radianAngle);
         this.damageCooldown = 4000;
         this.time = 1000;
         this.attack = this
@@ -29,7 +21,7 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
 
-       this.collider =  this.scene.physics.add.overlap(this, this.objetive, this.freeze, null, this);
+        this.collider =  this.scene.physics.add.overlap(this, this.objetive, this.freeze, null, this);
 
         
 
@@ -39,10 +31,7 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
         super.preUpdate(t, dt);
         this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.objetive.x, this.objetive.y);
 		this.setRotation(this.radianAngle);
-        
         this.scene.physics.moveToObject(this,this.objetive, this.speed);            
-        
-		
     }
 
     freeze(){

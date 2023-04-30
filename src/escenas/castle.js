@@ -1,12 +1,6 @@
 import Witch from '../objetos/witch.js';
-import ExpBall from '../objetos/expBall.js';
-import FireFlower from '../objetos/fireFlower.js';
-import Enemy from '../objetos/enemy.js';
 import Torquemada from '../objetos/torquemada.js';
 import Skeleton from '../objetos/skeleton.js';
-/**
- * @extends Phaser.Scene
- */
 export default class Castle extends Phaser.Scene {
 	constructor() {
 		super({ key: 'castle' });
@@ -23,7 +17,7 @@ export default class Castle extends Phaser.Scene {
 			width: 64,
 			height: 32
 		});
-		const tileset = this.map.addTilesetImage('castillo', 'patronCastle'); //AQUI
+		const tileset = this.map.addTilesetImage('castillo', 'patronCastle');
         
 		this.suelo = this.map.createLayer('Suelo',  [ tileset]);
 		this.colisiones = this.map.createLayer('Colisiones', [tileset]).setCollisionByExclusion(-1);
@@ -37,7 +31,6 @@ export default class Castle extends Phaser.Scene {
 		this.spawn = false;
         
 		this.spawnDistance = 280;
-		this.nnprob = 0.05;
 		this.enemySize = 5;
         
 		this.initWitch(this.oldWitch);
@@ -69,8 +62,7 @@ export default class Castle extends Phaser.Scene {
 
 
 		// TEXTO DE NIVEL
-		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'})
-		this.levelText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
+		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'}).setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
 
 		// BARRA DE EXP
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(1);
@@ -112,7 +104,6 @@ export default class Castle extends Phaser.Scene {
 		for (var i = 0; i <= this.enemySize; i++) {
 			const indiceAleatorio = Math.floor(Math.random() * this.spawnPositions.length);
 			const coordenadaAleatoria = this.spawnPositions[indiceAleatorio];
-			console.log(this.enemyPool)
 			const enemy = this.enemyPool.getFirstDead();
 			if (enemy) enemy.respawn(coordenadaAleatoria.x,coordenadaAleatoria.y);
 	    }
@@ -134,34 +125,27 @@ export default class Castle extends Phaser.Scene {
 		this.witch.flowerArray = oldWitch.flowerArray;
 		this.witch.level = oldWitch.level;
 		this.witch.level = oldWitch.level;
-		
 	}
 
 	initSpawn(){
 		let tiles = [];
-
-		this.spawnLayer.forEachTile(function (tile) {
-			if (tile.index !== -1) {
-			tiles.push({ x: tile.pixelX, y: tile.pixelY });
-			}
-		});
-
+		this.spawnLayer.forEachTile(function (tile) { if (tile.index !== -1) { tiles.push({ x: tile.pixelX, y: tile.pixelY }); } });
 		return tiles;
 	}
 	
 	generateRandomY(){
-		let k = this.witch.y;
-		let leftL = k - this.spawnDistance;
-		let rightL = k + this.spawnDistance;
+		let leftL = this.witch.y - this.spawnDist;
+		let rightL = this.witch.y + this.spawnDist;
 		return Math.random()*(rightL - leftL) + leftL;
 	}
+
 	generateRandomX(y){
 		let h = this.witch.x;
 		let k = this.witch.y;
 		let b = -2 * this.witch.x;
-		let c = Math.pow(h,2) + Math.pow(y,2) + Math.pow(k,2) - Math.pow(this.spawnDistance,2) - 2 * y * k;
-		let x = (-b+ Math.sqrt(Math.pow(b,2)-4*c))/2;	
-		let x1 = (-b- (Math.sqrt(Math.pow(b,2)-4*c)))/2;
+		let c = h**2 + y**2 + k**2 - this.spawnDist**2 - 2 * y * k;
+		let x = (-b+ Math.sqrt(b**2-4*c))/2;	
+		let x1 = (-b- (Math.sqrt(b**2-4*c)))/2;
 		if (Math.random()>0.5) return x;
 		else return x1;
 	}

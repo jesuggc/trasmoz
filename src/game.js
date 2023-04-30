@@ -8,11 +8,7 @@ import Gameover from './escenas/gameover.js';
 import Intro from './escenas/intro.js';
 import Win from './escenas/win.js';
 import Boot from './escenas/boot.js';
-/**
- * Inicio del juego en Phaser. Creamos el archivo de configuracion del juego y creamos
- * la clase Game de Phaser, encargada de crear e iniciar el juego.
- * Doc: https://photonstorm.github.io/phaser3-docs/Phaser.Types.Core.html#.GameConfig
- */
+
 let config = {
     type: Phaser.AUTO,
     parent: 'juego',

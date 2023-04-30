@@ -1,7 +1,7 @@
 import Witch from '../objetos/witch.js';
 import Wolf from '../objetos/wolf.js';
-import FireFlower from '../objetos/fireFlower.js';
 import Knight from '../objetos/knight.js';
+import FireFlower from '../objetos/fireFlower.js';
 import LightningFlower from '../objetos/lightningFlower.js';
 import IceFlower from '../objetos/iceFlower.js';
 import PoisonFlower from '../objetos/poisonFlower.js';
@@ -40,16 +40,16 @@ export default class Animation extends Phaser.Scene {
 
 		this.spawnDist = 280;
 		this.nnprob = 1;
-		this.poolSize = 50; 
+		this.poolSize = 55; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 3;
+		this.initialEnemies = 9;
 		this.enemiesJump = 3;
 		this.spawn = false;
 		
 		//this.witch = new Witch(this,532, 3195);		
 		this.witch = new Witch(this, 1850, 790);
 		this.fireflower = new FireFlower(this,390,355,'fireFlower');
-		this.lightningflower = new LightningFlower(this, 4549, 392), 'lightningFlower';
+		this.lightningflower = new LightningFlower(this, 4549, 392, 'lightningFlower');
 		this.iceflower = new IceFlower(this, 344, 1427, 'iceFlower');
 		this.poisonflower = new PoisonFlower(this, 4280, 1843, 'poisonFlower');
 		
@@ -80,16 +80,15 @@ export default class Animation extends Phaser.Scene {
 		}
 
 		// TEXTO DE NIVEL
-		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'})
-		this.levelText.setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
+		this.levelText = this.add.text(160, 115, 'Level: ',{fontFamily: 'titulo'}).setResolution(100).setStroke(0x000000,2).setScrollFactor(0).setDepth(3);
 
 		// BARRA DE EXP
 		this.expbar = this.add.rectangle(320,80,350,10,0x0000ff).setScrollFactor(0).setDepth(2);
 
 		// CASTLE DOOR
-		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1).setVisible(false);
-		this.physics.add.existing(this.prueba)
-		this.physics.add.overlap(this.witch, this.prueba, this.castleScene,null,this)
+		this.castleDoor = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1).setVisible(false);
+		this.physics.add.existing(this.castleDoor)
+		this.physics.add.overlap(this.witch, this.castleDoor, this.castleScene,null,this)
 		
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,15,0xff0000).setScrollFactor(0).setDepth(3);
@@ -104,9 +103,7 @@ export default class Animation extends Phaser.Scene {
 		this.cameras.main.zoom = 1.75;
 		this.cameras.main.startFollow(this.witch);
 
-		this.events.on('resume', ( sys, skill) =>{
-			if (skill) this.witch[skill.skillSelected]()
-		})	
+		this.events.on('resume', ( sys, skill) =>{ if (skill) this.witch[skill.skillSelected]() })	
 	}
 
 	update(time,delta){
@@ -138,9 +135,7 @@ export default class Animation extends Phaser.Scene {
 
 	updatePoolSize(nSize){
 		this.enemiesSize+= nSize;
-		for (let i = 0; i < nSize; i++){
-			this.enemyPool.getFirstDead().respawn();
-		}
+		for (let i = 0; i < nSize; i++) this.enemyPool.getFirstDead().respawn();
 	}
 
 	levelUpEnemies(){

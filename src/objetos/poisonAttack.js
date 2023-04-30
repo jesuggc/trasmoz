@@ -45,7 +45,6 @@ export default class PoisonAttack extends Phaser.GameObjects.Sprite {
     }
 
     poison() {
-        console.log("poison 1")
         this.objetive.poison();
         this.destroy();
 
