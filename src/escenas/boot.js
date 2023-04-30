@@ -8,7 +8,7 @@ export default class Boot extends Phaser.Scene {
         this.load.tilemapTiledJSON('castleTilemap', 'levels/castillo.json'); 
 
 		this.load.spritesheet('witch', 				'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 		'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('witchAttack', 		'assets/witch/fireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('wolf', 				'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('knight', 			'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('skeleton', 			'assets/enemies/skeleton/skeletonWalk.png', 	{ frameWidth: 64, frameHeight: 54 })
