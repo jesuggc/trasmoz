@@ -11,6 +11,7 @@ export default class Boot extends Phaser.Scene {
 		this.load.spritesheet('witchAttack', 		'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
 		this.load.spritesheet('wolf', 				'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
 		this.load.spritesheet('knight', 			'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('skeleton', 			'assets/enemies/skeleton/skeletonWalk.png', 	{ frameWidth: 64, frameHeight: 54 })
 		this.load.spritesheet('knightAttack', 		'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
 		this.load.spritesheet('fireAttack', 		'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
 		this.load.spritesheet('lightningAttack',	'assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})

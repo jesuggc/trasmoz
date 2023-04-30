@@ -8,7 +8,7 @@ export default class Torquemada extends Enemy {
 		this.setVisible(true);
 		this.setActive(true);
 		this.spawnPositions = spawnPositions;
-		this.maxHealth = 10000;
+		this.maxHealth = 5000;
 		this.estaAtacando = false;
 		this.body.pushable=false;
 		this.lastBasicAttack = 0;
@@ -42,7 +42,6 @@ export default class Torquemada extends Enemy {
 	
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		console.log(this.anims)
 		this.setFlipX(this.scene.witch.x > this.x ? false : true)
 		
 		this.dinamicLifebar(this.lifebar, this.lifebarS);
@@ -89,17 +88,10 @@ export default class Torquemada extends Enemy {
 		lb.setDepth(3);
 	}
 	generateEnemies(){
-		/* for (var i = 1; i <= 5; i++) {
-			const indiceAleatorio = Math.floor(Math.random() * this.spawnPositions.length);
-			const coordenadaAleatoria = this.spawnPositions[indiceAleatorio];
-		  	const enemy = new Knight(this.scene, coordenadaAleatoria.x, coordenadaAleatoria.y)
-			enemy.setActive(true);
-			enemy.setVisible(true)
-		} */
-		
+		this.scene.spawnEnemies();
 	}
 
-	rageAttack(t){
+	rageAttack(){
 		const indiceAleatorio = Math.floor(Math.random() * this.spawnPositions.length);
   		const coordenadaAleatoria = this.spawnPositions[indiceAleatorio];
 		if (!this.anims.animationManager.get('attackTorquemada').isPlaying){
