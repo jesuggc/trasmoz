@@ -55,7 +55,7 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastFreezeAttack = 0;
 		this.freezeAttackCooldown = 2000;
 		this.lastPoisonAttack = 0;
-		this.poisonAttackCooldown = 8000;
+		this.poisonAttackCooldown = 2000;
 
 
 		
@@ -101,7 +101,10 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		// COLLIDER
 		this.body.setSize(this.width*0.2, this.height*0.4, true ); // TODO
 
-		
+		this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
+		this.fireAttack.collider.active = false;
+		this.fireAttack.stop('fireAttack', 26);
+		this.fireAttack.setVisible(false);
 
 	}
 
@@ -120,10 +123,20 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		}
 		if (this.flowerArray[0]){
 			if (t > this.lastFireAttack + this.fireAttackCooldown){
-				this.fireAttack = new FireAttack(this.scene, this, this.x, this.y, this.damage);
-				this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
+				
+				this.firecollider = this.scene.physics.add.overlap(this.fireAttack,this.scene.enemyPool,(obj,obj2) => {
 					obj2.receiveDamage(this.damage);
 				});
+				this.fireAttack.setVisible(true);
+				this.fireAttack.play('fireAttack');
+				this.firecollider.active = true;
+
+				this.scene.time.addEvent({delay: 1000, callback: function(){
+					this.fireAttack.stop('fireAttack', 25);
+					this.firecollider.active = false;
+					this.fireAttack.setVisible(false);
+				}, callbackScope: this});
+				
 				this.lastFireAttack = t;
 			}
 		}
@@ -186,14 +199,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 			}
 	
 			// MOVERSE ARRIBA
-			if (this.wKey.isDown) {
-				this.direccion.y = -1;
-			}
+			if (this.wKey.isDown) this.direccion.y = -1;
 	
 			// MOVERSE ABAJO
-			if (this.sKey.isDown) {
-				this.direccion.y = 1;
-			}
+			if (this.sKey.isDown) this.direccion.y = 1;
+	
 	
 			// Normalizar el vector de dirección
 			this.direccion.normalize();

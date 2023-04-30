@@ -14,8 +14,9 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
         this.damage = damage;
         this.radianAngle = Phaser.Math.Angle.Between(x, y, objetive.x, objetive.y);
 		this.setRotation(this.radianAngle);
-
-
+        this.damageCooldown = 4000;
+        this.time = 1000;
+        this.attack = this
         this.scene.anims.create({
             key: 'idleFreezeAttack',
             frames: scene.anims.generateFrameNumbers('freezeAttack', {start: 0, end: 5}),
@@ -28,11 +29,9 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
 
-        this.scene.physics.add.collider(this, this.objetive, this.freeze, null, this);
+       this.collider =  this.scene.physics.add.overlap(this, this.objetive, this.freeze, null, this);
 
-        this.scene.time.addEvent({delay: 1000, callback: function(){
-            this.destroy();
-        }, callbackScope: this});
+        
 
     }
 
@@ -40,13 +39,14 @@ export default class FreezeAttack extends Phaser.GameObjects.Sprite {
         super.preUpdate(t, dt);
         this.radianAngle = Phaser.Math.Angle.Between(this.x, this.y, this.objetive.x, this.objetive.y);
 		this.setRotation(this.radianAngle);
-
-        this.scene.physics.moveToObject(this,this.objetive, 170);            
-
+        
+        this.scene.physics.moveToObject(this,this.objetive, this.speed);            
+        
+		
     }
 
     freeze(){
 		this.objetive.decreaseSpeed();
-		this.destroy();
+        this.destroy();
     }
 }

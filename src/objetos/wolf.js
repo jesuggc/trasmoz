@@ -29,13 +29,4 @@ export default class Wolf extends Enemy {
 
 	}
 
-	decreaseSpeed(){
-		this.speed = 0;
-		this.wolf.diagonalSpeed = 0;
-	}
-	increaseSpeed(){
-		this.speed =0 ;
-		this.diagonalSpeed = 0;
-	}
-
 }

@@ -5,6 +5,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, speed, health,damage) {
 		super(scene, x, y);
 		this.speed = speed;
+		this.oldSpeed = speed;
 		this.health = health;
 		this.initialLife = health;
 		this.damage = damage;
@@ -13,6 +14,14 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.isAlive = true;
 
 		this.inactive();
+		this.freezeAttackTime = 0;
+		this.poisonAttackTime = 0;
+		this.frozenCooldown = 4000;
+		this.poisonCooldown = 8000;
+		this.poisonAttackFinal = 0;
+		this.poisonAttackIncrease = 2000;
+		this.now = 0;
+		this.poisonAttack = 0;
 
 		this.scene.add.existing(this);
 		this.onCollide = true;
@@ -25,7 +34,26 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
 			this.updatePosition()
 		}
-		
+		if( this.now == 1){
+			this.freezeAttackTime = t;
+			this.now = 0;
+		}
+		else if(t > this.freezeAttackTime + this.frozenCooldown) this.increaseSpeed();
+
+		if( this.poisonAttack == 1){
+			this.poisonAttackTime = t;
+			this.poisonAttackFinal = t + this.poisonCooldown;
+			this.poisonAttack = 0;
+			console.log("poison time");
+		}
+		else {
+			if(t == this.poisonAttackTime + this.poisonAttackIncrease && t < this.poisonAttackFinal ){
+				this.receiveDamage(this.damage);
+				this.poisonAttackTime = t;
+				console.log("poison damage");
+			}
+			
+		}
 		if (this.health <= 0) this.die();
 	}
 	
@@ -84,10 +112,25 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 	attack(){
 		this.scene.witch.perderVida(this.damage)
 	}
+
+	decreaseSpeed(){
+		this.speed = 0;
+		this.now = 1;
+		
+	}
+	increaseSpeed(){
+		this.speed = this.oldSpeed;
+		
+	}
     
 	levelUp(){
 			this.damage+=this.damageJump;
 			this.initialLife+=this.initialLifeJump;
+	}
+	poison(){
+		console.log("poison 2");
+		this.poisonAttack = 1;
+		this.receiveDamage();
 	}
 
 }
