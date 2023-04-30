@@ -23,7 +23,7 @@ export default class PoisonAttack extends Phaser.GameObjects.Sprite {
 
         this.scene.physics.add.existing(this);
         this.body.onCollide = true;
-        this.scene.physics.add.collider(this, this.objetive, this.poison, null, this);
+        this.scene.physics.add.overlap(this, this.objetive, this.poison, null, this);
 
         // // this.scene.time.addEvent({
         //     delay: 2000, callback: function () {
