@@ -16,6 +16,20 @@ export default class Castle extends Phaser.Scene {
 		this.oldWitch = data.witch
 	}
 	create() {
+		const config = {
+            mute: false,
+            volume: 0.15,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+			//pauseOnBlur : false,
+            delay: 0,
+          }; 
+          
+        this.soundCastle = this.sound.add("castleSoundtrack", config);
+		this.soundCastle.play()
+
 		this.map = this.make.tilemap({
 			key: 'castleTilemap',
 			tileWidth: 16,
@@ -83,7 +97,7 @@ export default class Castle extends Phaser.Scene {
 		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(1);
 		button.on('pointerup', poainter => {
 			this.scene.pause();
-			this.scene.launch('pause', {witch: this.witch, backScene: 'castle'})
+			this.scene.launch('pause', {witch: this.witch, backScene: 'castle', music : this.soundCastle})
 		})
 		
 		// CAMARA 
@@ -99,11 +113,13 @@ export default class Castle extends Phaser.Scene {
 	update(time,delta){
 		if(this.witch.health <= 0){
             this.scene.stop();
+			this.soundCastle.stop()
 			this.scene.launch('gameover');
 		}
 		else if(this.torquemada && this.torquemada.health <= 0){
 			this.scene.restart()
 			this.scene.stop()
+			this.soundCastle.stop()
 			this.scene.launch('win')
 		}
 	}

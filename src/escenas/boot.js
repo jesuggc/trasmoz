@@ -66,8 +66,12 @@ export default class Boot extends Phaser.Scene {
 		this.load.image('fullscreen', 		'assets/GUI/buttons/fullscreenButton1.png');
 		this.load.image('fullscreen2', 		'assets/GUI/buttons/fullscreenButton2.png');
 		this.load.image('title_background', 'assets/title_background.jpg');
+		this.load.image('wasd', 'assets/GUI/controls/wasd.png');
+
 
 		this.load.audio('titleSoundtrack', 	'assets/soundtrack/title_soundtrack.wav');
+		this.load.audio('forestSoundtrack', 	'assets/soundtrack/forest.wav');
+		this.load.audio('castleSoundtrack', 	'assets/soundtrack/castle.wav');
 
 	}
 	create() {

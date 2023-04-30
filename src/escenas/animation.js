@@ -13,6 +13,20 @@ export default class Animation extends Phaser.Scene {
 
 
 	create() {
+		const config = {
+            mute: false,
+            volume: 0.15,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+			//pauseOnBlur : false,
+            delay: 0,
+          }; 
+          
+        this.soundForest = this.sound.add("forestSoundtrack", config);
+		this.soundForest.play()
+
 		this.map = this.make.tilemap({
 			key: 'tilemap',
 			tileWidth: 16,
@@ -20,6 +34,9 @@ export default class Animation extends Phaser.Scene {
 			width: 64,
 			height: 32
 		});
+
+
+
 		const ts1 = this.map.addTilesetImage('ground', 		'patronGround');
 		const ts2 = this.map.addTilesetImage('trees', 		'patronTrees'); 
 		const ts3 = this.map.addTilesetImage('witchHouse', 	'patronHouse'); 
@@ -159,12 +176,12 @@ export default class Animation extends Phaser.Scene {
 
 	pauseScene(){
 		this.scene.pause();
-		this.scene.launch('pause', {witch: this.witch, backScene: 'animation'})
+		this.scene.launch('pause', {witch: this.witch, backScene: 'animation', music : this.soundForest})
 	}
 
 	castleScene(){
-		this.scene.restart();
 		this.scene.stop();
+		this.soundForest.stop()
 		this.scene.launch('castle', {witch: this.witch});
 	}
 	
