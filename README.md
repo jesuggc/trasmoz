@@ -14,9 +14,7 @@ Integrantes:
 <li> Jesus Gonzalez Carrillo </li>
 </ul>
 
-
 Juego: https://jesuggc.github.io/trasmoz/
-
 
 <h2> GDD </h2>
 <h3>Informacion basica</h3>
@@ -113,6 +111,21 @@ Tendremos una clase padre Enemy? que metodos tendran en comun?. Cada tipo de ene
 </ul>
 
 
+<h3> Ideas </h3>
+- Casa bruja: spawnear dentro? fuera ? forzar a que bruja tenga un camino directo y descubra el pueblo destruido? Podra volver en cualquier momento a su casa para descansar y recuperar vida?
+- Clase enemy padre: que cada enemigo spawnee en una zona distinta del mapa.
+- Habilidades: Cuantas mejoras se pueden hacer por habilidad, 4 o 5?
+- Flores: se mostrarán en el menu de pausa? son 4: amapola, diente de leon, mandragora y musgo? poderes que dan cada una: fuego, rayos, explosiones y agua? Las recogera a medida que pasea por el mapa, es decir, seguira enfrentandose a las hordas no habra pausas de enemigos por estar cerca de flores.
+- Enemigos: lobos que apareceran en el bosque, caballeros de la inquisicon?, arquero de la inquisicion?
+- Dificultad aumentara segun el nivel de experiencia y el numero de flores que haya recogido, apareceran mas enemigos? aguantaran mas ataques?
+- Ataques de la bruja: basico lanza proyectiles, los 4 conseguidos por flores
+- Una vez alcanzado el nivel maximo de experiencia, que sera 50?, no seguira subiendo, de esta forma sabra que deberia dirigirse al boss. Como alternativa sí que podria seguir subiendo pero que vaya curandose un porcentaje, como en el vampire survivors.
+- Pasivas: curacion de vida, se cura automaticamente cada x segundos, y ataque basico, lanza proyectiles cada x segundos.
+- Castillo: sera una escena nueva, no se encontrará enemigos? se enfrentara directamente al final boss.
+- Final boss: sera inspirado en el gran insquisidor Torquemada, tendra aspecto humano hasta que llegue a la mitad de vida en la que obtendra un aspecto demoniaco?, siempre sera mucho mas grande que la protagonista.
+- Menu de pausa: una escena nueva en el que se mostrara la bruja el nivel de cada habilidad las flores obtenidas y dara la opcion de reaunudar, volver al menu de inicio, ensordecer y pantalla completa.
+- Mensaje muerte: escena nueva con mensaje → por ejemplo lema de la inquisicion? “Alzate oh dios a defender tu causa”
+
 <h3> Mecanicas</h3>
 Desplazarse por el mapa: El jugador podrá desplazarse libremente por el mapa sin necesidad de seguir un camino predeterminado, en 8 direcciones distintas.<br>
 Atacar a los enemigos: Lanzar hechizos, estos impactaran en los enemigos produciéndoles daño.<br>
@@ -134,6 +147,7 @@ Mejorar una habilidad al máximo posible.<br>
 <h3> Referencias</h3>
 Se han usado de referencia Vampire Survivors y Tank.io, tanto por la posibilidad de mejorar habilidades del personaje, como la aparición en oleadas de enemigos.<br>
 
+![image](https://user-images.githubusercontent.com/105007813/228625165-6999b298-92fe-4c9e-a4c8-086290197390.png)
 
 La principal referencia ha sido el Vampire Survivors. En este juego deberemos sobrevivir oleadas continuas durante 30 minutos mientras mejoramos a nuestro personaje con distintas habilidades que se nos ofrecen al conseguir una cierta cantidad de experiencia.<br>
 
