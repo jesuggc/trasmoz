@@ -2,8 +2,8 @@ import ExpBall from "../objetos/expBall.js";
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
 	
-	constructor(scene, speed, health,damage) {
-		super(scene, 0, 0);
+	constructor(scene, x, y, speed, health,damage) {
+		super(scene, x, y);
 		this.speed = speed;
 		this.health = health;
 		this.initialLife = health;
@@ -23,9 +23,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		super.preUpdate(t, dt);
 		this.scene.physics.moveToObject(this,this.scene.witch, this.speed);  
 		if(this.calcularDiagonal(this.x, this.y, this.scene.witch.x, this.scene.witch.y) > this.respawnDistance){
-			let y1 = this.scene.generateRandomY();
-			this.y = y1;
-			this.x = this.scene.generateRandomX(y1);
+			this.updatePosition()
 		}
 		
 		if (this.health <= 0) this.die();
@@ -47,7 +45,11 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.respawn();
 	}
    
-
+	updatePosition(){
+		let y1 = this.scene.generateRandomY();
+		this.y = y1;
+		this.x = this.scene.generateRandomX(y1);
+	}
 	respawn(){
 		var y = this.scene.generateRandomY();
 		this.y = y;

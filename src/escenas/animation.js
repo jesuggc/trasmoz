@@ -11,6 +11,7 @@ export default class Animation extends Phaser.Scene {
 		super({ key: 'animation' });
 	}
 
+
 	create() {
 		this.map = this.make.tilemap({
 			key: 'tilemap',
@@ -41,11 +42,12 @@ export default class Animation extends Phaser.Scene {
 		this.nnprob = 1;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
-		this.initialEnemies = 0;
+		this.initialEnemies = 3;
 		this.enemiesJump = 3;
 		this.spawn = false;
 		
-		this.witch = new Witch(this);		
+		//this.witch = new Witch(this,532, 3195);		
+		this.witch = new Witch(this, 1850, 790);
 		this.fireflower = new FireFlower(this,390,355,'fireFlower');
 		this.lightningflower = new LightningFlower(this, 4549, 392), 'lightningFlower';
 		this.iceflower = new IceFlower(this, 344, 1427, 'iceFlower');
@@ -53,8 +55,8 @@ export default class Animation extends Phaser.Scene {
 		
 		this.enemyPool = this.add.group();
 		for (var i = 0; i < this.poolSize; i++) {
-			this.enemyPool.add(new Wolf(this));
-			this.enemyPool.add(new Knight(this));
+			this.enemyPool.add(new Wolf(this, 0, 0));
+			this.enemyPool.add(new Knight(this, 0, 0));
 		}
 		this.updatePoolSize(this.initialEnemies);
 		
@@ -161,6 +163,7 @@ export default class Animation extends Phaser.Scene {
 	}
 
 	castleScene(){
+		this.scene.restart();
 		this.scene.stop();
 		this.scene.launch('castle', {witch: this.witch});
 	}

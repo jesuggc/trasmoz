@@ -7,15 +7,19 @@ export default class Boot extends Phaser.Scene {
 		this.load.tilemapTiledJSON('tilemap',	    'levels/MapaPrueba.json'); 
         this.load.tilemapTiledJSON('castleTilemap', 'levels/castillo.json'); 
 
-		this.load.spritesheet('witch', 			'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
-		this.load.spritesheet('witchAttack', 	'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('fireAttack', 	'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
-		this.load.spritesheet('lightningAttack','assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})
-		this.load.spritesheet('freezeAttack', 	'assets/witch/freezeAttack.png', 			{frameWidth: 128, frameHeight: 128 })
-		this.load.spritesheet('poisonAttack', 	'assets/witch/poisonAttack.png', 			{frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('wolf', 			'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
-		this.load.spritesheet('knight', 		'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
-		this.load.spritesheet('knightAttack', 	'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
+		this.load.spritesheet('witch', 				'assets/witch/bruja.png', 					{ frameWidth: 66, frameHeight: 66 })
+		this.load.spritesheet('witchAttack', 		'assets/witch/FireBall.png', 				{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('wolf', 				'assets/enemies/wolf/wolfWalk.png', 		{ frameWidth: 64.8, frameHeight: 33 })
+		this.load.spritesheet('knight', 			'assets/enemies/knight/knightWalk.png', 	{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('skeleton', 			'assets/enemies/skeleton/skeletonWalk.png', 	{ frameWidth: 64, frameHeight: 54 })
+		this.load.spritesheet('knightAttack', 		'assets/enemies/knight/knightAttack.png',	{ frameWidth: 74, frameHeight: 73 })
+		this.load.spritesheet('fireAttack', 		'assets/witch/fireAttack.png',				{frameWidth: 96, frameHeight: 96})
+		this.load.spritesheet('lightningAttack',	'assets/witch/lightningAttack.png', 		{frameWidth: 64, frameHeight: 64})
+		this.load.spritesheet('freezeAttack', 		'assets/witch/freezeAttack.png', 			{frameWidth: 128, frameHeight: 128 })
+		this.load.spritesheet('poisonAttack', 		'assets/witch/poisonAttack.png', 			{frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('torqueAttack', 		'assets/torquemada/SmallStar.png', 			{ frameWidth: 64, frameHeight: 64 })
+		this.load.spritesheet('torquemada', 		'assets/torquemada/torquemadaIdle.png', 	{ frameWidth: 100, frameHeight: 180 })
+		this.load.spritesheet('torquemadaAttack', 	'assets/torquemada/torquemadaAttack.png', 	{ frameWidth: 138, frameHeight: 180 })
         
 		this.load.image('patronGround', 	'levels/ground.png'); 
 		this.load.image('patronTrees', 		'levels/trees.png'); 
