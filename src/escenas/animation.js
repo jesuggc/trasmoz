@@ -63,8 +63,7 @@ export default class Animation extends Phaser.Scene {
 		this.enemiesJump = 3;
 		this.spawn = false;
 		
-		//this.witch = new Witch(this,532, 3195);		
-		this.witch = new Witch(this,300, 300);
+		this.witch = new Witch(this,532, 3195);		
 		this.fireflower = new FireFlower(this,390,355,'fireFlower');
 		this.lightningflower = new LightningFlower(this, 4549, 392, 'lightningFlower');
 		this.iceflower = new IceFlower(this, 344, 1427, 'iceFlower');
