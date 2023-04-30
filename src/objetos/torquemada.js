@@ -4,11 +4,11 @@ import TorquemadaAttack from "./torquemadaAttack.js";
 import Witch from "./witch.js";
 export default class Torquemada extends Enemy {
 	constructor(scene, x, y,spawnPositions) {
-		super(scene, x, y, 0, 3000, 5);
+		super(scene, x, y, 0, 4000, 5);
 		this.setVisible(true);
 		this.setActive(true);
 		this.spawnPositions = spawnPositions;
-		this.maxHealth = 3000;
+		this.maxHealth = 4000;
 		this.estaAtacando = false;
 		this.body.pushable=false;
 		this.lastBasicAttack = 0;

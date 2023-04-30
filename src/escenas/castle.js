@@ -126,8 +126,7 @@ export default class Castle extends Phaser.Scene {
 	}
 	
 	initWitch(oldWitch){
-		//this.witch=new Witch(this,516,1416)
-		this.witch=new Witch(this,580,540)
+		this.witch=new Witch(this,516,1416)
 		this.witch.level = oldWitch.level;
 		this.witch.abilityLevels = oldWitch.abilityLevels;
 		this.witch.health = oldWitch.health;
