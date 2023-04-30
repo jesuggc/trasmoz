@@ -6,6 +6,7 @@ export default class Title extends Phaser.Scene {
     init (data) {
 		this.abilityLevels = data.witch.abilityLevels;
         this.backScene = data.backScene;
+        this.music = data.music;
 	}
 
 	create() {
@@ -27,6 +28,7 @@ export default class Title extends Phaser.Scene {
             this.optionsButton = this.add.image(this.windowW/r, this.windowH/2, 'options').setInteractive();
             this.fullscreenButton = this.add.image(this.windowW/1.45, this.windowH/1.2, 'fullscreen').setInteractive();
             this.soundButton = this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound').setInteractive();
+		    this.soundButton2= this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound2').setInteractive().setVisible(false);
             this.witch = this.add.image(this.windowW/8, this.windowH/2, 'witchPause').setDepth(2);
             this.witch.setScale(4)
 
@@ -86,7 +88,9 @@ export default class Title extends Phaser.Scene {
             });
     
             this.soundButton.on('pointerup', () => {
+                this.soundButton2.setVisible(true);
                 this.soundButton.setVisible(false);
+<<<<<<< HEAD
                 this.soundButton2= this.add.image(this.windowW/1.18, this.windowH/1.2, 'sound2')
                 this.time.addEvent({delay: 100, callback: function(){
                     this.soundButton2.setVisible(false);
@@ -94,6 +98,16 @@ export default class Title extends Phaser.Scene {
                     this.time.addEvent({delay: 400, callback: function(){
                     }, callbackScope: this});
                 }, callbackScope: this});
+=======
+                this.soundButton.setActive(false);
+                this.music.mute = true;
+            });
+            this.soundButton2.on('pointerup', () => {
+                this.soundButton2.setVisible(false);
+                this.soundButton2.setActive(false);
+                this.soundButton.setVisible(true);
+                this.music.mute = false;
+>>>>>>> ramaFrancis
             });
     
             this.optionsButton.on('pointerup', () => {
