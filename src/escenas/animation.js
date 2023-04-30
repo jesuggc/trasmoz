@@ -38,7 +38,7 @@ export default class Animation extends Phaser.Scene {
 		this.arboles3 = this.map.createLayer('Arboles 3', 	[ ts2,ts7, ts9,ts10]).setDepth(2);
 
 		this.spawnDist = 280;
-		this.nnprob = 0.05;
+		this.nnprob = 1;
 		this.poolSize = 50; 
 		this.enemiesSize = 0; 
 		this.initialEnemies = 0;
@@ -70,8 +70,11 @@ export default class Animation extends Phaser.Scene {
 	
 		
 		if(Math.random() < this.nnprob) {
-			this.noname1 = this.add.image(300, 300, 'noname').setScale(0.5);
-			this.noname2= this.add.image(300, 300, 'noname2').setScale(0.5);
+			this.noname1 = this.add.image(2680, 250, 'noname').setScale(0.3);
+			this.noname3 = this.add.image(2680, 270, 'noname').setScale(0.3);
+			this.noname4 = this.add.image(2680, 290, 'noname').setScale(0.3);
+			this.noname5 = this.add.image(2680, 310, 'noname').setScale(0.3);
+			this.noname2= this.add.image(2700, 270, 'noname2').setScale(0.3);
 		}
 
 		// TEXTO DE NIVEL
@@ -84,7 +87,7 @@ export default class Animation extends Phaser.Scene {
 		// CASTLE DOOR
 		this.prueba = this.add.rectangle( 1850, 750,20,30,0x000000).setDepth(1).setVisible(false);
 		this.physics.add.existing(this.prueba)
-		this.physics.add.overlap(this.witch, this.prueba, this.gotoCastle,null,this)
+		this.physics.add.overlap(this.witch, this.prueba, this.castleScene,null,this)
 		
 		// BARRA DE VIDA
 		this.lifebar = this.add.rectangle(320,100,350,15,0xff0000).setScrollFactor(0).setDepth(3);
@@ -103,15 +106,18 @@ export default class Animation extends Phaser.Scene {
 			if (skill) this.witch[skill.skillSelected]()
 		})	
 	}
+
 	update(time,delta){
 		if(this.witch.health <= 0) this.gameOverScene();
 		this.spawn = this.enemiesSize !== 0;
 	}
+
 	generateRandomY(){
 		let leftL = this.witch.y - this.spawnDist;
 		let rightL = this.witch.y + this.spawnDist;
 		return Math.random()*(rightL - leftL) + leftL;
 	}
+
 	generateRandomX(y){
 		let h = this.witch.x;
 		let k = this.witch.y;
@@ -126,6 +132,17 @@ export default class Animation extends Phaser.Scene {
 	levelUp(){
 		this.levelUpScene();
 		this.updatePoolSize(this.enemiesJump);
+	}
+
+	updatePoolSize(nSize){
+		this.enemiesSize+= nSize;
+		for (let i = 0; i < nSize; i++){
+			this.enemyPool.getFirstDead().respawn();
+		}
+	}
+
+	levelUpEnemies(){
+		this.enemyPool.children.entries.forEach(enemigo=>enemigo.levelUp())
 	}
 	
 	levelUpScene(){
@@ -143,20 +160,9 @@ export default class Animation extends Phaser.Scene {
 		this.scene.launch('pause', {witch: this.witch, backScene: 'animation'})
 	}
 
-	gotoCastle(){
+	castleScene(){
 		this.scene.stop();
 		this.scene.launch('castle', {witch: this.witch});
-	}
-
-	updatePoolSize(nSize){
-		this.enemiesSize+= nSize;
-		for (let i = 0; i < nSize; i++){
-			this.enemyPool.getFirstDead().respawn();
-		}
-	}
-
-	levelUpEnemies(){
-		this.enemyPool.children.entries.forEach(enemigo=>enemigo.levelUp())
 	}
 	
 }
