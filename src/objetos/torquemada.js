@@ -1,23 +1,22 @@
 import Enemy from "./enemy.js";
+import Knight from "./knight.js";
 import TorquemadaAttack from "./torquemadaAttack.js";
 import Witch from "./witch.js";
 export default class Torquemada extends Enemy {
-	/**
-	 * @param {Scene} scene
-	 * @param {number} x
-	 * @param {number} y
-	 */
-	constructor(scene, x, y) {
-		super(scene, x, y,0,40,2);
-		this.x=x;
-		this.y=y;
-		this.health = 10000;
-		this.maxHealth = 10000;
+	constructor(scene, x, y,spawnPositions) {
+		super(scene, x, y, 0, 3000, 5);
+		this.setVisible(true);
+		this.setActive(true);
+		this.spawnPositions = spawnPositions;
+		this.maxHealth = 3000;
 		this.estaAtacando = false;
 		this.body.pushable=false;
-		this.damage=5;
 		this.lastBasicAttack = 0;
 		this.rate = 1200;
+		this.rage = false;
+		this.enemySpawnTime = 10000;
+		this.enemyTime = 0;
+		this.rageActualTime = 0;
         this.scene.anims.create({
 			key: 'torquemadaidle',
 			frames: scene.anims.generateFrameNumbers('torquemada', {start:0, end:1}),
@@ -38,18 +37,16 @@ export default class Torquemada extends Enemy {
 		
 		// COLLIDER
 		this.body.setSize(this.width, this.height, true );
-    
+		
 	}
-
+	
 	preUpdate(t, dt) {
 		super.preUpdate(t, dt);
-		
-        if (this.witch.x < this.x) this.setFlipX(true);
-        else this.setFlipX(false);
+		this.setFlipX(this.scene.witch.x > this.x ? false : true)
 		
 		this.dinamicLifebar(this.lifebar, this.lifebarS);
 		
-		if (t > this.lastBasicAttack + this.rate) {	
+		if (!this.rage && t > this.lastBasicAttack + this.rate) {	
 			this.estaAtacando = true;
 			this.play('attackTorquemada');
 			if (this.scene.witch.isAlive && this.scene.witch instanceof Witch ) new TorquemadaAttack(this.scene, this.x, this.y, this.scene.witch, this.damage);
@@ -61,12 +58,25 @@ export default class Torquemada extends Enemy {
 					self.play('torquemadaidle');
 				}, 600);
 		}
-		if(this.health <= this.maxHealth/2){
+		if (this.health <= this.maxHealth/1.5 && t > this.enemyTime + this.enemySpawnTime){
 			this.generateEnemies();
+			this.enemyTime = t;
+		}
+		if(!this.rage && this.health <= this.maxHealth/2){
+			this.rage = true;
+			this.rageActualTime = t;
+		}
+		if(this.rage && t > this.rageActualTime + 100){
+			this.play('attackTorquemada');
+			this.rageAttack();
+			this.rageActualTime = t;
 		}
 
 	}
 	updatePosition(){
+
+	}
+	die(){
 
 	}
     dinamicLifebar(lb,lbs){
@@ -77,9 +87,17 @@ export default class Torquemada extends Enemy {
 		lbs.y = this.y + this.height/2 + 20;
 		lb.setDepth(3);
 	}
-	
 	generateEnemies(){
+		this.scene.spawnEnemies();
+	}
 
+	rageAttack(){
+		const indiceAleatorio = Math.floor(Math.random() * this.spawnPositions.length);
+  		const coordenadaAleatoria = this.spawnPositions[indiceAleatorio];
+		if (!this.anims.animationManager.get('attackTorquemada').isPlaying){
+			this.play('attackTorquemada');
+			new TorquemadaAttack(this.scene, this.x, this.y, coordenadaAleatoria, this.damage);
+		}
 	}
 
 }

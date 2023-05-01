@@ -1,10 +1,11 @@
 export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, objetive, damage) {
 		super(scene, x, y, 'torqueAttack');
-		this.speed = 300; // Nuestra velocidad de movimiento sera 140
+		this.speed = 200; // Nuestra velocidad de movimiento sera 140
 		this.torque = this.scene.torquemada; 
 		this.setScale(1);
-		this.witch = this.scene.witch;
+		this.objetive = objetive;
+		this.witch = this.scene.witch
 		
 		this.damage = 93;
         
@@ -27,7 +28,7 @@ export default class TorquemadaAttack extends Phaser.GameObjects.Sprite {
 		this.scene.time.addEvent({delay: 10000, callback: function(){
 			this.destroy();
         }, callbackScope: this});
-		this.scene.physics.moveTo(this,this.witch.x, this.witch.y,this.speed);
+		this.scene.physics.moveTo(this,this.objetive.x, this.objetive.y,this.speed);
 		
 		
 	}
