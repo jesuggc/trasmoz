@@ -4,7 +4,7 @@ export default class LightningAttack extends Phaser.GameObjects.Sprite {
         super(scene, x, y , 'lightningAttack');
 
         this.witch = this.scene.witch;
-        this.damage = 50;
+        this.damage = 80;
         this.scene.add.existing(this);
 
         this.scene.anims.create({

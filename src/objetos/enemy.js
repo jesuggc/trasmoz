@@ -132,7 +132,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 			this.initialLife+=this.initialLifeJump;
 	}
 	poison(){
-		this.poisonTicks = 4;
+		this.poisonTicks = 8;
 	}
 
 }

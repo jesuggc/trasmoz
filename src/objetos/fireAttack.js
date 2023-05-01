@@ -4,7 +4,7 @@ export default class FireAttack extends Phaser.GameObjects.Sprite {
     
         this.witch = witch;
         this.scene.add.existing(this);
-        this.damage = 30;
+        this.damage = 40;
 
         this.scene.anims.create({
             key: 'idleFireAttack',

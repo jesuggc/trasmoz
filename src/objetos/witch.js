@@ -43,9 +43,9 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.lastLightningAttack = 0;
 		this.lightningAttackCooldown = 2000;
 		this.lastFreezeAttack = 0;
-		this.freezeAttackCooldown = 1992;
+		this.freezeAttackCooldown = 1900;
 		this.lastPoisonAttack = 0;
-		this.poisonAttackCooldown = 1996;
+		this.poisonAttackCooldown = 900;
 
 
 		
