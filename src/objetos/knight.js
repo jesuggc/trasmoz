@@ -4,11 +4,11 @@ export default class Knight extends Enemy {
 	constructor(scene, x, y) {
 		let speed = 40;
 		let health = 60;
-		let damage=2.25;
+		let damage=2;
 		super(scene,x,y, speed, health, damage);
 
 		this.estaAtacando = false;
-		this.damageJump=1;
+		this.damageJump=0.5;
 		this.initialLifeJump=15;
 		// this.x = super.x;
 

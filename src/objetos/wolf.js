@@ -4,7 +4,7 @@ export default class Wolf extends Enemy {
 	constructor(scene, x, y) {
 		let speed = 50;
 		let health = 20;
-		let damage=1.5;
+		let damage=1;
 		super(scene, x, y, speed, health,damage);
 		this.setScale(0.5);
 		this.damageJump=0.5;

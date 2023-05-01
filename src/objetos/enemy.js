@@ -70,6 +70,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		let y1 = this.scene.generateRandomY();
 		this.y = y1;
 		this.x = this.scene.generateRandomX(y1);
+		this.increaseSpeed()
 	}
 	respawn(){
 		var y = this.scene.generateRandomY();
