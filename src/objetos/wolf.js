@@ -7,8 +7,8 @@ export default class Wolf extends Enemy {
 		let damage=1.5;
 		super(scene, x, y, speed, health,damage);
 		this.setScale(0.5);
-		this.damageJump=1;
-		this.initialLifeJump=15;
+		this.damageJump=0.5;
+		this.initialLifeJump=10;
 
         this.scene.anims.create({key: 'walkWolf',
 			frames: scene.anims.generateFrameNumbers('wolf', {start:0, end:4}),

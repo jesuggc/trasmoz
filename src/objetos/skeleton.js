@@ -3,13 +3,13 @@ import ExpBall from "./expBall.js";
 
 export default class Skeleton extends Enemy {
 	constructor(scene, x, y) {
-		let speed = 40;
-		let health = 100;
+		let speed = 60;
+		let health = 50;
 		let damage=2;
 		super(scene,x,y, speed, health, damage);
 
 		this.damageJump=1;
-		this.initialLifeJump=20;
+		this.initialLifeJump=10;
 		// this.x = super.x;
 
 
