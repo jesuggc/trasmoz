@@ -111,8 +111,17 @@ export default class Animation extends Phaser.Scene {
 		this.lifebarS = this.add.rectangle(328,100,366,15,0x000000).setScrollFactor(0).setDepth(2);
 
 		// BOTON DE PAUSA
-		var button = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.05).setDepth(3);
-		button.on('pointerup', () => { this.pauseScene() })
+		var button = this.add.image(500,280,'pause_button1').setInteractive().setScrollFactor(0).setScale(0.4).setDepth(3);
+		button.on('pointerup', () => { 
+			var button2 = this.add.image(500,280,'pause_button').setInteractive().setScrollFactor(0).setScale(0.4).setDepth(3);
+			this.time.addEvent({delay: 100, callback: function(){
+				button.setVisible(false);
+				button2.setVisible(true);	
+				button.setVisible(true);
+				button2.setVisible(false);	
+			}, callbackScope: this});
+			this.pauseScene();
+		 })
 		
 		// CAMARA 
 		this.cameras.main.roundPixels = true;

@@ -38,6 +38,7 @@ export default class Boot extends Phaser.Scene {
 		this.load.image('poisonFlower', 	'assets/flowers/poisonFlower.png')
 		this.load.image('expBall',			'assets/witch/expBall.png')
 		this.load.image('pause_button', 	'assets/GUI/pause_button.png')
+		this.load.image('pause_button1', 	'assets/GUI/buttons/pause_button1.png')
 		this.load.image('noname', 			'assets/noname/noName1.png');
 		this.load.image('noname2', 			'assets/noname/noName2.png');
         this.load.image('gameoverImage',    'assets/GUI/defeatMsg.png');
