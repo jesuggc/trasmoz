@@ -25,12 +25,12 @@ export default class LevelUp extends Phaser.Scene {
 			this.ability1 = this.getRandomAbility(abilityPool);
 		}
 		this.ability2 = this.getRandomAbility(abilityPool);
-		while(this.abilityLevels.get(this.ability2)==4){
+		while(this.abilityLevels.get(this.ability2)==4 || this.ability2 === this.ability1){
 			this.ability2 = this.getRandomAbility(abilityPool);
 		}
 
 		this.ability3 = this.getRandomAbility(abilityPool);
-		while(this.abilityLevels.get(this.ability3)==4){
+		while(this.abilityLevels.get(this.ability3)==4 || this.ability3 === this.ability1 || this.ability3 === this.ability2){
 			this.ability3 = this.getRandomAbility(abilityPool);
 		}
 
