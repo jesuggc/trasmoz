@@ -19,6 +19,7 @@ Juego: https://jesuggc.github.io/trasmoz/
 Jugarás como una joven bruja que habita al lado de su poblado, marginada por su título de bruja. Un día descubre que su pueblo ha sido arrasado por la Inquisición a causa de simpatizar con la bruja Alexia. <br>
 Tendrás que moverte por todo el mapa usando las teclas WASD, recoge la experiencia que sueltan los enemigos y adentrate en las profundidades del bosque para encontrar las flores que te otorgarán nuevos poderes. O no. También existe la opción de explorar las montañas para encontrar el acceso secreto al castillo y dirigirte directamente a enfrentar a Torquemada, para los mas impacientes.<br>
 A medida que avance el juego la dificultad de los enemigos crecerá con tu experiencia, y aparecerán mas para detenerte según los poderes que tengas.<br>
+
 -------------------------------
 "La venganza de Trasmoz" or "The revenge of Trasmoz" is a uni project for the subject "Videogame developing using web applications" taught at the Complutense University in Madrid. <br>
 
