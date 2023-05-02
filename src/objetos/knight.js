@@ -8,8 +8,8 @@ export default class Knight extends Enemy {
 		super(scene,x,y, speed, health, damage);
 
 		this.estaAtacando = false;
-		this.damageJump=0.5;
-		this.initialLifeJump=15;
+		this.damageJump=0.3;
+		this.initialLifeJump=10;
 		// this.x = super.x;
 
 

@@ -4,7 +4,7 @@ import ExpBall from "./expBall.js";
 export default class Skeleton extends Enemy {
 	constructor(scene, x, y) {
 		let speed = 60;
-		let health = 50;
+		let health = 120;
 		let damage=2;
 		super(scene,x,y, speed, health, damage);
 
