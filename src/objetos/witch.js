@@ -26,11 +26,11 @@ export default class Witch extends Phaser.GameObjects.Sprite {
 		this.shield = 0; //SHIELD
 		this.healthRegen = 0.05; //LIFE REG
 		this.rate = 800; //FIRE RATE
-		this.speedJump = 5; // SPEED JUMP
-		this.healthJump = 60; //HEALTH JUMP
+		this.speedJump = 7; // SPEED JUMP
+		this.healthJump = 80; //HEALTH JUMP
 		this.damageJump = 5; //DAMAGE JUMP
 		this.shieldJump = 5; //SHIELD JUMP
-		this.healthRegenJump = 0.02; // LIFE REG JUMP
+		this.healthRegenJump = 0.04; // LIFE REG JUMP
 		this.rateJump = 100; //FIRE RATE JUMP
 		this.levelExp = [10,15,25,40,65,105,170,275,445,720,1165,1885,3050,4935,7985];
 		this.level = 0;

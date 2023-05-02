@@ -16,7 +16,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 		this.inactive();
 		this.freezeAttackTime = 0;
 		this.poisonAttackTime = 0;
-		this.frozenCooldown = 4000;
+		this.frozenCooldown = 2000;
 		this.now = 0;
 		this.hasBeenDamaged = false;
 
